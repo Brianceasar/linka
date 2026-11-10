@@ -48,7 +48,7 @@ export function WaveTemplate({ card }: { card: Partial<CardData> }) {
 
       {/* Identity */}
       <div className="text-center px-6 pb-4">
-        <h1 className="text-xl font-bold text-gray-900 leading-tight">{name || "Dein Name"}</h1>
+        <h1 className="text-xl font-bold text-gray-900 leading-tight">{name || "Your name"}</h1>
         {card.title && (
           <p className="text-sm font-semibold mt-0.5" style={{ color }}>{card.title}</p>
         )}
@@ -119,7 +119,7 @@ export function WaveTemplate({ card }: { card: Partial<CardData> }) {
         {card.showQrOnCard && card.slug && (
           <div className="mt-4 flex items-center gap-3">
             <img src={`/api/qr/${card.slug}`} alt="QR" className="h-10 w-10" />
-            <p className="text-xs text-gray-400">Scan für digitale Karte</p>
+            <p className="text-xs text-gray-400">Scan for digital card</p>
           </div>
         )}
       </div>

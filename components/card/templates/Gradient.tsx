@@ -54,7 +54,7 @@ export function GradientTemplate({ card }: { card: Partial<CardData> }) {
 
         {/* Name / title */}
         <div className="text-center mb-6">
-          <h1 className="text-xl font-bold tracking-tight drop-shadow-sm">{name || "Dein Name"}</h1>
+          <h1 className="text-xl font-bold tracking-tight drop-shadow-sm">{name || "Your name"}</h1>
           {card.title && <p className="text-sm font-medium mt-1 text-white/80">{card.title}</p>}
           {card.company && <p className="text-xs mt-0.5 text-white/60 uppercase tracking-wider">{card.company}</p>}
           {card.bio && <p className="text-xs mt-3 text-white/70 leading-relaxed">{card.bio}</p>}
@@ -116,7 +116,7 @@ export function GradientTemplate({ card }: { card: Partial<CardData> }) {
         {card.showQrOnCard && card.slug && (
           <div className="mt-5 flex items-center gap-3">
             <img src={`/api/qr/${card.slug}`} alt="QR" className="h-10 w-10 rounded opacity-90" />
-            <p className="text-xs text-white/50">Scan für digitale Karte</p>
+            <p className="text-xs text-white/50">Scan for digital card</p>
           </div>
         )}
       </div>

@@ -37,7 +37,7 @@ export function getRoleLabel(role: string): string {
     super_admin: "Super Admin",
     company_admin: "Admin",
     team_leader: "Team Leader",
-    member: "Mitglied",
+    member: "Member",
   };
   return labels[role] ?? role;
 }

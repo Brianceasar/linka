@@ -25,7 +25,7 @@ export function ImportClient() {
 
   function handleFile(f: File) {
     if (!f.name.endsWith(".csv")) {
-      setError("Bitte eine CSV-Datei hochladen.");
+      setError("Please upload a CSV file.");
       return;
     }
     setFile(f);
@@ -43,10 +43,10 @@ export function ImportClient() {
       fd.append("file", file);
       const res = await fetch("/api/bulk-import", { method: "POST", body: fd });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Fehler beim Import");
+      if (!res.ok) throw new Error(json.error ?? "Import failed");
       setResults(json.results);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Unbekannter Fehler");
+      setError(e instanceof Error ? e.message : "An unexpected error occurred");
     } finally {
       setLoading(false);
     }
@@ -84,12 +84,12 @@ export function ImportClient() {
               <code className="bg-muted px-1 rounded">mobile</code>, <code className="bg-muted px-1 rounded">department</code>.
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              Der Import aktualisiert bestehende Mitglieder (gleiche E-Mail in der Org). Neue E-Mails werden als „nicht gefunden" markiert — nutze dafür Einladungen.
+              The import updates existing members with the same organisation email. New email addresses are marked “not found” — use invitations for those members.
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={downloadExample} className="shrink-0">
             <Download className="h-3.5 w-3.5" />
-            Vorlage
+            Template
           </Button>
         </div>
         <pre className="text-[10px] font-mono bg-muted rounded-lg p-3 overflow-x-auto text-muted-foreground leading-relaxed">
@@ -139,7 +139,7 @@ export function ImportClient() {
       {file && !results && (
         <Button onClick={upload} disabled={loading} className="w-full" size="lg">
           {loading
-            ? <><Loader2 className="h-4 w-4 animate-spin" /> Wird importiert…</>
+            ? <><Loader2 className="h-4 w-4 animate-spin" /> Importing…</>
             : <><Upload className="h-4 w-4" /> Import starten</>}
         </Button>
       )}
@@ -151,7 +151,7 @@ export function ImportClient() {
             {[
               { label: "Erstellt",    value: counts.created, color: "text-emerald-700 bg-emerald-50 border-emerald-200" },
               { label: "Aktualisiert", value: counts.updated, color: "text-blue-700 bg-blue-50 border-blue-200" },
-              { label: "Übersprungen", value: counts.skipped, color: "text-amber-700 bg-amber-50 border-amber-200" },
+              { label: "Skipped", value: counts.skipped, color: "text-amber-700 bg-amber-50 border-amber-200" },
             ].map(({ label, value, color }) => (
               <div key={label} className={`rounded-xl border p-4 text-center ${color}`}>
                 <p className="text-2xl font-bold">{value}</p>
@@ -164,7 +164,7 @@ export function ImportClient() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted/40">
-                  <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">E-Mail</th>
+                  <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Email</th>
                   <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Status</th>
                   <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Hinweis</th>
                 </tr>
@@ -180,7 +180,7 @@ export function ImportClient() {
                         "bg-amber-100 text-amber-700"
                       }`}>
                         {r.status === "created" && <CheckCircle2 className="h-3 w-3" />}
-                        {r.status === "created" ? "Erstellt" : r.status === "updated" ? "Aktualisiert" : "Übersprungen"}
+                        {r.status === "created" ? "Created" : r.status === "updated" ? "Updated" : "Skipped"}
                       </span>
                     </td>
                     <td className="px-4 py-2.5 text-xs text-muted-foreground">{r.error ?? "—"}</td>
@@ -191,7 +191,7 @@ export function ImportClient() {
           </div>
 
           <Button variant="outline" className="w-full" onClick={() => { setFile(null); setResults(null); if (fileRef.current) fileRef.current.value = ""; }}>
-            Weiteren Import starten
+            Start another import
           </Button>
         </div>
       )}

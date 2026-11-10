@@ -25,17 +25,17 @@ function ResetForm() {
     e.preventDefault();
     setError("");
     if (password !== confirm) {
-      setError("Passwörter stimmen nicht überein.");
+      setError("Passwords do not match.");
       return;
     }
     if (!token) {
-      setError("Reset-Link ungültig oder abgelaufen.");
+      setError("This reset link is invalid or has expired.");
       return;
     }
     setLoading(true);
     const res = await authClient.resetPassword({ token, newPassword: password });
     if (res.error) {
-      setError("Reset-Link ist ungültig oder abgelaufen.");
+      setError("This reset link is invalid or has expired.");
       setLoading(false);
       return;
     }
@@ -45,13 +45,13 @@ function ResetForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Neues Passwort setzen</CardTitle>
-        <CardDescription>Wähle ein sicheres Passwort mit mindestens 8 Zeichen.</CardDescription>
+        <CardTitle>Set a new password</CardTitle>
+        <CardDescription>Choose a secure password with at least 8 characters.</CardDescription>
       </CardHeader>
       <form onSubmit={submit}>
         <CardContent className="space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="pw">Neues Passwort</Label>
+            <Label htmlFor="pw">New password</Label>
             <Input
               id="pw" type="password" required autoComplete="new-password"
               minLength={8} value={password}
@@ -59,7 +59,7 @@ function ResetForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="pw2">Passwort wiederholen</Label>
+            <Label htmlFor="pw2">Confirm password</Label>
             <Input
               id="pw2" type="password" required autoComplete="new-password"
               minLength={8} value={confirm}
@@ -70,10 +70,10 @@ function ResetForm() {
         </CardContent>
         <CardFooter className="flex flex-col gap-3">
           <Button type="submit" className="w-full" disabled={loading || password.length < 8}>
-            {loading ? "Speichern…" : "Passwort speichern"}
+            {loading ? "Saving…" : "Save password"}
           </Button>
           <p className="text-sm text-muted-foreground text-center">
-            <Link href="/login" className="hover:underline">Zurück zum Login</Link>
+            <Link href="/login" className="hover:underline">Back to sign in</Link>
           </p>
         </CardFooter>
       </form>

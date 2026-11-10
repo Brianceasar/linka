@@ -39,15 +39,15 @@ export default async function CampaignsPage() {
   return (
     <div className="max-w-4xl space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">UTM-Kampagnen</h1>
+        <h1 className="text-2xl font-bold">UTM campaigns</h1>
         <p className="text-muted-foreground mt-1">
-          Erstelle individuelle Links fur Events, Messen oder Kampagnen &mdash; mit separater Klick-Statistik.
+          Create custom links for events, exhibitions, or campaigns with separate click tracking.
         </p>
       </div>
 
       {!hasCampaigns ? (
         <UpgradePrompt
-          feature="UTM-Kampagnen & Event-Links sind ab dem Pro-Plan verfugbar"
+          feature="UTM campaigns and event links are available from the Pro plan"
           requiredPlan="pro"
         />
       ) : (

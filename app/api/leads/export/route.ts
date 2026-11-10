@@ -22,7 +22,7 @@ export async function GET() {
   });
 
   const csv = buildCsv(
-    ["Datum", "Name", "E-Mail", "Telefon", "Nachricht", "Karte"],
+    ["Date", "Name", "Email", "Phone", "Message", "Card"],
     leads.map((l) => [
       l.createdAt.toLocaleDateString("de-DE"),
       l.name,

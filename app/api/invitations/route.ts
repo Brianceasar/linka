@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
   // company_admin or team_leader roles — only company_admin/super_admin may.
   if (role === "team_leader" && parsed.data.role !== "member") {
     return NextResponse.json(
-      { error: "Team-Leader können nur Mitglieder einladen" },
+      { error: "Team leaders can only invite members" },
       { status: 403 }
     );
   }
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     where: { email: parsed.data.email, organizationId: orgId, acceptedAt: null },
   });
   if (existing) {
-    return NextResponse.json({ error: "Einladung bereits gesendet" }, { status: 409 });
+    return NextResponse.json({ error: "An invitation has already been sent" }, { status: 409 });
   }
 
   const token = nanoid(32);

@@ -28,12 +28,12 @@ export async function POST(request: NextRequest) {
   const formData = await request.formData();
   const file = formData.get("file") as File | null;
 
-  if (!file) return NextResponse.json({ error: "Keine Datei" }, { status: 400 });
+  if (!file) return NextResponse.json({ error: "No file provided" }, { status: 400 });
   if (!ALLOWED_TYPES.includes(file.type as AllowedMime)) {
     return NextResponse.json({ error: "Nur JPEG, PNG, WebP und GIF erlaubt" }, { status: 400 });
   }
   if (file.size > MAX_SIZE) {
-    return NextResponse.json({ error: "Datei zu groß (max. 5 MB)" }, { status: 400 });
+    return NextResponse.json({ error: "File is too large (maximum 5 MB)" }, { status: 400 });
   }
 
   const uploadDir = join(process.cwd(), "public", "uploads");
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     const userCount = existing.filter((f) => f.startsWith(`${session.user.id}-`)).length;
     if (userCount >= MAX_UPLOADS_PER_USER) {
       return NextResponse.json(
-        { error: `Upload-Limit erreicht (max. ${MAX_UPLOADS_PER_USER} Dateien). Lösche nicht mehr benötigte Bilder.` },
+        { error: `Upload limit reached (maximum ${MAX_UPLOADS_PER_USER} files). Remove unused images and try again.` },
         { status: 400 }
       );
     }

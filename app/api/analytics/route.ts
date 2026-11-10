@@ -120,7 +120,7 @@ async function checkMilestone(cardSlug: string) {
       userId: card.userId,
       type: "milestone",
       value: String(milestone),
-      message: `Deine Karte hat ${milestone.toLocaleString("de-DE")} Aufrufe erreicht!`,
+      message: `Your card has reached ${milestone.toLocaleString("en")} views!`,
     },
   }).catch(() => {});
 }
@@ -247,7 +247,7 @@ export async function GET(request: NextRequest) {
 
   const utmCampaigns = utmRaw
     .map((r) => ({
-      campaign: r.utmCampaign ?? "(kein utm_campaign)",
+      campaign: r.utmCampaign ?? "(no utm_campaign)",
       source:   r.utmSource   ?? null,
       medium:   r.utmMedium   ?? null,
       count:    r._count,

@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       .filter((e) => e.includes("@"));
 
     if (emails.length > 50) {
-      return NextResponse.json({ error: "Max 50 Einladungen pro Anfrage" }, { status: 400 });
+      return NextResponse.json({ error: "Maximum 50 invitations per request" }, { status: 400 });
     }
   } else {
     const body = await request.json();
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
   // SECURITY: team_leader may only invite members.
   if (role === "team_leader" && inviteRole !== "member") {
     return NextResponse.json(
-      { error: "Team-Leader können nur Mitglieder einladen" },
+      { error: "Team leaders can only invite members" },
       { status: 403 }
     );
   }
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
       if (result.skipped) skipped++;
       else sent++;
     } catch (err) {
-      errors.push(`${email}: ${err instanceof Error ? err.message : "Fehler"}`);
+      errors.push(`${email}: ${err instanceof Error ? err.message : "Error"}`);
     }
   }
 

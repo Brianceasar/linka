@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
   const { plan } = await req.json() as { plan: string };
 
   const priceId = PRICE_IDS[plan];
-  if (!priceId) return NextResponse.json({ error: "Unbekannter Plan" }, { status: 400 });
+  if (!priceId) return NextResponse.json({ error: "Unknown plan" }, { status: 400 });
 
   const hdrs = await headers();
   const host  = hdrs.get("x-forwarded-host") ?? hdrs.get("host") ?? "localhost:3000";

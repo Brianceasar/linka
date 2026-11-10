@@ -15,10 +15,10 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ slu
 
   const me = session.user as { id: string; role?: string; organizationId?: string };
   const isApprover = me.role === "super_admin" || me.role === "company_admin" || me.role === "team_leader";
-  if (!isApprover) return NextResponse.json({ error: "Keine Berechtigung" }, { status: 403 });
+  if (!isApprover) return NextResponse.json({ error: "Permission denied" }, { status: 403 });
 
   const body = schema.safeParse(await req.json());
-  if (!body.success) return NextResponse.json({ error: "Ungültige Eingabe" }, { status: 400 });
+  if (!body.success) return NextResponse.json({ error: "Invalid input" }, { status: 400 });
 
   const { slug } = await params;
   const card = await db.card.findUnique({
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ slu
   // team_leader / company_admin may only approve cards in their own org
   if (me.role !== "super_admin") {
     if (!me.organizationId || card.user.organizationId !== me.organizationId) {
-      return NextResponse.json({ error: "Keine Berechtigung" }, { status: 403 });
+      return NextResponse.json({ error: "Permission denied" }, { status: 403 });
     }
   }
 

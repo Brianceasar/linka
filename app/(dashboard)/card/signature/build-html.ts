@@ -41,7 +41,7 @@ export function buildPlainText(card: CardData): string {
   const contact = [
     card.phone   && `Tel:    ${card.phone}`,
     card.mobile  && `Mobil:  ${card.mobile}`,
-    card.email   && `E-Mail: ${card.email}`,
+    card.email   && `Email: ${card.email}`,
     card.website && `Web:    ${card.website}`,
     card.address && `Adr:    ${card.address}`,
   ].filter(Boolean) as string[];
@@ -55,7 +55,7 @@ export function buildHtml(card: CardData, style: SigStyle, baseUrl: string, opts
   const cardUrl = `${baseUrl}/c/${card.slug}`;
   const socials = showSocials ? getSocials(card) : [];
   const btn     = showCardLink
-    ? `<a href="${cardUrl}" style="font-family:Arial,sans-serif;font-size:11px;background-color:${color};color:#ffffff;text-decoration:none;padding:5px 12px;border-radius:4px;display:inline-block;">Digitale Visitenkarte</a>`
+    ? `<a href="${cardUrl}" style="font-family:Arial,sans-serif;font-size:11px;background-color:${color};color:#ffffff;text-decoration:none;padding:5px 12px;border-radius:4px;display:inline-block;">Digital Business Card</a>`
     : "";
 
   const contact555 = [

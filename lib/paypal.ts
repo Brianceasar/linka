@@ -78,7 +78,7 @@ export async function createSubscription(opts: {
       plan_id:   opts.planId,
       custom_id: `${opts.userId}|${opts.plan}`, // we read this in the webhook
       application_context: {
-        brand_name:  "CardNexus",
+        brand_name:  "LINKA",
         locale:      "de-DE",
         shipping_preference: "NO_SHIPPING",
         user_action: "SUBSCRIBE_NOW",

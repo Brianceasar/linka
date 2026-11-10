@@ -95,7 +95,7 @@ const CardPatch = z.object({
   cardDomain:          z.string().max(200).optional().nullable(),
 
   // slug change (creates an alias for the old slug)
-  slug: z.string().min(2).max(120).regex(/^[a-z0-9-]+$/, "Nur Kleinbuchstaben, Ziffern und Bindestriche").optional(),
+  slug: z.string().min(2).max(120).regex(/^[a-z0-9-]+$/, "Use lowercase letters, numbers, and hyphens only").optional(),
 });
 
 /* ─── Routes ───────────────────────────────────────────────────────────── */
@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
   const existingCount = await db.card.count({ where: { userId: session.user.id } });
   if (existingCount >= maxCards) {
     return NextResponse.json(
-      { error: `Dein Plan erlaubt maximal ${maxCards} Karte${maxCards === 1 ? "" : "n"}. Upgrade für mehr.` },
+      { error: `Your plan allows a maximum of ${maxCards} card${maxCards === 1 ? "" : "s"}. Upgrade for more.` },
       { status: 403 }
     );
   }
@@ -152,7 +152,7 @@ export async function POST(req: NextRequest) {
         data: {
           userId:       session.user.id,
           slug:         `${base}-${nanoid(6)}`,
-          name:         body.name ?? "Meine Karte",
+          name:         body.name ?? "My card",
           isDefault,
           isPublic:     body.isPublic ?? true,
           firstName:    body.firstName ?? "",
@@ -174,7 +174,7 @@ export async function POST(req: NextRequest) {
     }
   }
   if (!card) {
-    return NextResponse.json({ error: "Slug-Konflikt — bitte erneut versuchen." }, { status: 500 });
+  return NextResponse.json({ error: "Slug conflict — please try again." }, { status: 500 });
   }
 
   return NextResponse.json({ ...card, customLinks: [] }, { status: 201 });
@@ -197,7 +197,7 @@ export async function PATCH(req: NextRequest) {
   // Slug change: validate uniqueness and create alias for old slug
   if (newSlug && newSlug !== existing.slug) {
     const taken = await db.card.findUnique({ where: { slug: newSlug } });
-    if (taken) return NextResponse.json({ error: "Dieser Slug ist bereits vergeben." }, { status: 409 });
+    if (taken) return NextResponse.json({ error: "This URL slug is already in use." }, { status: 409 });
     // Save alias so the old URL keeps working
     await db.cardSlugAlias.upsert({
       where: { oldSlug: existing.slug },
@@ -277,7 +277,7 @@ export async function DELETE(req: NextRequest) {
 
   // Cannot delete the only card
   const count = await db.card.count({ where: { userId: session.user.id } });
-  if (count <= 1) return NextResponse.json({ error: "Letzte Karte kann nicht gelöscht werden" }, { status: 400 });
+  if (count <= 1) return NextResponse.json({ error: "Your last card cannot be deleted" }, { status: 400 });
 
   await db.card.delete({ where: { id } });
 

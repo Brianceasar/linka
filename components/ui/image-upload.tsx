@@ -37,7 +37,7 @@ export function ImageUpload({
       if (!res.ok) throw new Error(json.error ?? "Upload fehlgeschlagen");
       onChange(json.url);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : "Error");
     } finally {
       setUploading(false);
     }
@@ -122,7 +122,7 @@ export function ImageUpload({
         disabled={uploading}
       >
         {uploading ? (
-          <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Wird hochgeladen…</>
+          <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Uploading…</>
         ) : (
           <><Upload className="h-3.5 w-3.5" /> {label}</>
         )}
@@ -131,7 +131,7 @@ export function ImageUpload({
       {/* URL input alternative */}
       <div className="flex gap-1">
         <Input
-          placeholder="oder URL einfügen…"
+          placeholder="or paste a URL…"
           value={urlInput}
           onChange={(e) => setUrlInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleUrlApply()}

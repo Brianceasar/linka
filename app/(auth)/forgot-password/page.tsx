@@ -31,27 +31,26 @@ export default function ForgotPasswordPage() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Passwort vergessen?</CardTitle>
+        <CardTitle>Forgot password?</CardTitle>
         <CardDescription>
-          Wir senden dir einen Link zum Zurücksetzen deines Passworts.
+          We will send you a link to reset your password.
         </CardDescription>
       </CardHeader>
       {done ? (
         <CardContent className="space-y-3">
           <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            Falls ein Account zu <strong>{email}</strong> existiert, wurde gerade eine
-            E-Mail mit einem Reset-Link an diese Adresse versendet. Bitte schau auch
-            im Spam-Ordner nach.
+            If an account exists for <strong>{email}</strong>, a reset link has been
+            sent to that address. Please check your spam folder too.
           </div>
           <Button asChild variant="outline" className="w-full">
-            <Link href="/login">Zurück zum Login</Link>
+            <Link href="/login">Back to sign in</Link>
           </Button>
         </CardContent>
       ) : (
         <form onSubmit={submit}>
           <CardContent className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="email">E-Mail</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -65,10 +64,10 @@ export default function ForgotPasswordPage() {
           </CardContent>
           <CardFooter className="flex flex-col gap-3">
             <Button type="submit" className="w-full" disabled={loading || !email}>
-              {loading ? "Senden…" : "Reset-Link senden"}
+              {loading ? "Sending…" : "Send reset link"}
             </Button>
             <p className="text-sm text-muted-foreground text-center">
-              <Link href="/login" className="hover:underline">Zurück zum Login</Link>
+              <Link href="/login" className="hover:underline">Back to sign in</Link>
             </p>
           </CardFooter>
         </form>

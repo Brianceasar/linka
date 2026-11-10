@@ -92,7 +92,7 @@ async function migrate() {
   await addColumn("Card", "logoUrl",              "TEXT");
   await addColumn("Card", "showInTeamDirectory",  "INTEGER NOT NULL DEFAULT 1");
   await addColumn("Card", "bookingUrl",           "TEXT");
-  await addColumn("Card", "name",                 'TEXT NOT NULL DEFAULT "Meine Karte"');
+  await addColumn("Card", "name",                 'TEXT NOT NULL DEFAULT "My card"');
   await addColumn("Card", "isDefault",            "INTEGER NOT NULL DEFAULT 1");
   await addColumn("Card", "expiresAt",            "DATETIME");
   await addColumn("Card", "passwordHash",         "TEXT");
@@ -322,8 +322,9 @@ async function migrate() {
     console.error(`[migrate] ! twoFactor table: ${e.message}`);
   }
 
-  // ── Demo user seed ──────────────────────────────────────────────────────────
-  await seedDemoUser(db);
+  // Demo accounts are intentionally not created by the runtime migration.
+  // First-run administrator provisioning is handled by docker-entrypoint.sh
+  // using the unique credentials supplied in the local environment.
 
   await db.$disconnect();
   console.log(`[migrate] Done — ${ok} applied, ${skip} already up-to-date`);
@@ -385,7 +386,7 @@ async function seedDemoUser(db) {
         title: "Head of Innovation",
         company: "CardNexus GmbH",
         department: "Product & Design",
-        bio: "Digitale Visitenkarten für die nächste Generation – teile deine Kontaktdaten mit einem Tap, Scan oder Link. Keine App nötig.",
+        bio: "Digital business cards for the next generation — share your contact details with a tap, scan, or link. No app required.",
         phone: "+49 30 1234567",
         mobile: "+49 170 9876543",
         email: DEMO_EMAIL,

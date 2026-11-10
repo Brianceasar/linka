@@ -5,36 +5,36 @@ import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
-    q: "Ist CardNexus wirklich kostenlos?",
-    a: "Ja. Der Free-Plan ist dauerhaft kostenlos und enthält eine vollständige digitale Visitenkarte mit QR-Code, vCard-Download und Lead Capture. Ohne Kreditkarte.",
+    q: "Is LINKA free to use?",
+    a: "The Free plan includes one digital card, QR code, vCard download, and the features shown on the pricing page. Check the current plan details before choosing a subscription.",
   },
   {
-    q: "Brauche ich eine App um meine Karte zu teilen?",
-    a: "Nein. Deine Karte ist eine normale Webseite und öffnet sich in jedem Browser. Besucher benötigen keine App. Für NFC-Tags wird eine einmalige Schreib-App benötigt, danach funktioniert es ohne alles.",
+    q: "Do visitors need an app?",
+    a: "No. Your card is a web page and opens in a browser. Visitors do not need a LINKA app. NFC tags need to be written once with your card URL.",
   },
   {
-    q: "Wie funktioniert NFC?",
-    a: "Du beschreibst einen günstigen NFC-Tag (ca. 0,50–2 €) einmalig mit deiner Karten-URL. Hält jemand sein Smartphone an den Tag, öffnet sich deine digitale Karte sofort – bei iPhone ab iPhone 7, bei Android ab Version 4.4.",
+    q: "How does NFC work?",
+    a: "Write your public card URL to a compatible NFC tag. When someone taps a supported phone to the tag, the card opens in their browser.",
   },
   {
-    q: "Kann ich CardNexus für mein Team einsetzen?",
-    a: "Ja. Mit dem Business-Plan verwaltest du beliebig viele Mitglieder, vergibst Rollen, importierst per CSV und setzt ein einheitliches Firmendesign für alle Karten.",
+    q: "Can I use LINKA with my team?",
+    a: "Yes. Eligible plans provide organisation management, roles, CSV import, and shared card design policies.",
   },
   {
-    q: "Was passiert wenn mein Plan ausläuft?",
-    a: "Dein Account wird auf den Free-Plan zurückgestuft. Deine Karte bleibt aktiv, Pro/Business-Features wie Whitelabel oder Kampagnen sind nicht mehr nutzbar bis du verlängerst.",
+    q: "What happens when my plan expires?",
+    a: "Your account moves to the applicable available plan. Features that require a higher plan, such as white label or campaigns, are unavailable until you renew.",
   },
   {
-    q: "Wie kündige ich?",
-    a: "Schreib uns einfach eine E-Mail. Es gibt keine Mindestlaufzeit – du kannst monatlich kündigen.",
+    q: "How do I manage my subscription?",
+    a: "Use the subscription management options available in your account, or contact your organisation administrator or service provider.",
   },
   {
-    q: "Sind meine Daten sicher?",
-    a: "Ja. Server und Datenbank liegen in Deutschland. Wir verwenden keine Tracking-Cookies von Drittanbietern und sind vollständig DSGVO-konform.",
+    q: "How is data handled?",
+    a: "Your deployment administrator is responsible for hosting, data processing, and privacy configuration. LINKA includes account and access controls designed to support secure operation.",
   },
   {
-    q: "Kann ich meine eigene Domain verwenden?",
-    a: "Ab dem Pro-Plan ja. Du kannst deine Karte unter deiner eigenen Domain (z.B. karte.meinefirma.de) erreichbar machen.",
+    q: "Can I use my own domain?",
+    a: "Eligible plans support custom card domains. Configure DNS and your reverse proxy as described in the custom-domain guide.",
   },
 ];
 

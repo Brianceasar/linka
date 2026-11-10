@@ -41,14 +41,14 @@ export function LeadsClient({ leads: initialLeads, hasCard }: Props) {
   }
 
   function exportCsv() {
-    const header = "Name,E-Mail,Telefon,Nachricht,Datum";
+    const header = "Name,Email,Phone,Message,Date";
     const rows = leads.map((l) =>
       [
         `"${l.name}"`,
         `"${l.email ?? ""}"`,
         `"${l.phone ?? ""}"`,
         `"${(l.message ?? "").replace(/"/g, '""')}"`,
-        new Date(l.createdAt).toLocaleDateString("de-DE"),
+        new Date(l.createdAt).toLocaleDateString("en"),
       ].join(",")
     );
     const csv = [header, ...rows].join("\n");
@@ -65,12 +65,12 @@ export function LeadsClient({ leads: initialLeads, hasCard }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center gap-3">
         <CreditCard className="h-12 w-12 text-muted-foreground/40" />
-        <p className="font-semibold text-muted-foreground">Noch keine Karte erstellt</p>
+        <p className="font-semibold text-muted-foreground">No card has been created yet</p>
         <p className="text-sm text-muted-foreground">
-          Erstelle zuerst deine Visitenkarte, um Leads zu sammeln.
+          Create your digital card first to collect leads.
         </p>
         <Button asChild variant="outline" className="mt-2">
-          <a href="/card">Karte erstellen</a>
+          <a href="/card">Create card</a>
         </Button>
       </div>
     );
@@ -91,7 +91,7 @@ export function LeadsClient({ leads: initialLeads, hasCard }: Props) {
         <div className="flex-1 min-w-[200px] relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Suchen…"
+            placeholder="Search…"
             className="pl-9"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -110,13 +110,13 @@ export function LeadsClient({ leads: initialLeads, hasCard }: Props) {
       {leads.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center gap-3 border-2 border-dashed rounded-2xl">
           <UserCheck className="h-12 w-12 text-muted-foreground/40" />
-          <p className="font-semibold text-muted-foreground">Noch keine Leads</p>
+          <p className="font-semibold text-muted-foreground">No leads yet</p>
           <p className="text-sm text-muted-foreground max-w-xs">
-            Wenn jemand auf deiner Karte auf „Kontakt hinterlassen" tippt, erscheint er hier.
+            When someone selects “Leave your details” on your card, they will appear here.
           </p>
         </div>
       ) : filtered.length === 0 ? (
-        <p className="text-center text-muted-foreground py-12">Keine Ergebnisse für „{query}"</p>
+        <p className="text-center text-muted-foreground py-12">No results for “{query}”</p>
       ) : (
         <div className="space-y-3">
           {filtered.map((lead) => (
@@ -180,7 +180,7 @@ function LeadCard({
               onClick={() => setShowFull((v) => !v)}
             >
               <MessageSquare className="h-3 w-3" />
-              {showFull ? "Nachricht verbergen" : "Nachricht anzeigen"}
+              {showFull ? "Hide message" : "Show message"}
             </button>
             {showFull && (
               <p className="mt-1.5 text-sm bg-muted rounded-lg px-3 py-2 text-muted-foreground leading-relaxed">
@@ -196,7 +196,7 @@ function LeadCard({
         onClick={onDelete}
         disabled={deleting}
         className="text-muted-foreground hover:text-destructive transition-colors p-1 rounded hover:bg-destructive/10 shrink-0"
-        title="Lead löschen"
+        title="Delete lead"
       >
         <Trash2 className="h-4 w-4" />
       </button>

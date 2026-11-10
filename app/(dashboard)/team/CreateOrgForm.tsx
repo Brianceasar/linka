@@ -36,10 +36,10 @@ export function CreateOrgForm() {
         body: JSON.stringify({ name: name.trim(), slug: slug || slugify(name), primaryColor: color }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Fehler beim Erstellen");
+      if (!res.ok) throw new Error(json.error ?? "Unable to create organisation");
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unbekannter Fehler");
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
       setLoading(false);
     }
   }
@@ -47,16 +47,16 @@ export function CreateOrgForm() {
   return (
     <form onSubmit={submit} className="space-y-4 text-left">
       <div className="space-y-1.5">
-        <Label>Name der Organisation</Label>
+        <Label>Organisation name</Label>
         <Input
           value={name}
           onChange={(e) => handleName(e.target.value)}
-          placeholder="Meine Firma GmbH"
+          placeholder="My Company"
           required
         />
       </div>
       <div className="space-y-1.5">
-        <Label>URL-Kürzel (Slug)</Label>
+        <Label>URL slug</Label>
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground shrink-0">/team/</span>
           <Input
@@ -66,12 +66,12 @@ export function CreateOrgForm() {
             className="font-mono"
           />
         </div>
-        <p className="text-xs text-muted-foreground">Öffentliche URL des Team-Verzeichnisses</p>
+        <p className="text-xs text-muted-foreground">Public URL for the team directory</p>
       </div>
       <div className="flex items-center justify-between gap-4">
         <div>
-          <Label>Akzentfarbe</Label>
-          <p className="text-xs text-muted-foreground mt-0.5">Primärfarbe für Karten deiner Mitglieder</p>
+          <Label>Accent colour</Label>
+          <p className="text-xs text-muted-foreground mt-0.5">Primary colour for your members' cards</p>
         </div>
         <input
           type="color"
@@ -87,14 +87,13 @@ export function CreateOrgForm() {
 
       <Button type="submit" className="w-full" disabled={loading || !name.trim()}>
         {loading
-          ? <><Loader2 className="h-4 w-4 animate-spin" /> Wird erstellt…</>
-          : <><Building2 className="h-4 w-4" /> Organisation erstellen</>}
+          ? <><Loader2 className="h-4 w-4 animate-spin" /> Creating…</>
+          : <><Building2 className="h-4 w-4" /> Create organisation</>}
       </Button>
 
       <p className="text-xs text-center text-muted-foreground">
-        Du wirst automatisch zum Organisations-Admin.
-        Design-Vorgaben kannst du danach unter{" "}
-        <a href="/settings" className="underline hover:text-foreground">Einstellungen</a> anpassen.
+        You will automatically become the organisation administrator.
+        You can then adjust design policies in <a href="/settings" className="underline hover:text-foreground">Settings</a>.
       </p>
     </form>
   );

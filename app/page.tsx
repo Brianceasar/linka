@@ -7,34 +7,35 @@ import {
 } from "lucide-react";
 import { PLANS } from "@/lib/plans";
 import { FaqSection } from "./FaqSection";
+import { BRAND } from "@/lib/brand";
 
 const features = [
-  { icon: Nfc,          title: "NFC-Ready",           desc: "Kontakt per Antippen teilen – einfach Smartphone halten, fertig." },
-  { icon: QrCode,       title: "QR-Code",             desc: "Automatisch generierter QR-Code, immer aktuell." },
-  { icon: Smartphone,   title: "Mobile First",         desc: "Lädt in unter einer Sekunde. Kein App-Download nötig." },
-  { icon: Users,        title: "Team-Verwaltung",      desc: "Ganze Teams zentral verwalten – Rollen, Abteilungen, Branding." },
-  { icon: BarChart2,    title: "Analytics",            desc: "Aufrufe, Scans und Downloads in Echtzeit im Blick." },
-  { icon: Megaphone,    title: "Kampagnen-Tracking",   desc: "UTM-Links für Messen und Events mit eigener Klick-Statistik." },
-  { icon: Mail,         title: "E-Mail-Signatur",      desc: "Professionelle Signatur für Gmail, Outlook und Apple Mail." },
-  { icon: CalendarDays, title: "Terminbuchung",        desc: "Direkt buchbar per Calendly, Cal.com oder eigenem Link." },
-  { icon: Download,     title: "PDF / Print-Export",   desc: "Karte als PDF exportieren oder druckfertig aufbereiten." },
-  { icon: FileText,     title: "Lead Capture",         desc: "Besucher hinterlassen Kontaktdaten – direkt im Dashboard." },
-  { icon: Shield,       title: "Datenschutz (DSGVO)",  desc: "Server in Deutschland. Keine Tracker. Vollständig DSGVO-konform." },
-  { icon: Zap,          title: "Whitelabel",           desc: "Eigene Domain, eigenes Branding – ohne CardNexus-Badge." },
+  { icon: Nfc, title: "NFC ready", desc: "Share contact details with a simple tap." },
+  { icon: QrCode, title: "QR code", desc: "A QR code that is generated automatically and always current." },
+  { icon: Smartphone, title: "Mobile first", desc: "A fast visitor experience with no app download required." },
+  { icon: Users, title: "Team management", desc: "Manage teams, roles, departments, and design from one place." },
+  { icon: BarChart2, title: "Analytics", desc: "Understand views, scans, and downloads." },
+  { icon: Megaphone, title: "Campaign tracking", desc: "Create UTM links for events and campaigns." },
+  { icon: Mail, title: "Email signature", desc: "A professional signature for common email clients." },
+  { icon: CalendarDays, title: "Meeting booking", desc: "Link visitors directly to your preferred booking service." },
+  { icon: Download, title: "Print export", desc: "Export a card for printing or PDF workflows." },
+  { icon: FileText, title: "Lead capture", desc: "Let visitors share their contact details directly from a card." },
+  { icon: Shield, title: "Privacy", desc: "Privacy-aware digital identity tools for your organisation." },
+  { icon: Zap, title: "White label", desc: "Use your own domain and branding when your plan supports it." },
 ];
 
 const steps = [
-  { n: 1, title: "Account erstellen",       desc: "Registriere dich kostenlos in weniger als 60 Sekunden." },
-  { n: 2, title: "Karte gestalten",         desc: "Wähle ein Template, füge deine Daten ein und passe Farben an." },
-  { n: 3, title: "Teilen & Vernetzen",      desc: "Link verschicken, QR-Code scannen lassen oder NFC-Tag beschreiben." },
+  { n: 1, title: "Create an account", desc: "Register and start with your digital identity." },
+  { n: 2, title: "Design your card", desc: "Choose a template, add your details, and set the look." },
+  { n: 3, title: "Share and connect", desc: "Use a link, QR code, or NFC tag to share." },
 ];
 
 const planList = [PLANS.free, PLANS.pro, PLANS.business];
 
 const PLAN_FEATURES: Record<string, string[]> = {
-  free:     ["1 digitale Visitenkarte", "QR-Code & vCard-Download", "Lead Capture", "4 Templates", `Bis zu ${PLANS.free.features.maxCustomLinks} eigene Links`, `Analytics (${PLANS.free.features.analyticsRetention} Tage)`],
-  pro:      ["Alle 9 Templates", "Whitelabel (kein Badge)", "Eigene Domain", "PDF & Print-Export", "Kampagnen-Tracking", "Terminbuchungs-Link", "Meilenstein-Benachrichtigungen", `Analytics (${PLANS.pro.features.analyticsRetention} Tage)`],
-  business: ["Alles aus Pro", "Team & Abteilungsverwaltung", "Bulk CSV-Import", "Organisations-Vorlage", "Team-Verzeichnis", `Analytics (${PLANS.business.features.analyticsRetention} Tage)`],
+  free: ["1 digital card", "QR code and vCard download", "Lead capture", "4 templates", `Up to ${PLANS.free.features.maxCustomLinks} custom links`, `Analytics (${PLANS.free.features.analyticsRetention} days)`],
+  pro: ["All templates", "White label", "Custom domain", "PDF and print export", "Campaign tracking", "Booking link", "Milestone notifications", `Analytics (${PLANS.pro.features.analyticsRetention} days)`],
+  business: ["Everything in Pro", "Team and department management", "Bulk CSV import", "Organisation template", "Team directory", `Analytics (${PLANS.business.features.analyticsRetention} days)`],
 };
 
 export default function LandingPage() {
@@ -47,22 +48,22 @@ export default function LandingPage() {
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900">
-                <span className="text-xs font-bold text-white">CN</span>
+                <span className="text-xs font-bold text-white">L</span>
               </div>
-              <span className="font-semibold">CardNexus</span>
+              <span className="font-semibold tracking-[0.12em]">{BRAND.name}</span>
             </div>
             <div className="hidden md:flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
               <a href="#features" className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Features</a>
-              <a href="#how"      className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors">So funktioniert es</a>
-              <a href="#pricing"  className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Preise</a>
+              <a href="#how" className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors">How it works</a>
+              <a href="#pricing" className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Pricing</a>
               <a href="#faq"      className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors">FAQ</a>
             </div>
             <div className="flex items-center gap-2">
               <Link href="/login" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors hidden sm:block">
-                Anmelden
+                Sign in
               </Link>
               <Button asChild size="sm">
-                <Link href="/register">Kostenlos starten</Link>
+                <Link href="/register">Get started</Link>
               </Button>
             </div>
           </div>
@@ -73,25 +74,25 @@ export default function LandingPage() {
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-950 px-4 py-1.5 text-sm text-gray-600 dark:text-gray-400 mb-8">
           <Zap className="h-3.5 w-3.5 text-amber-500" />
-          Digitale Visitenkarte der nächsten Generation
+          {BRAND.attribution}
         </div>
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-6">
-          Deine Karte.
+          Your identity.
           <br />
-          <span className="text-gray-400">In Sekunden geteilt.</span>
+          <span className="text-gray-400">Shared in seconds.</span>
         </h1>
         <p className="mx-auto max-w-2xl text-xl text-gray-500 dark:text-gray-400 mb-10 leading-relaxed">
-          Erstelle deine digitale Visitenkarte, teile sie per NFC, QR-Code oder Link – und behalte den Überblick mit Analytics, Lead Capture und Team-Verwaltung.
+          Create a digital identity, share it by NFC, QR code, or link, and keep track of engagement with analytics, lead capture, and team management.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Button asChild size="lg">
             <Link href="/register">
-              Jetzt kostenlos starten
+              Get started free
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg">
-            <Link href="/c/demo">Live-Demo ansehen</Link>
+            <Link href="/c/demo">View live demo</Link>
           </Button>
         </div>
 
@@ -128,8 +129,8 @@ export default function LandingPage() {
       <section id="how" className="bg-gray-50 dark:bg-gray-950 py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold mb-3">So funktioniert es</h2>
-            <p className="text-gray-500 dark:text-gray-400">In drei Schritten zur fertigen Karte.</p>
+            <h2 className="text-3xl font-bold mb-3">How it works</h2>
+            <p className="text-gray-500 dark:text-gray-400">Three steps to a shareable digital identity.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {steps.map(({ n, title, desc }) => (
@@ -147,8 +148,8 @@ export default function LandingPage() {
       <section id="features" className="py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold mb-3">Alles was du brauchst</h2>
-            <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">Von der persönlichen Karte bis zur unternehmensweiten Lösung.</p>
+            <h2 className="text-3xl font-bold mb-3">Everything you need</h2>
+            <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">From a personal card to an organisation-wide identity platform.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map(({ icon: Icon, title, desc }) => (
@@ -168,8 +169,8 @@ export default function LandingPage() {
       <section id="pricing" className="bg-gray-50 dark:bg-gray-950 py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold mb-3">Einfache Preise</h2>
-            <p className="text-gray-500 dark:text-gray-400">Kein Kleingedrucktes. Jederzeit kündbar.</p>
+            <h2 className="text-3xl font-bold mb-3">Simple pricing</h2>
+            <p className="text-gray-500 dark:text-gray-400">Clear plans with flexible billing.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {planList.map((plan) => {
@@ -183,14 +184,14 @@ export default function LandingPage() {
                 >
                   {featured && (
                     <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-1 rounded-full self-start mb-3">
-                      Empfohlen
+                      Recommended
                     </span>
                   )}
                   <p className={`text-sm font-medium mb-1 ${featured ? "opacity-60" : "text-gray-500"}`}>{plan.description}</p>
                   <h3 className="text-2xl font-bold mb-1">{plan.name}</h3>
                   <div className="flex items-baseline gap-1 mb-6">
-                    <span className="text-4xl font-bold">€{plan.monthlyPrice}</span>
-                    <span className={`text-sm ${featured ? "opacity-60" : "text-gray-400"}`}>/Monat</span>
+                    <span className="text-4xl font-bold">TZS {plan.monthlyPrice}</span>
+                    <span className={`text-sm ${featured ? "opacity-60" : "text-gray-400"}`}>/month</span>
                   </div>
                   <ul className="space-y-2.5 mb-8 flex-1">
                     {(PLAN_FEATURES[plan.id] ?? []).map((f) => (
@@ -201,14 +202,14 @@ export default function LandingPage() {
                     ))}
                   </ul>
                   <Button asChild variant={featured ? "secondary" : "default"} className="w-full">
-                    <Link href="/register">{plan.id === "free" ? "Kostenlos starten" : `${plan.name} testen`}</Link>
+                    <Link href="/register">{plan.id === "free" ? "Get started free" : `Try ${plan.name}`}</Link>
                   </Button>
                 </div>
               );
             })}
           </div>
           <p className="text-center text-sm text-gray-400 dark:text-gray-500 mt-8">
-            Alle Pläne inkl. DSGVO-konformer Datenspeicherung in Deutschland.
+            All plans include the features listed above. Configure deployment and data handling to meet your organisation's requirements.
           </p>
         </div>
       </section>
@@ -217,7 +218,7 @@ export default function LandingPage() {
       <section id="faq" className="py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold mb-3">Häufige Fragen</h2>
+            <h2 className="text-3xl font-bold mb-3">Frequently asked questions</h2>
           </div>
           <FaqSection />
         </div>
@@ -226,11 +227,11 @@ export default function LandingPage() {
       {/* ── CTA ─────────────────────────────────────────────────────────── */}
       <section className="bg-gray-900 py-20 text-center text-white">
         <div className="mx-auto max-w-2xl px-4">
-          <h2 className="text-3xl font-bold mb-4">Bereit loszulegen?</h2>
-          <p className="text-gray-400 mb-8">Kostenlos starten – keine Kreditkarte erforderlich.</p>
+          <h2 className="text-3xl font-bold mb-4">Ready to connect?</h2>
+          <p className="text-gray-400 mb-8">Create your LINKA account and start sharing.</p>
           <Button asChild size="lg" variant="secondary">
             <Link href="/register">
-              Jetzt kostenlos registrieren
+              Create an account
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
@@ -244,34 +245,34 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <div className="flex h-7 w-7 items-center justify-center rounded bg-gray-900">
-                  <span className="text-[10px] font-bold text-white">CN</span>
+                  <span className="text-[10px] font-bold text-white">L</span>
                 </div>
-                <span className="font-semibold text-gray-900 dark:text-gray-100">CardNexus</span>
+                <span className="font-semibold tracking-[0.12em] text-gray-900 dark:text-gray-100">LINKA</span>
               </div>
               <p className="text-sm text-gray-400 dark:text-gray-500 leading-relaxed">
-                Die smarte digitale Visitenkarte für Professionals und Teams.
+                {BRAND.tagline} A digital identity platform by CYREX Technologies.
               </p>
             </div>
             <div>
-              <p className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-300">Produkt</p>
+              <p className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-300">Product</p>
               <ul className="space-y-2 text-sm text-gray-400 dark:text-gray-500">
                 <li><a href="#features"  className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Features</a></li>
-                <li><a href="#pricing"   className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Preise</a></li>
+                <li><a href="#pricing" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Pricing</a></li>
                 <li><Link href="/c/demo" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Demo</Link></li>
-                <li><Link href="/login"  className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Anmelden</Link></li>
+                <li><Link href="/login" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Sign in</Link></li>
               </ul>
             </div>
             <div>
-              <p className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-300">Rechtliches</p>
+              <p className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-300">Legal</p>
               <ul className="space-y-2 text-sm text-gray-400 dark:text-gray-500">
-                <li><Link href="/impressum"  className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Impressum</Link></li>
-                <li><Link href="/datenschutz" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Datenschutz</Link></li>
+                <li><Link href="/impressum" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Legal notice</Link></li>
+                <li><Link href="/datenschutz" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Privacy</Link></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-100 dark:border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400 dark:text-gray-500">
-            <p>&copy; {new Date().getFullYear()} CardNexus. Alle Rechte vorbehalten.</p>
-            <p>Made in Germany 🇩🇪</p>
+            <p>&copy; {new Date().getFullYear()} LINKA by CYREX Technologies. All rights reserved.</p>
+            <p>{BRAND.tagline}</p>
           </div>
         </div>
       </footer>

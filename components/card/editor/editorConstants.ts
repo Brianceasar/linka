@@ -6,9 +6,9 @@ export const FONT_OPTIONS = [
 ];
 
 export const LAYOUT_OPTIONS = [
-  { value: "standard", label: "Standard", description: "Avatar links, Name rechts" },
-  { value: "centered", label: "Zentriert", description: "Avatar und Name mittig" },
-  { value: "compact",  label: "Kompakt",  description: "Platzsparend, kleiner Avatar" },
+  { value: "standard", label: "Standard", description: "Avatar left, name right" },
+  { value: "centered", label: "Centered", description: "Avatar and name centred" },
+  { value: "compact",  label: "Compact",  description: "Space-saving, smaller avatar" },
 ];
 
 export const ROUNDED_OPTIONS = [
@@ -38,7 +38,7 @@ export const AVATAR_BORDER_OPTIONS = [
 ];
 
 export const BG_OPTIONS = [
-  { value: "white",    label: "Weiß",    description: "Klassisch sauber" },
-  { value: "tinted",   label: "Getönt",  description: "Hauch der Primärfarbe" },
+  { value: "white",    label: "White",   description: "Classic and clean" },
+  { value: "tinted",   label: "Tinted",  description: "A hint of the primary colour" },
   { value: "gradient", label: "Verlauf", description: "Sanfter Farbverlauf" },
 ];

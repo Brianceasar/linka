@@ -50,7 +50,7 @@ export function OrgAnalyticsClient({
     <div className="space-y-6">
       {/* Stats grid */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <StatCard label="Aufrufe gesamt" value={totalViews} icon={Eye} />
+        <StatCard label="Total views" value={totalViews} icon={Eye} />
         <StatCard label="vCard-Downloads" value={vcardDownloads} icon={Download} />
         <StatCard label="QR-Scans" value={qrScans} icon={QrCode} />
         <StatCard label="Link-Klicks" value={linkClicks} icon={MousePointer} />
@@ -61,7 +61,7 @@ export function OrgAnalyticsClient({
       {/* 30-day chart */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Aufrufe – letzte 30 Tage</CardTitle>
+          <CardTitle className="text-base">Views – last 30 days</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={220}>
@@ -76,7 +76,7 @@ export function OrgAnalyticsClient({
               <XAxis dataKey="date" tick={{ fontSize: 10 }} tickFormatter={(v) => v.slice(5)} interval="preserveStartEnd" />
               <YAxis tick={{ fontSize: 10 }} allowDecimals={false} domain={[0, maxCount + 1]} />
               <Tooltip
-                formatter={(v: number) => [v.toLocaleString("de-DE"), "Aufrufe"]}
+                formatter={(v: number) => [v.toLocaleString("en"), "Views"]}
                 labelFormatter={(l) => new Date(l).toLocaleDateString("de-DE")}
               />
               <Area type="monotone" dataKey="count" stroke="#6366f1" fill="url(#orgGrad)" strokeWidth={2} dot={false} />
@@ -89,11 +89,11 @@ export function OrgAnalyticsClient({
         {/* Top cards by views */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Top-Karten nach Aufrufen</CardTitle>
+            <CardTitle className="text-base">Top cards by views</CardTitle>
           </CardHeader>
           <CardContent>
             {topCards.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Noch keine Daten.</p>
+              <p className="text-sm text-muted-foreground">No data yet.</p>
             ) : (
               <div className="space-y-2">
                 {topCards.map((c) => (
@@ -120,11 +120,11 @@ export function OrgAnalyticsClient({
         {/* Top cards by leads */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Top-Karten nach Leads</CardTitle>
+            <CardTitle className="text-base">Top cards by leads</CardTitle>
           </CardHeader>
           <CardContent>
             {topCardsByLeads.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Noch keine Leads.</p>
+              <p className="text-sm text-muted-foreground">No leads yet.</p>
             ) : (
               <div className="space-y-2">
                 {topCardsByLeads.map((c) => (

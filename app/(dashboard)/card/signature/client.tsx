@@ -16,42 +16,42 @@ interface Props {
 }
 
 const STYLES: { id: SigStyle; label: string; desc: string }[] = [
-  { id: "standard", label: "Standard",  desc: "Farbbalken + Kontakt" },
-  { id: "compact",  label: "Kompakt",   desc: "Zweispaltig, klein" },
-  { id: "rich",     label: "Rich",      desc: "Foto + Social-Links" },
-  { id: "modern",   label: "Modern",    desc: "Farbiger Headerstreifen" },
-  { id: "minimal",  label: "Minimal",   desc: "Nur Text, keine Icons" },
-  { id: "dark",     label: "Dark",      desc: "Dunkler Hintergrund" },
+  { id: "standard", label: "Standard",  desc: "Colour bar and contact details" },
+  { id: "compact",  label: "Compact",   desc: "Two columns, compact" },
+  { id: "rich",     label: "Rich",      desc: "Photo and social links" },
+  { id: "modern",   label: "Modern",    desc: "Coloured header bar" },
+  { id: "minimal",  label: "Minimal",   desc: "Text only, no icons" },
+  { id: "dark",     label: "Dark",      desc: "Dark background" },
 ];
 
 const GUIDES: Record<string, { title: string; steps: string[] }> = {
   gmail: {
     title: "Gmail",
     steps: [
-      "Öffne Gmail → Einstellungen → Alle Einstellungen anzeigen",
-      'Scrolle zu „Signatur" → „Neue Signatur erstellen"',
-      "Namen eingeben, in das Textfeld klicken",
-      "Kopierten HTML-Code einfügen (Strg+V / Cmd+V)",
-      "Einstellungen ganz unten speichern",
+      "Open Gmail → Settings → See all settings",
+      'Scroll to “Signature” → “Create new”,',
+      "Enter a name and click in the text field",
+      "Paste the copied HTML code (Ctrl+V / Cmd+V)",
+      "Save the settings at the bottom of the page",
     ],
   },
   outlook: {
     title: "Outlook",
     steps: [
-      "Datei → Optionen → E-Mail → Signaturen",
-      '„Neu" klicken, Namen eingeben',
-      "Im Signaturfeld den HTML-Code einfügen",
-      "Standard für neue Nachrichten & Antworten wählen",
-      "OK klicken zum Speichern",
+      "File → Options → Mail → Signatures",
+      'Click “New” and enter a name',
+      "Paste the HTML code into the signature field",
+      "Choose the default for new messages and replies",
+      "Select OK to save",
     ],
   },
   apple: {
     title: "Apple Mail",
     steps: [
-      "Mail → Einstellungen → Signaturen",
-      '„+" klicken, Namen eingeben',
-      'Haken bei „Immer klassisches Design" entfernen',
-      "HTML-Code als .html-Datei speichern und in das Signaturfeld ziehen",
+      "Mail → Settings → Signatures",
+      'Click “+” and enter a name',
+      'Clear “Always match my default message font”,',
+      "Save the HTML code as an .html file and drag it into the signature field",
     ],
   },
 };
@@ -100,7 +100,7 @@ export function SignatureClient({ card: initialCard, allCards = [] }: Props) {
         {/* Card selector */}
         {cards.length > 1 && (
           <div className="space-y-1.5">
-            <Label>Karte</Label>
+            <Label>Card</Label>
             <select
               value={activeCardId}
               onChange={(e) => setActiveCardId(e.target.value)}
@@ -115,7 +115,7 @@ export function SignatureClient({ card: initialCard, allCards = [] }: Props) {
 
         {/* Style picker */}
         <div className="space-y-2">
-          <p className="text-sm font-medium">Stil wählen</p>
+          <p className="text-sm font-medium">Choose style</p>
           <div className="grid grid-cols-2 gap-2">
             {STYLES.map((s) => (
               <button
@@ -137,10 +137,10 @@ export function SignatureClient({ card: initialCard, allCards = [] }: Props) {
 
         {/* Options */}
         <div className="space-y-3 p-4 rounded-xl border border-border bg-muted/20">
-          <p className="text-sm font-medium">Optionen</p>
+          <p className="text-sm font-medium">Options</p>
 
           <div className="flex items-center justify-between gap-4">
-            <Label className="text-sm font-normal">Akzentfarbe</Label>
+            <Label className="text-sm font-normal">Accent colour</Label>
             <input
               type="color"
               value={color}
@@ -151,29 +151,29 @@ export function SignatureClient({ card: initialCard, allCards = [] }: Props) {
 
           <div className="flex items-center justify-between">
             <Label className="text-sm font-normal">
-              Profilfoto{!card.avatarUrl && <span className="text-xs text-muted-foreground ml-1">(kein Foto hinterlegt)</span>}
+              Profile photo{!card.avatarUrl && <span className="text-xs text-muted-foreground ml-1">(no photo uploaded)</span>}
             </Label>
             <Switch checked={showAvatar} onCheckedChange={setShowAvatar} disabled={!card.avatarUrl} />
           </div>
 
           <div className="flex items-center justify-between">
-            <Label className="text-sm font-normal">Social-Links</Label>
+            <Label className="text-sm font-normal">Social links</Label>
             <Switch checked={showSocials} onCheckedChange={setShowSocials} />
           </div>
 
           <div className="flex items-center justify-between">
-            <Label className="text-sm font-normal">„Digitale Visitenkarte"-Button</Label>
+              <Label className="text-sm font-normal">“Digital Business Card” button</Label>
             <Switch checked={showCardLink} onCheckedChange={setShowCardLink} />
           </div>
 
           <div className="space-y-1">
             <Label className="text-sm font-normal">
-              Fußzeile <span className="text-xs text-muted-foreground">(z.B. rechtlicher Hinweis)</span>
+              Footer <span className="text-xs text-muted-foreground">(for example, a legal notice)</span>
             </Label>
             <Textarea
               value={footerText}
               onChange={(e) => setFooterText(e.target.value)}
-              placeholder="Vertraulichkeitshinweis, Datenschutzerklärung…"
+              placeholder="Confidentiality notice, privacy statement…"
               rows={2}
               className="text-xs resize-none"
             />
@@ -184,19 +184,19 @@ export function SignatureClient({ card: initialCard, allCards = [] }: Props) {
         <div className="space-y-2">
           <Button onClick={copy} className="w-full" size="lg">
             {copied
-              ? <><Check className="h-4 w-4" /> HTML kopiert!</>
-              : <><Copy className="h-4 w-4" /> HTML-Code kopieren</>}
+              ? <><Check className="h-4 w-4" /> HTML copied!</>
+              : <><Copy className="h-4 w-4" /> Copy HTML code</>}
           </Button>
           <Button onClick={copyPlain} variant="outline" className="w-full">
             {copiedTxt
-              ? <><Check className="h-4 w-4" /> Klartext kopiert!</>
-              : <><Copy className="h-4 w-4" /> Als Klartext kopieren</>}
+              ? <><Check className="h-4 w-4" /> Plain text copied!</>
+              : <><Copy className="h-4 w-4" /> Copy as plain text</>}
           </Button>
         </div>
 
         {/* Client guides */}
         <div className="space-y-2">
-          <p className="text-sm font-medium">Anleitung für deinen E-Mail-Client</p>
+          <p className="text-sm font-medium">Instructions for your email client</p>
           {Object.entries(GUIDES).map(([key, g]) => (
             <div key={key} className="border border-border rounded-xl overflow-hidden">
               <button
@@ -220,13 +220,13 @@ export function SignatureClient({ card: initialCard, allCards = [] }: Props) {
 
       {/* ── Preview ── */}
       <div className="space-y-3">
-        <p className="text-sm font-medium">Vorschau</p>
+        <p className="text-sm font-medium">Preview</p>
         <div className="border border-border rounded-xl bg-white overflow-hidden">
           <div className="border-b border-gray-100 px-4 py-3 bg-gray-50 space-y-1">
             {[
-              { label: "Von:",  val: card.email ?? "deine@email.de" },
-              { label: "An:",   val: "empfaenger@beispiel.de" },
-              { label: "Betr.:",val: "Meine Nachricht" },
+              { label: "From:",  val: card.email ?? "you@example.com" },
+              { label: "To:",   val: "recipient@example.com" },
+              { label: "Subject:",val: "My message" },
             ].map(({ label, val }) => (
               <div key={label} className="flex items-center gap-2 text-xs text-muted-foreground">
                 <span className="font-medium w-10">{label}</span>
@@ -235,14 +235,14 @@ export function SignatureClient({ card: initialCard, allCards = [] }: Props) {
             ))}
           </div>
           <div className="px-4 py-4">
-            <p className="text-sm text-gray-400 mb-6">Hallo,<br /><br />…<br /><br />Mit freundlichen Grüßen</p>
+            <p className="text-sm text-gray-400 mb-6">Hello,<br /><br />…<br /><br />Kind regards</p>
             <div dangerouslySetInnerHTML={{ __html: html }} />
           </div>
         </div>
 
         <details className="group">
           <summary className="text-xs text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none">
-            HTML-Code anzeigen
+            Show HTML code
           </summary>
           <pre className="mt-2 p-3 rounded-lg bg-muted text-[10px] font-mono overflow-x-auto whitespace-pre-wrap break-all leading-relaxed text-muted-foreground">
             {html}

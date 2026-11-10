@@ -37,7 +37,7 @@ export function ElegantTemplate({ card }: { card: Partial<CardData> }) {
           </div>
           <div className="min-w-0">
             <h1 className="text-xl font-bold tracking-tight text-gray-900 leading-snug">
-              {name || "Dein Name"}
+              {name || "Your name"}
             </h1>
             {card.title && (
               <p className="text-sm font-medium mt-0.5 tracking-wide" style={{ color }}>
@@ -116,7 +116,7 @@ export function ElegantTemplate({ card }: { card: Partial<CardData> }) {
         {card.showQrOnCard && card.slug && (
           <div className="mt-5 flex items-center gap-3">
             <img src={`/api/qr/${card.slug}`} alt="QR" className="h-10 w-10" />
-            <p className="text-xs text-gray-400">Scan für digitale Karte</p>
+            <p className="text-xs text-gray-400">Scan for digital card</p>
           </div>
         )}
       </div>

@@ -71,14 +71,14 @@ export function DesignTab({ card, update, policy, allTemplates, allowedDomains, 
       {/* Primary color */}
       <section className="space-y-2">
         <div className="flex items-center justify-between">
-          <Label className="text-base">Primärfarbe</Label>
+          <Label className="text-base">Primary colour</Label>
           {!policy.allowColorChange && <LockedBadge />}
         </div>
         {policy.allowColorChange ? (
           <>
             {hasBrandColors && (
               <div className="space-y-1.5">
-                <p className="text-xs text-muted-foreground">Markenfarben der Organisation</p>
+                <p className="text-xs text-muted-foreground">Organisation brand colours</p>
                 <div className="flex flex-wrap gap-2">
                   {policy.brandColors.map((c) => (
                     <button key={c} type="button" title={c} onClick={() => update("primaryColor", c)}
@@ -109,24 +109,24 @@ export function DesignTab({ card, update, policy, allTemplates, allowedDomains, 
 
       {/* Accent color */}
       <section className="space-y-2">
-        <Label className="text-base">Akzentfarbe <span className="text-xs font-normal text-muted-foreground">(optional)</span></Label>
-        <p className="text-xs text-muted-foreground">Zweite Farbe für Icons, Links und Buttons</p>
+        <Label className="text-base">Accent colour <span className="text-xs font-normal text-muted-foreground">(optional)</span></Label>
+        <p className="text-xs text-muted-foreground">Secondary colour for icons, links, and buttons</p>
         <div className="flex items-center gap-3">
           <input type="color" value={card.accentColor ?? card.primaryColor ?? "#0F172A"}
             onChange={(e) => update("accentColor", e.target.value)}
             className="h-10 w-16 rounded-md border border-input cursor-pointer" />
           <Input value={card.accentColor ?? ""} onChange={(e) => update("accentColor", e.target.value || null)}
-            className="font-mono w-32" placeholder="wie Primär" maxLength={7} />
+            className="font-mono w-32" placeholder="same as primary" maxLength={7} />
           {card.accentColor && (
             <Button type="button" variant="ghost" size="sm" onClick={() => update("accentColor", null)}
-              className="text-muted-foreground">Zurücksetzen</Button>
+              className="text-muted-foreground">Reset</Button>
           )}
         </div>
       </section>
 
       {/* Background */}
       <section className="space-y-3">
-        <Label className="text-base">Hintergrund</Label>
+        <Label className="text-base">Background</Label>
         <div className="grid grid-cols-3 gap-2">
           {BG_OPTIONS.map((b) => (
             <button key={b.value} type="button"
@@ -143,7 +143,7 @@ export function DesignTab({ card, update, policy, allTemplates, allowedDomains, 
 
       {/* Shadow */}
       <section className="space-y-3">
-        <Label className="text-base">Kartenschatten</Label>
+        <Label className="text-base">Card shadow</Label>
         <div className="flex gap-2 flex-wrap">
           {SHADOW_OPTIONS.map((s) => (
             <button key={s.value} type="button"
@@ -160,7 +160,7 @@ export function DesignTab({ card, update, policy, allTemplates, allowedDomains, 
       {/* Font */}
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <Label className="text-base">Schriftart</Label>
+          <Label className="text-base">Font</Label>
           {!policy.allowFontChange && <LockedBadge />}
         </div>
         <div className="grid grid-cols-2 gap-2">
@@ -257,7 +257,7 @@ export function DesignTab({ card, update, policy, allTemplates, allowedDomains, 
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium">Firmenlogo</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Erscheint klein auf der Karte (oben rechts)</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Appears small on the card (top right)</p>
           </div>
           {!policy.canEditLogo && <LockedBadge />}
         </div>
@@ -273,10 +273,10 @@ export function DesignTab({ card, update, policy, allTemplates, allowedDomains, 
 
       {/* Toggles */}
       {[
-        { key: "showQrOnCard" as const,        label: "QR-Code auf Karte zeigen",         desc: "Kleiner QR-Code direkt auf der Visitenkarte" },
-        { key: "isPublic" as const,            label: "Karte öffentlich",                 desc: "Karte für alle sichtbar" },
-        { key: "showInTeamDirectory" as const, label: "Im Team-Verzeichnis anzeigen",     desc: "Profil im öffentlichen Verzeichnis deiner Organisation sichtbar" },
-        { key: "hideShareButton" as const,     label: "Teilen-Button ausblenden",         desc: "Kein Teilen-Button auf der öffentlichen Kartenansicht" },
+        { key: "showQrOnCard" as const, label: "Show QR code on card", desc: "Display a small QR code directly on the digital card" },
+        { key: "isPublic" as const,            label: "Public card",                 desc: "Make this card visible to everyone" },
+        { key: "showInTeamDirectory" as const, label: "Show in team directory",     desc: "Make this profile visible in your organisation's public directory" },
+        { key: "hideShareButton" as const,     label: "Hide share button",         desc: "Do not show a share button on the public card" },
       ].map(({ key, label, desc }) => (
         <div key={key} className="flex items-center justify-between rounded-lg border border-border p-4">
           <div>

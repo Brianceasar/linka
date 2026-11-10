@@ -85,13 +85,13 @@ export function CorporateTemplate({ card }: { card: Partial<CardData> }) {
         {/* Contact table */}
         <div className="space-y-0 divide-y divide-gray-50">
           {card.phone && (
-            <CorpRow icon={Phone} label="Telefon" value={card.phone} href={`tel:${card.phone}`} color={color} />
+            <CorpRow icon={Phone} label="Phone" value={card.phone} href={`tel:${card.phone}`} color={color} />
           )}
           {card.mobile && (
             <CorpRow icon={Phone} label="Mobil" value={card.mobile} href={`tel:${card.mobile}`} color={color} />
           )}
           {card.email && (
-            <CorpRow icon={Mail} label="E-Mail" value={card.email} href={`mailto:${card.email}`} color={color} />
+            <CorpRow icon={Mail} label="Email" value={card.email} href={`mailto:${card.email}`} color={color} />
           )}
           {card.website && (
             <CorpRow icon={Globe} label="Web" value={card.website.replace(/^https?:\/\//, "")} href={card.website} color={color} external />
@@ -118,7 +118,7 @@ export function CorporateTemplate({ card }: { card: Partial<CardData> }) {
         {card.showQrOnCard && card.slug && (
           <div className="mt-5 pt-5 border-t border-gray-100 flex items-center gap-3">
             <img src={`/api/qr/${card.slug}`} alt="QR Code" className="h-12 w-12" />
-            <p className="text-xs text-gray-400">Scan für digitale Karte</p>
+            <p className="text-xs text-gray-400">Scan for digital card</p>
           </div>
         )}
       </div>

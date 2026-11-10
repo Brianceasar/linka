@@ -90,7 +90,7 @@ export default async function OrgAnalyticsPage() {
         <div>
           <h1 className="text-2xl font-bold">Team Analytics</h1>
           <p className="text-muted-foreground mt-1">
-            {org?.name} · {cards.length} Karten · letzte 30 Tage
+            {org?.name} · {cards.length} cards · last 30 days
           </p>
         </div>
       </div>

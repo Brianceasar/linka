@@ -11,10 +11,10 @@ export async function PATCH(req: NextRequest) {
 
   const user = session.user as { id: string; role?: string; organizationId?: string };
   if (!canManageUsers(user.role ?? "member")) {
-    return NextResponse.json({ error: "Keine Berechtigung" }, { status: 403 });
+    return NextResponse.json({ error: "Permission denied" }, { status: 403 });
   }
   if (!user.organizationId) {
-    return NextResponse.json({ error: "Keine Organisation" }, { status: 400 });
+    return NextResponse.json({ error: "No organisation found" }, { status: 400 });
   }
 
   const { enabled } = await req.json() as { enabled: boolean };

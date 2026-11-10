@@ -32,7 +32,7 @@ export default async function AnalyticsPage({
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <PageHeader
           title="Analytics"
-          description="Wie wird deine Karte genutzt?"
+          description="How is your card being used?"
         />
         {isOrgAdmin && (
           <Link

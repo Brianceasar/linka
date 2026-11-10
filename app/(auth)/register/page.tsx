@@ -26,10 +26,16 @@ function RegisterForm() {
     setLoading(true);
     setError("");
 
-    const result = await signUp.email({ name, email, password });
+    const result = await signUp.email({
+      name,
+      email,
+      password,
+      // The server validates this only when LINKA_INTERNAL_MODE=true.
+      invitationToken: inviteToken ?? undefined,
+    } as never);
 
     if (result.error) {
-      setError(result.error.message ?? "Registrierung fehlgeschlagen.");
+      setError(result.error.message ?? "Registration failed.");
       setLoading(false);
       return;
     }
@@ -52,11 +58,11 @@ function RegisterForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Account erstellen</CardTitle>
+        <CardTitle>Create your account</CardTitle>
         <CardDescription>
           {inviteToken
-            ? "Du wurdest eingeladen. Erstelle deinen Account."
-            : "Starte kostenlos mit deiner digitalen Visitenkarte."}
+            ? "You have been invited. Create your account to continue."
+            : "Start sharing your digital identity with LINKA."}
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
@@ -73,7 +79,7 @@ function RegisterForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="email">E-Mail</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
@@ -85,11 +91,11 @@ function RegisterForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="password">Passwort</Label>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Mindestens 8 Zeichen"
+              placeholder="At least 8 characters"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -101,12 +107,12 @@ function RegisterForm() {
         </CardContent>
         <CardFooter className="flex flex-col gap-3">
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Wird erstellt…" : "Account erstellen"}
+            {loading ? "Creating account…" : "Create account"}
           </Button>
           <p className="text-sm text-muted-foreground text-center">
-            Bereits registriert?{" "}
+            Already have an account?{" "}
             <Link href="/login" className="text-foreground font-medium hover:underline">
-              Anmelden
+              Sign in
             </Link>
           </p>
         </CardFooter>

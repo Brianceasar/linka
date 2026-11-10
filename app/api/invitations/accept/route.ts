@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   });
 
   if (!invitation || invitation.expiresAt < new Date() || invitation.acceptedAt) {
-    return NextResponse.json({ error: "Einladung ungültig oder abgelaufen" }, { status: 410 });
+    return NextResponse.json({ error: "Invitation is invalid or has expired" }, { status: 410 });
   }
 
   // SECURITY: an invitation token is bound to a specific email address.
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     (session.user.email ?? "").toLowerCase().trim()
   ) {
     return NextResponse.json(
-      { error: "Diese Einladung ist an eine andere E-Mail-Adresse gerichtet." },
+      { error: "This invitation was sent to a different email address." },
       { status: 403 }
     );
   }

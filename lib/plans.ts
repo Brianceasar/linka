@@ -34,7 +34,7 @@ export const PLANS: Record<Plan, PlanDefinition> = {
     name: "Free",
     monthlyPrice: 0,
     yearlyPrice: 0,
-    description: "Für den Einstieg",
+    description: "For getting started",
     features: {
       whiteLabel: false,
       customDomain: false,
@@ -58,7 +58,7 @@ export const PLANS: Record<Plan, PlanDefinition> = {
     name: "Pro",
     monthlyPrice: 5,
     yearlyPrice: 4,
-    description: "Für Profis & Freelancer",
+    description: "For professionals and freelancers",
     highlight: true,
     features: {
       whiteLabel: true,
@@ -83,7 +83,7 @@ export const PLANS: Record<Plan, PlanDefinition> = {
     name: "Business",
     monthlyPrice: 19,
     yearlyPrice: 15,
-    description: "Für Teams & Unternehmen",
+    description: "For teams and organisations",
     features: {
       whiteLabel: true,
       customDomain: true,

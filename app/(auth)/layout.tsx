@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPlatformSettings } from "@/lib/platform";
+import { BRAND } from "@/lib/brand";
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const s = await getPlatformSettings();
@@ -15,8 +16,9 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
             <span className="text-sm font-bold text-white">{initials}</span>
           </div>
         )}
-        <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">{s.appName}</span>
+        <span className="text-lg font-semibold tracking-[0.12em] text-gray-900 dark:text-gray-100">{s.appName}</span>
       </Link>
+      <p className="-mt-6 mb-6 text-xs text-muted-foreground">{BRAND.tagline}</p>
       <div className="w-full max-w-md">{children}</div>
     </div>
   );

@@ -61,13 +61,13 @@ export function MinimalTemplate({ card }: { card: Partial<CardData> }) {
         <div className="space-y-4">
           {card.email && (
             <div>
-              <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400">E-Mail</p>
+              <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400">Email</p>
               <a href={`mailto:${card.email}`} className="text-sm text-gray-700 hover:underline mt-0.5 block">{card.email}</a>
             </div>
           )}
           {(card.phone || card.mobile) && (
             <div>
-              <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400">Telefon</p>
+              <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400">Phone</p>
               {card.phone && <a href={`tel:${card.phone}`} className="text-sm text-gray-700 hover:underline mt-0.5 block">{card.phone}</a>}
               {card.mobile && <a href={`tel:${card.mobile}`} className="text-sm text-gray-700 hover:underline block">{card.mobile}</a>}
             </div>

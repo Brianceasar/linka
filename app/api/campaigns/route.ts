@@ -37,11 +37,11 @@ export async function POST(req: NextRequest) {
 
   const user = session.user as { id: string; plan?: string };
   if (!canUseFeature("campaigns", user.plan ?? "free")) {
-    return NextResponse.json({ error: "Upgrade erforderlich" }, { status: 403 });
+    return NextResponse.json({ error: "An upgrade is required." }, { status: 403 });
   }
 
   const card = await db.card.findFirst({ where: { userId: user.id }, orderBy: [{ isDefault: "desc" }], select: { id: true, slug: true, firstName: true, lastName: true } });
-  if (!card) return NextResponse.json({ error: "Keine Karte" }, { status: 400 });
+  if (!card) return NextResponse.json({ error: "No card found" }, { status: 400 });
 
   const body = createSchema.parse(await req.json());
 
@@ -74,7 +74,7 @@ export async function DELETE(req: NextRequest) {
   const user = session.user as { id: string };
 
   const card = await db.card.findFirst({ where: { userId: user.id }, orderBy: [{ isDefault: "desc" }], select: { id: true } });
-  if (!card) return NextResponse.json({ error: "Keine Karte" }, { status: 400 });
+  if (!card) return NextResponse.json({ error: "No card found" }, { status: 400 });
 
   const campaign = await db.campaign.findUnique({ where: { id }, select: { cardId: true } });
   if (!campaign || campaign.cardId !== card.id) {

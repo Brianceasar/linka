@@ -110,7 +110,7 @@ export function ModernTemplate({ card }: { card: Partial<CardData> }) {
       {card.showQrOnCard && card.slug && (
         <div className="px-6 pb-4 flex items-center gap-3">
           <img src={`/api/qr/${card.slug}`} alt="QR Code" className="h-12 w-12" />
-          <p className="text-xs text-gray-400">Scan für digitale Karte</p>
+          <p className="text-xs text-gray-400">Scan for digital card</p>
         </div>
       )}
     </div>

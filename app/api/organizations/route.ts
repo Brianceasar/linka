@@ -84,10 +84,10 @@ export async function POST(request: NextRequest) {
     });
     const plan = effectivePlan(dbUser?.plan ?? "free", dbUser?.planExpiresAt);
     if (!canUseFeature("teamDirectory", plan)) {
-      return NextResponse.json({ error: "Business-Plan erforderlich" }, { status: 403 });
+      return NextResponse.json({ error: "A Business subscription is required." }, { status: 403 });
     }
     if (userOrgId) {
-      return NextResponse.json({ error: "Du bist bereits Mitglied einer Organisation" }, { status: 400 });
+      return NextResponse.json({ error: "You are already a member of an organisation" }, { status: 400 });
     }
   }
 
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
 
   const existing = await db.organization.findUnique({ where: { slug }, select: { id: true } });
   if (existing) {
-    return NextResponse.json({ error: "Dieses URL-Kürzel ist bereits vergeben" }, { status: 409 });
+    return NextResponse.json({ error: "This URL slug is already in use" }, { status: 409 });
   }
 
   const org = await db.organization.create({
@@ -147,7 +147,7 @@ export async function PATCH(request: NextRequest) {
   // super_admin can target any org by passing `id`; others can only edit their own org
   const targetOrgId = superAdmin ? (parsed.data.id ?? sessionOrgId) : sessionOrgId;
   if (!targetOrgId) {
-    return NextResponse.json({ error: "Organisation nicht gefunden" }, { status: 404 });
+    return NextResponse.json({ error: "Organisation not found" }, { status: 404 });
   }
 
   const { settings, id: _id, ...orgData } = parsed.data;
@@ -172,7 +172,7 @@ export async function DELETE(request: NextRequest) {
   if (!isSuperAdmin(role)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const { id } = await request.json();
-  if (!id) return NextResponse.json({ error: "id erforderlich" }, { status: 400 });
+  if (!id) return NextResponse.json({ error: "Organisation ID is required" }, { status: 400 });
 
   // Unassign all members before deleting (don't delete the users themselves)
   await db.user.updateMany({

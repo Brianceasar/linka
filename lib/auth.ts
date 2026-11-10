@@ -1,7 +1,9 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { twoFactor } from "better-auth/plugins";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { db } from "./db";
+import { BRAND } from "./brand";
 
 // Internal URL for server-side fetches (DB access, session validation).
 // Never use the public HTTPS URL here — inside Docker the container can't
@@ -11,6 +13,7 @@ const internalUrl = `http://localhost:${process.env.PORT ?? 3000}`;
 // Public URL (may be https://domain.com) — used for trusted origins and
 // deciding whether to force Secure cookies.
 const publicUrl = process.env.APP_URL ?? process.env.BETTER_AUTH_URL ?? internalUrl;
+const internalMode = process.env.LINKA_INTERNAL_MODE === "true";
 
 export const auth = betterAuth({
   baseURL: internalUrl,
@@ -44,6 +47,26 @@ export const auth = betterAuth({
     process.env.APP_URL ?? "",
     process.env.NEXT_PUBLIC_APP_URL ?? "",
   ].filter(Boolean),
+  hooks: {
+    before: createAuthMiddleware(async (context) => {
+      if (!internalMode || context.path !== "/sign-up/email" || !context.request) return;
+
+      const body = await context.request.clone().json().catch(() => null) as {
+        email?: string;
+        invitationToken?: string;
+      } | null;
+      const email = body?.email?.trim().toLowerCase();
+      const token = body?.invitationToken;
+      const invitation = token ? await db.invitation.findUnique({ where: { token } }) : null;
+
+      if (!email || !invitation || invitation.acceptedAt || invitation.expiresAt < new Date()
+        || invitation.email.trim().toLowerCase() !== email) {
+        throw new APIError("FORBIDDEN", {
+          message: "An invitation is required to create an account.",
+        });
+      }
+    }),
+  },
   user: {
     additionalFields: {
       role: {
@@ -88,7 +111,7 @@ export const auth = betterAuth({
     // TOTP-based 2FA. The plugin manages /two-factor/* endpoints,
     // a `twoFactor` table and the `user.twoFactorEnabled` field.
     twoFactor({
-      issuer: process.env.APP_NAME ?? "FreddieCard",
+      issuer: process.env.APP_NAME ?? BRAND.name,
       // Force the user to verify a TOTP code before enabling 2FA —
       // protects against typos in the authenticator setup.
       skipVerificationOnEnable: false,

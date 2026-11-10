@@ -103,7 +103,7 @@ async function main() {
         title: "Head of Innovation",
         company: "CardNexus GmbH",
         department: "Product & Design",
-        bio: "Digitale Visitenkarten für die nächste Generation – teile deine Kontaktdaten mit einem Tap, Scan oder Link. Keine App nötig.",
+        bio: "Digital business cards for the next generation — share your contact details with a tap, scan, or link. No app required.",
         phone: "+49 30 1234567",
         mobile: "+49 170 9876543",
         email: demoEmail,

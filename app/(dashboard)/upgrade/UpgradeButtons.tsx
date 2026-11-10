@@ -69,7 +69,7 @@ export function UpgradeButtons({
     return (
       <div className="space-y-2">
         <Button variant="outline" className="w-full" disabled>
-          Aktueller Plan
+          Current plan
         </Button>
         {hasStripe && (
           <Button
@@ -81,13 +81,13 @@ export function UpgradeButtons({
             {loading === "portal" ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
             ) : (
-              "Abo verwalten / kündigen (Stripe)"
+              "Manage or cancel subscription (Stripe)"
             )}
           </Button>
         )}
         {hasPaypal && (
           <p className="text-xs text-muted-foreground text-center">
-            PayPal-Abo über{" "}
+            Manage your PayPal subscription through{" "}
             <a
               href="https://www.paypal.com/myaccount/autopay"
               target="_blank"
@@ -96,7 +96,7 @@ export function UpgradeButtons({
             >
               paypal.com/myaccount/autopay
             </a>{" "}
-            kündigen.
+            .
           </p>
         )}
       </div>
@@ -107,8 +107,8 @@ export function UpgradeButtons({
   if (!stripeConfigured && !paypalConfigured) {
     return (
       <Button asChild variant="outline" className="w-full">
-        <a href={`mailto:sales@cardnexus.app?subject=Upgrade zu ${planId}`}>
-          Per E-Mail anfragen
+        <a href={`mailto:?subject=LINKA plan upgrade: ${planId}`}>
+          Request by email
         </a>
       </Button>
     );

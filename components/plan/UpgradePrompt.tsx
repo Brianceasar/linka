@@ -35,7 +35,7 @@ export function UpgradePrompt({ feature, requiredPlan = "pro", compact }: Props)
       <div>
         <p className="font-semibold text-sm">{feature}</p>
         <p className="text-xs text-muted-foreground mt-1">
-          Verfügbar ab dem {PLAN_LABELS[requiredPlan]}-Plan
+          Available on the {PLAN_LABELS[requiredPlan]} plan and above
         </p>
       </div>
       <Button asChild size="sm">

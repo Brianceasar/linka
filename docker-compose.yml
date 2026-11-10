@@ -1,6 +1,10 @@
 services:
   cardnexus:
-    image: ghcr.io/brightcolor/cardnexus:main
+    # Build the checked-out source so the local stack matches this repository.
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cardnexus:local
     container_name: cardnexus
     restart: unless-stopped
     ports:
@@ -17,10 +21,15 @@ services:
     environment:
       # Required: generate with: openssl rand -base64 32
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Set BETTER_AUTH_SECRET in .env}
-      BETTER_AUTH_URL: ${APP_URL:-http://localhost:3000}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-${APP_URL:-http://localhost:3000}}
       NEXT_PUBLIC_APP_URL: ${APP_URL:-http://localhost:3000}
       APP_URL: ${APP_URL:-http://localhost:3000}
+      # Enable only for the CYREX-controlled invite-only installation.
+      LINKA_INTERNAL_MODE: ${LINKA_INTERNAL_MODE:-true}
       DATABASE_URL: file:/app/data/app.db
+      # Required for the first-run administrator bootstrap only.
+      INITIAL_ADMIN_EMAIL: ${INITIAL_ADMIN_EMAIL:?Set INITIAL_ADMIN_EMAIL in .env}
+      INITIAL_ADMIN_PASSWORD: ${INITIAL_ADMIN_PASSWORD:?Set INITIAL_ADMIN_PASSWORD in .env}
       # Stripe — leave STRIPE_SECRET_KEY empty to disable payments
       STRIPE_SECRET_KEY:             ${STRIPE_SECRET_KEY:-}
       STRIPE_WEBHOOK_SECRET:         ${STRIPE_WEBHOOK_SECRET:-}
@@ -46,4 +55,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-

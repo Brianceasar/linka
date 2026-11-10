@@ -19,12 +19,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     where: { slug },
     select: { firstName: true, lastName: true, title: true, company: true, isPublic: true, expiresAt: true, passwordHash: true },
   });
-  if (!card) return { title: "Karte nicht gefunden" };
+  if (!card) return { title: "Card not found" };
 
   // Don't leak names of expired or non-public cards in metadata.
-  if (!card.isPublic) return { title: "Karte nicht verfügbar" };
-  if (card.expiresAt && card.expiresAt < new Date()) return { title: "Karte abgelaufen" };
-  if (card.passwordHash) return { title: "Geschützte Karte" };
+  if (!card.isPublic) return { title: "Card unavailable" };
+  if (card.expiresAt && card.expiresAt < new Date()) return { title: "Card expired" };
+  if (card.passwordHash) return { title: "Protected card" };
 
   const name = `${card.firstName ?? ""} ${card.lastName ?? ""}`.trim();
   return {
@@ -70,13 +70,13 @@ export default async function PublicCardPage({ params, searchParams }: Props) {
   }
   if (!raw.isPublic) notFound();
 
-  // SECURITY: enforce expiry — abgelaufene Karten dürfen nicht mehr aufgerufen werden.
+  // SECURITY: enforce expiry — expired cards must no longer be accessible.
   if (raw.expiresAt && raw.expiresAt < new Date()) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-sm text-center space-y-2">
-          <h1 className="text-2xl font-semibold">Karte abgelaufen</h1>
-          <p className="text-muted-foreground">Diese Karte ist nicht mehr verfügbar.</p>
+          <h1 className="text-2xl font-semibold">Card expired</h1>
+          <p className="text-muted-foreground">This card is no longer available.</p>
         </div>
       </div>
     );

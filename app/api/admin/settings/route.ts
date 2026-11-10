@@ -42,7 +42,7 @@ export async function PATCH(request: NextRequest) {
   const body = await request.json();
   const parsed = schema.safeParse(body);
   if (!parsed.success) {
-    const msg = Object.values(parsed.error.flatten().fieldErrors).flat()[0] ?? "Ungültige Daten";
+    const msg = Object.values(parsed.error.flatten().fieldErrors).flat()[0] ?? "Invalid data";
     return NextResponse.json({ error: msg }, { status: 400 });
   }
 

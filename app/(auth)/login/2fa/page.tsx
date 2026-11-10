@@ -36,7 +36,7 @@ export default function TwoFactorChallengePage() {
       setError(
         mode === "totp"
           ? "Code ist falsch oder abgelaufen."
-          : "Backup-Code ist ungültig oder bereits verwendet."
+          : "The backup code is invalid or has already been used."
       );
       setLoading(false);
       return;
@@ -84,14 +84,14 @@ export default function TwoFactorChallengePage() {
               onChange={(e) => setTrustDevice(e.target.checked)}
               className="h-4 w-4 rounded border-input"
             />
-            Diesem Gerät 30 Tage vertrauen
+            Trust this device for 30 days
           </label>
 
           {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
         </CardContent>
         <CardFooter className="flex flex-col gap-3">
           <Button type="submit" className="w-full" disabled={loading || code.length === 0}>
-            {loading ? "Prüfen…" : "Bestätigen"}
+            {loading ? "Checking…" : "Confirm"}
           </Button>
           <button
             type="button"
@@ -104,10 +104,10 @@ export default function TwoFactorChallengePage() {
           >
             {mode === "totp"
               ? "Stattdessen Backup-Code verwenden"
-              : "Zurück zur Authenticator-App"}
+              : "Back to authenticator app"}
           </button>
           <p className="text-xs text-muted-foreground text-center">
-            <Link href="/login" className="hover:underline">Zurück zum Login</Link>
+            <Link href="/login" className="hover:underline">Back to sign in</Link>
           </p>
         </CardFooter>
       </form>

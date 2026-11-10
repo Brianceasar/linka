@@ -59,7 +59,7 @@ export function AccessLogClient({ entries, total, page, pageSize, cards, filters
       <div>
         <h1 className="text-2xl font-bold">Access Log</h1>
         <p className="text-muted-foreground mt-1">
-          {total.toLocaleString("de-DE")} Einträge
+          {total.toLocaleString("en")} entries
         </p>
       </div>
 
@@ -70,7 +70,7 @@ export function AccessLogClient({ entries, total, page, pageSize, cards, filters
           onChange={(e) => applyFilter("event", e.target.value)}
           className="rounded-md border border-input bg-background px-3 py-1.5 text-sm"
         >
-          <option value="">Alle Events</option>
+          <option value="">All events</option>
           {Object.entries(EVENT_LABELS).map(([k, v]) => (
             <option key={k} value={k}>{v.label}</option>
           ))}
@@ -81,7 +81,7 @@ export function AccessLogClient({ entries, total, page, pageSize, cards, filters
           onChange={(e) => applyFilter("cardSlug", e.target.value)}
           className="rounded-md border border-input bg-background px-3 py-1.5 text-sm"
         >
-          <option value="">Alle Karten</option>
+          <option value="">All cards</option>
           {cards.map((c) => (
             <option key={c.slug} value={c.slug}>{c.name ?? c.slug} ({c.slug})</option>
           ))}
@@ -92,11 +92,11 @@ export function AccessLogClient({ entries, total, page, pageSize, cards, filters
           onChange={(e) => applyFilter("days", e.target.value)}
           className="rounded-md border border-input bg-background px-3 py-1.5 text-sm"
         >
-          <option value="">Alle Zeit</option>
+          <option value="">All time</option>
           <option value="1">Letzte 24h</option>
-          <option value="7">Letzte 7 Tage</option>
-          <option value="30">Letzte 30 Tage</option>
-          <option value="90">Letzte 90 Tage</option>
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+          <option value="90">Last 90 days</option>
         </select>
       </div>
 
@@ -107,10 +107,10 @@ export function AccessLogClient({ entries, total, page, pageSize, cards, filters
             <tr className="text-left text-xs uppercase tracking-wide text-muted-foreground">
               <th className="px-4 py-3 font-medium">Zeit</th>
               <th className="px-4 py-3 font-medium">Event</th>
-              <th className="px-4 py-3 font-medium">Karte</th>
+              <th className="px-4 py-3 font-medium">Card</th>
               <th className="px-4 py-3 font-medium">IP</th>
               <th className="px-4 py-3 font-medium">Land / Stadt</th>
-              <th className="px-4 py-3 font-medium">Gerät</th>
+              <th className="px-4 py-3 font-medium">Device</th>
               <th className="px-4 py-3 font-medium">Browser / OS</th>
               <th className="px-4 py-3 font-medium">Referrer</th>
               <th className="px-4 py-3 font-medium">Quelle / UTM</th>
@@ -120,7 +120,7 @@ export function AccessLogClient({ entries, total, page, pageSize, cards, filters
             {entries.length === 0 && (
               <tr>
                 <td colSpan={9} className="px-4 py-8 text-center text-muted-foreground">
-                  Keine Einträge gefunden.
+                  No entries found.
                 </td>
               </tr>
             )}
@@ -180,7 +180,7 @@ export function AccessLogClient({ entries, total, page, pageSize, cards, filters
                 onClick={() => applyFilter("page", String(page - 1))}
                 className="px-3 py-1.5 rounded-lg border border-border hover:bg-muted transition-colors"
               >
-                ← Zurück
+                ← Back
               </button>
             )}
             {page < totalPages && (

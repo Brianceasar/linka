@@ -56,7 +56,7 @@ export async function GET() {
     sentInvitations,
   };
 
-  const filename = `cardnexus-export-${userId}-${Date.now()}.json`;
+  const filename = `linka-export-${userId}-${Date.now()}.json`;
   return new NextResponse(JSON.stringify(payload, null, 2), {
     status: 200,
     headers: {

@@ -7,22 +7,22 @@ import Link from "next/link";
 import { Check, ArrowLeft, Zap } from "lucide-react";
 import { UpgradeButtons } from "./UpgradeButtons";
 
-export const metadata = { title: "Upgrade – CardNexus" };
+export const metadata = { title: "Upgrade" };
 
 const FEATURE_LABELS: Record<string, string | ((v: number | boolean) => string)> = {
-  whiteLabel:             "White Label (kein Badge)",
-  customDomain:           "Eigene Domain",
-  allTemplates:           "Alle 12 Templates",
-  maxCards:               (v) => v === Infinity ? "Unbegrenzte Karten" : `Bis zu ${v} Karte${v === 1 ? "" : "n"}`,
+  whiteLabel:             "White label (no badge)",
+  customDomain:           "Custom domain",
+  allTemplates:           "All 12 templates",
+  maxCards:               (v) => v === Infinity ? "Unlimited cards" : `Up to ${v} card${v === 1 ? "" : "s"}`,
   pdfExport:              "PDF / Print-Export",
-  appointmentBooking:     "Terminbuchungs-Link",
-  campaigns:              "UTM-Kampagnen",
-  leadCapture:            "Lead-Capture-Formular",
-  eventInvitations:       "Event-Einladungslinks",
-  milestoneNotifications: "Meilenstein-Benachrichtigungen",
+  appointmentBooking:     "Appointment booking link",
+  campaigns:              "UTM campaigns",
+  leadCapture:            "Lead capture form",
+  eventInvitations:       "Event invitation links",
+  milestoneNotifications: "Milestone notifications",
   bulkImport:             "Bulk CSV-Import",
-  orgTemplate:            "Karten-Vorlage für Org",
-  teamDirectory:          "Team-Verzeichnis",
+  orgTemplate:            "Organisation card template",
+  teamDirectory:          "Team directory",
 };
 
 export default async function UpgradePage({
@@ -54,11 +54,11 @@ export default async function UpgradePage({
           className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          Zurück zum Dashboard
+          Back to dashboard
         </Link>
-        <h1 className="text-2xl font-bold">Plan upgraden</h1>
+        <h1 className="text-2xl font-bold">Upgrade plan</h1>
         <p className="text-muted-foreground mt-1">
-          Aktuell:{" "}
+          Current:{" "}
           <span className="font-semibold capitalize">{currentPlan}</span>
           {dbUser?.planExpiresAt && (
             <span className="text-xs ml-2 text-muted-foreground">
@@ -70,7 +70,7 @@ export default async function UpgradePage({
 
       {sp.success && (
         <div className="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-700">
-          ✓ Zahlung erfolgreich! Dein Plan wurde aktualisiert.
+          ✓ Payment successful! Your plan has been updated.
         </div>
       )}
       {sp.canceled && (
@@ -81,7 +81,7 @@ export default async function UpgradePage({
 
       {!stripeReady && !paypalReady && (
         <div className="rounded-xl bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-700">
-          Kein Zahlungsanbieter konfiguriert. Bitte Stripe- oder PayPal-Umgebungsvariablen setzen.
+          No payment provider is configured. Set Stripe or PayPal environment variables.
         </div>
       )}
 
@@ -103,13 +103,13 @@ export default async function UpgradePage({
                   <span className="font-bold text-lg">{plan.name}</span>
                   {isCurrent && (
                     <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
-                      Aktuell
+                      Current
                     </span>
                   )}
                 </div>
                 <div className="mt-2">
-                  <span className="text-3xl font-bold">{plan.monthlyPrice} €</span>
-                  <span className="text-muted-foreground text-sm">/Monat</span>
+                  <span className="text-3xl font-bold">TZS {plan.monthlyPrice}</span>
+                  <span className="text-muted-foreground text-sm">/month</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">{plan.description}</p>
               </div>
@@ -143,12 +143,12 @@ export default async function UpgradePage({
       </div>
 
       <p className="text-sm text-muted-foreground text-center">
-        Fragen?{" "}
+        Questions?{" "}
         <a
-          href="mailto:sales@cardnexus.app"
+          href="mailto:"
           className="underline hover:text-foreground transition-colors"
         >
-          sales@cardnexus.app
+          Contact your LINKA administrator
         </a>
       </p>
     </div>

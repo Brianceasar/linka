@@ -15,7 +15,7 @@ async function requireAdmin() {
 // Same schema as the regular cards PATCH route
 const urlOrPath = z.string().refine(
   (v) => !v || v.startsWith("/") || v.startsWith("http://") || v.startsWith("https://"),
-  "Ungültiger Pfad"
+  "Invalid path"
 );
 
 const updateSchema = z.object({
@@ -75,7 +75,7 @@ export async function GET(
     include: { user: { select: { id: true, name: true, email: true } } },
   });
 
-  if (!card) return NextResponse.json({ error: "Karte nicht gefunden" }, { status: 404 });
+  if (!card) return NextResponse.json({ error: "Card not found" }, { status: 404 });
 
   return NextResponse.json({
     data: { ...card, customLinks: JSON.parse(card.customLinks) },
@@ -95,7 +95,7 @@ export async function PATCH(
   const parsed = updateSchema.safeParse(body);
   if (!parsed.success) {
     const msg =
-      Object.values(parsed.error.flatten().fieldErrors).flat()[0] ?? "Ungültige Daten";
+      Object.values(parsed.error.flatten().fieldErrors).flat()[0] ?? "Invalid data";
     return NextResponse.json({ error: msg }, { status: 400 });
   }
 
@@ -112,6 +112,6 @@ export async function PATCH(
       data: { ...card, customLinks: JSON.parse(card.customLinks) },
     });
   } catch {
-    return NextResponse.json({ error: "Karte nicht gefunden" }, { status: 404 });
+    return NextResponse.json({ error: "Card not found" }, { status: 404 });
   }
 }

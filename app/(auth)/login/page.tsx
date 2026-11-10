@@ -24,7 +24,7 @@ export default function LoginPage() {
     const result = await signIn.email({ email, password });
 
     if (result.error) {
-      setError("E-Mail oder Passwort falsch.");
+      setError("Incorrect email address or password.");
       setLoading(false);
       return;
     }
@@ -41,13 +41,13 @@ export default function LoginPage() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Willkommen zurück</CardTitle>
-        <CardDescription>Melde dich mit deinem Account an.</CardDescription>
+        <CardTitle>Welcome back</CardTitle>
+        <CardDescription>Sign in to your LINKA account.</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="email">E-Mail</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
@@ -59,7 +59,7 @@ export default function LoginPage() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="password">Passwort</Label>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
@@ -73,18 +73,18 @@ export default function LoginPage() {
         </CardContent>
         <CardFooter className="flex flex-col gap-3">
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Anmelden…" : "Anmelden"}
+            {loading ? "Signing in…" : "Sign in"}
           </Button>
           <Link
             href="/forgot-password"
             className="text-xs text-muted-foreground hover:text-foreground hover:underline text-center"
           >
-            Passwort vergessen?
+            Forgot password?
           </Link>
           <p className="text-sm text-muted-foreground text-center">
-            Noch kein Account?{" "}
+            New to LINKA?{" "}
             <Link href="/register" className="text-foreground font-medium hover:underline">
-              Registrieren
+              Create an account
             </Link>
           </p>
         </CardFooter>

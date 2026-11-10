@@ -20,15 +20,15 @@ const sections: NavSection[] = [
     label: "Workspace",
     items: [
       { href: "/dashboard", label: "Dashboard",   icon: LayoutDashboard },
-      { href: "/card",      label: "Meine Karte", icon: CreditCard },
-      { href: "/card/signature", label: "Signatur", icon: Mail, indented: true },
+      { href: "/card",      label: "My card", icon: CreditCard },
+      { href: "/card/signature", label: "Signature", icon: Mail, indented: true },
     ],
   },
   {
-    label: "Wachstum",
+    label: "Growth",
     items: [
       { href: "/leads",     label: "Leads",       icon: UserCheck },
-      { href: "/campaigns", label: "Kampagnen",   icon: Megaphone },
+      { href: "/campaigns", label: "Campaigns",   icon: Megaphone },
       { href: "/analytics", label: "Analytics",   icon: BarChart2 },
     ],
   },
@@ -38,7 +38,7 @@ const sections: NavSection[] = [
       { href: "/team",      label: "Team",          icon: Users },
       { href: "/nfc",       label: "NFC",           icon: Nfc },
       { href: "/widget",    label: "Widget",        icon: Code2 },
-      { href: "/settings",  label: "Einstellungen", icon: Settings },
+      { href: "/settings",  label: "Settings", icon: Settings },
     ],
   },
 ];
@@ -53,7 +53,7 @@ interface SidebarProps {
 }
 
 export function SidebarNav({
-  userRole, orgName, appName = "CardNexus", logoUrl, onNavigate, className,
+  userRole, orgName, appName = "LINKA", logoUrl, onNavigate, className,
 }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -92,7 +92,7 @@ export function SidebarNav({
       )}
 
       {/* Navigation */}
-      <nav aria-label="Hauptnavigation" className="flex-1 space-y-4 p-3 overflow-y-auto">
+      <nav aria-label="Main navigation" className="flex-1 space-y-4 p-3 overflow-y-auto">
         {sections.map((section) => (
           <div key={section.label}>
             <p className="px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-1">
@@ -162,7 +162,7 @@ export function SidebarNav({
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
         >
           <LogOut className="h-4 w-4 shrink-0" />
-          Abmelden
+          Sign out
         </button>
       </div>
     </aside>

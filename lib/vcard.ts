@@ -35,7 +35,7 @@ function mapGender(g: string): string {
 export function generateVCard(card: CardData): string {
   const first = card.firstName ?? "";
   const last  = card.lastName  ?? "";
-  const fullName = `${first} ${last}`.trim() || card.email || "Kontakt";
+  const fullName = `${first} ${last}`.trim() || card.email || "Contact";
 
   const add = (line: string) => lines.push(fold(line));
 

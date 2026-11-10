@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
     });
 
     const csv = buildCsv(
-      ["Datum", "Name", "E-Mail", "Telefon", "Nachricht", "Karte", "Mitglied"],
+      ["Date", "Name", "Email", "Phone", "Message", "Card", "Member"],
       leads.map((l) => {
         const card = cardMap.get(l.cardId);
         const memberName = card ? (userNameMap.get(card.userId) ?? "") : "";

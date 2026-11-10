@@ -4,14 +4,15 @@ import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Users, Building2, LayoutDashboard, Settings2, CreditCard, Activity } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const adminNav = [
-  { href: "/admin", label: "Übersicht", icon: LayoutDashboard },
-  { href: "/admin/users", label: "Benutzer", icon: Users },
-  { href: "/admin/cards", label: "Karten", icon: CreditCard },
+  { href: "/admin", label: "Overview", icon: LayoutDashboard },
+  { href: "/admin/users", label: "Users", icon: Users },
+  { href: "/admin/cards", label: "Cards", icon: CreditCard },
   { href: "/admin/access-log", label: "Access Log", icon: Activity },
-  { href: "/admin/organizations", label: "Organisationen", icon: Building2 },
-  { href: "/admin/settings", label: "Einstellungen", icon: Settings2 },
+  { href: "/admin/organizations", label: "Organisations", icon: Building2 },
+  { href: "/admin/settings", label: "Settings", icon: Settings2 },
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -25,10 +26,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="sticky top-0 z-40 border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-6">
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded bg-gray-900">
-              <span className="text-[10px] font-bold text-white">CN</span>
-            </div>
-            <span className="text-sm font-semibold">Super Admin</span>
+            <BrandLogo compact />
+            <span className="text-sm font-semibold">LINKA administration</span>
           </div>
           <nav className="flex items-center gap-1 flex-1">
             {adminNav.map(({ href, label, icon: Icon }) => (
@@ -55,7 +54,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <span className="text-[10px] text-muted-foreground/40 select-none tabular-nums">
           v{process.env.NEXT_PUBLIC_APP_VERSION}
           {process.env.NEXT_PUBLIC_BUILD_TIME && (
-            <> · {new Date(process.env.NEXT_PUBLIC_BUILD_TIME).toLocaleString("de-DE", { dateStyle: "short", timeStyle: "short" })}</>
+            <> · {new Date(process.env.NEXT_PUBLIC_BUILD_TIME).toLocaleString("en", { dateStyle: "short", timeStyle: "short" })}</>
           )}
         </span>
       </footer>

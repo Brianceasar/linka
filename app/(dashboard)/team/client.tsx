@@ -157,14 +157,14 @@ export function TeamClientPage({
         <div>
           <h1 className="text-2xl font-bold">Team</h1>
           <p className="text-muted-foreground mt-1">
-            {orgName ? `${orgName} · ` : ""}{memberCount} Mitglieder
+            {orgName ? `${orgName} · ` : ""}{memberCount} members
           </p>
         </div>
         <div className="flex items-center gap-2">
           {canImport && canManage && (
             <Link href="/team/import" className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground transition-colors">
               <Upload className="h-3.5 w-3.5" />
-              CSV importieren
+              Import CSV
             </Link>
           )}
           {canManage && <InviteModal onInvited={() => router.refresh()} />}
@@ -179,11 +179,11 @@ export function TeamClientPage({
               <Globe className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="font-semibold text-sm">Öffentliches Team-Verzeichnis</p>
+              <p className="font-semibold text-sm">Public team directory</p>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {dirEnabled
-                  ? "Aktiv — alle Mitglieder mit öffentlicher Karte sind sichtbar"
-                  : "Deaktiviert — das Verzeichnis ist nicht öffentlich erreichbar"}
+                  ? "Enabled — members with public cards are visible"
+                  : "Disabled — the directory is not publicly accessible"}
               </p>
             </div>
           </div>
@@ -197,7 +197,7 @@ export function TeamClientPage({
                 className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
-                Ansehen
+                View
               </a>
             )}
             {canManage && (
@@ -210,7 +210,7 @@ export function TeamClientPage({
                 {dirEnabled
                   ? <ToggleRight className="h-6 w-6" />
                   : <ToggleLeft className="h-6 w-6" />}
-                {dirEnabled ? "Aktiv" : "Inaktiv"}
+                {dirEnabled ? "Active" : "Inactive"}
               </button>
             )}
           </div>
@@ -221,7 +221,7 @@ export function TeamClientPage({
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Suchen…"
+          placeholder="Search…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pl-9"
@@ -239,10 +239,10 @@ export function TeamClientPage({
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/40">
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Mitglied</th>
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Rolle</th>
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Karte</th>
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Im Verzeichnis</th>
+                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Member</th>
+                <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Role</th>
+                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Card</th>
+                <th className="text-left px-4 py-3 font-medium text-muted-foreground">In directory</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
@@ -266,7 +266,7 @@ export function TeamClientPage({
                         {u.card.slug}
                       </a>
                     ) : (
-                      <span className="text-xs text-muted-foreground/50">Keine Karte</span>
+                      <span className="text-xs text-muted-foreground/50">No card</span>
                     )}
                   </td>
                   <td className="px-4 py-3">
@@ -276,11 +276,11 @@ export function TeamClientPage({
                         disabled={togglingMember === u.id}
                         className="flex items-center gap-1.5 text-xs transition-colors hover:opacity-70"
                         style={{ color: u.card.showInTeamDirectory ? "var(--primary)" : "var(--muted-foreground)" }}
-                        title={u.card.showInTeamDirectory ? "Aus Verzeichnis entfernen" : "Im Verzeichnis anzeigen"}
+                        title={u.card.showInTeamDirectory ? "Remove from directory" : "Show in directory"}
                       >
                         {u.card.showInTeamDirectory
-                          ? <><Eye className="h-4 w-4" /> Sichtbar</>
-                          : <><EyeOff className="h-4 w-4" /> Versteckt</>}
+                          ? <><Eye className="h-4 w-4" /> Visible</>
+                          : <><EyeOff className="h-4 w-4" /> Hidden</>}
                       </button>
                     ) : (
                       <span className="text-xs text-muted-foreground/40">—</span>
@@ -319,7 +319,7 @@ export function TeamClientPage({
         <div>
           <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
             <Clock className="h-5 w-5 text-amber-500" />
-            Karten zur Freigabe
+            Cards awaiting approval
             <span className="ml-1 text-sm font-normal text-muted-foreground">({pendingCards.length})</span>
           </h2>
           <div className="rounded-xl border border-amber-200 bg-amber-50/50 overflow-hidden divide-y divide-amber-100">
@@ -340,7 +340,7 @@ export function TeamClientPage({
                       onClick={() => approveCard(c.slug, "approved")}
                     >
                       <CheckCircle className="h-4 w-4" />
-                      Freigeben
+                      Approve
                     </Button>
                     <Button
                       size="sm" variant="outline"
@@ -349,14 +349,14 @@ export function TeamClientPage({
                       onClick={() => approveCard(c.slug, "rejected")}
                     >
                       <XCircle className="h-4 w-4" />
-                      Ablehnen
+                      Reject
                     </Button>
                   </div>
                 </div>
                 <div className="mt-2">
                   <input
                     type="text"
-                    placeholder="Ablehnungsgrund (optional)"
+                    placeholder="Reason for rejection (optional)"
                     value={rejectNote[c.slug] ?? ""}
                     onChange={(e) => setRejectNote((prev) => ({ ...prev, [c.slug]: e.target.value }))}
                     className="w-full text-sm rounded-lg border border-border px-3 py-1.5 bg-background focus:outline-none focus:ring-1 focus:ring-ring"
@@ -371,15 +371,15 @@ export function TeamClientPage({
       {/* Pending invitations */}
       {canManage && invitations.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold mb-3">Offene Einladungen</h2>
+          <h2 className="text-lg font-semibold mb-3">Pending invitations</h2>
           <div className="rounded-xl border border-border overflow-hidden">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted/40">
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">E-Mail</th>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">Rolle</th>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Eingeladen</th>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Läuft ab</th>
+                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">Email</th>
+                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">Role</th>
+                  <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Invited</th>
+                  <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Expires</th>
                   <th className="px-4 py-3" />
                 </tr>
               </thead>

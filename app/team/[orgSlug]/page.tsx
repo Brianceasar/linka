@@ -11,8 +11,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { orgSlug } = await params;
   const org = await db.organization.findUnique({ where: { slug: orgSlug }, select: { name: true } });
-  if (!org) return { title: "Team nicht gefunden" };
-  return { title: `Team – ${org.name}`, description: `Digitale Visitenkarten des Teams ${org.name}` };
+  if (!org) return { title: "Team not found" };
+  return { title: `Team – ${org.name}`, description: `Digital Business Cards for ${org.name}` };
 }
 
 export default async function PublicTeamPage({ params }: Props) {
@@ -72,7 +72,7 @@ export default async function PublicTeamPage({ params }: Props) {
           )}
           <h1 className="text-3xl font-bold">{org.name}</h1>
           <p className="text-white/70 mt-2">
-            {members.length} {members.length === 1 ? "Mitglied" : "Mitglieder"}
+            {members.length} {members.length === 1 ? "member" : "members"}
           </p>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default async function PublicTeamPage({ params }: Props) {
       <div className="max-w-5xl mx-auto px-6 py-10">
         {members.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
-            <p className="text-lg font-medium">Keine öffentlichen Karten vorhanden.</p>
+            <p className="text-lg font-medium">No public cards are available.</p>
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -96,7 +96,7 @@ export default async function PublicTeamPage({ params }: Props) {
       <div className="text-center pb-8">
         <p className="text-xs text-gray-400">
           Erstellt mit{" "}
-          <a href="/" className="hover:text-gray-600 transition-colors font-medium">CardNexus</a>
+          <a href="/" className="hover:text-gray-600 transition-colors font-medium">LINKA by CYREX Technologies</a>
         </p>
       </div>
     </div>
@@ -185,7 +185,7 @@ function MemberCard({
 
       <div className="px-5 py-3 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
         <span className="text-xs font-medium text-primary group-hover:underline">
-          Karte ansehen →
+          View card →
         </span>
       </div>
     </Link>

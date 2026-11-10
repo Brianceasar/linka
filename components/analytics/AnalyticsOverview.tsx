@@ -73,7 +73,7 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
   if (!data) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
-        <p className="text-muted-foreground">Noch keine Karte erstellt.</p>
+        <p className="text-muted-foreground">No card has been created yet.</p>
       </div>
     );
   }
@@ -91,7 +91,7 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
                 days === d ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
               }`}
             >
-              {d === 365 ? "1 Jahr" : `${d} Tage`}
+              {d === 365 ? "1 year" : `${d} days`}
             </button>
           ))}
         </div>
@@ -100,7 +100,7 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
             value={cardId}
             onChange={(e) => setCardId(e.target.value)}
             className="rounded-md border border-input bg-background px-3 py-1.5 text-sm"
-            aria-label="Karte auswählen"
+            aria-label="Select card"
           >
             {cards.map((c) => (
               <option key={c.id} value={c.id}>{c.name}</option>
@@ -111,7 +111,7 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatCard label="Aufrufe gesamt" value={data.totalViews} icon={Eye} />
+        <StatCard label="Total views" value={data.totalViews} icon={Eye} />
         <StatCard label="vCard Downloads" value={data.vcardDownloads} icon={Download} />
         <StatCard label="QR-Scans" value={data.qrScans} icon={QrCode} />
         <StatCard label="Link-Klicks" value={data.linkClicks} icon={MousePointer} />
@@ -121,7 +121,7 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
       {/* Views chart */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Aufrufe ({days === 365 ? "1 Jahr" : `${days} Tage`})</CardTitle>
+          <CardTitle className="text-base">Views ({days === 365 ? "1 year" : `${days} days`})</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={220}>
@@ -163,11 +163,11 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
       <div className="grid md:grid-cols-2 gap-4">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Geräte</CardTitle>
+            <CardTitle className="text-base">Devices</CardTitle>
           </CardHeader>
           <CardContent>
             {data.deviceSplit.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Noch keine Daten</p>
+              <p className="text-sm text-muted-foreground">No data yet</p>
             ) : (
               <div className="flex items-center gap-6">
                 <PieChart width={120} height={120}>
@@ -193,11 +193,11 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Quellen</CardTitle>
+            <CardTitle className="text-base">Sources</CardTitle>
           </CardHeader>
           <CardContent>
             {data.topSources.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Noch keine Daten</p>
+              <p className="text-sm text-muted-foreground">No data yet</p>
             ) : (
               <div className="space-y-3">
                 {data.topSources.map((s, i) => (
@@ -263,12 +263,12 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
           <div className="flex items-start gap-3">
             <Megaphone className="h-5 w-5 text-muted-foreground mt-0.5" />
             <div>
-              <CardTitle className="text-base">UTM-Kampagnen</CardTitle>
+              <CardTitle className="text-base">UTM campaigns</CardTitle>
               <CardDescription>
-                Aufrufe gruppiert nach <code className="text-xs">utm_campaign</code>,
+                Views grouped by <code className="text-xs">utm_campaign</code>,
                 <code className="text-xs ml-1">utm_source</code> und
                 <code className="text-xs ml-1">utm_medium</code>. Jeder Link mit
-                UTM-Parametern erscheint hier — auch ohne eigenen Kampagnen-Eintrag.
+                UTM parameters appear here, even without a dedicated campaign entry.
               </CardDescription>
             </div>
           </div>
@@ -276,7 +276,7 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
         <CardContent>
           {data.utmCampaigns.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Noch keine UTM-getaggten Aufrufe in diesem Zeitraum.
+              No UTM-tagged views in this period.
             </p>
           ) : (
             <div className="overflow-x-auto">
@@ -286,7 +286,7 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
                     <th className="pb-2 font-medium">Kampagne</th>
                     <th className="pb-2 font-medium">Quelle</th>
                     <th className="pb-2 font-medium">Medium</th>
-                    <th className="pb-2 font-medium text-right">Aufrufe</th>
+                    <th className="pb-2 font-medium text-right">Views</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -312,7 +312,7 @@ export function AnalyticsOverview({ cards = [], initialCardId }: Props) {
             <div className="flex items-start gap-3">
               <LinkIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
               <div>
-                <CardTitle className="text-base">Benutzerdefinierte Kampagnen</CardTitle>
+                <CardTitle className="text-base">Custom campaigns</CardTitle>
                 <CardDescription>
                   Friendly-URLs unter <code className="text-xs">/p/&lt;slug&gt;</code>, hier mit
                   Klicks aus dem Redirect-Counter.

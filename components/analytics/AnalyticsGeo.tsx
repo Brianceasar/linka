@@ -18,7 +18,7 @@ function BarList({ items, labelKey, countKey }: {
   countKey: string;
 }) {
   const max = (items[0]?.[countKey] as number) ?? 1;
-  if (items.length === 0) return <p className="text-sm text-muted-foreground">Noch keine Daten</p>;
+  if (items.length === 0) return <p className="text-sm text-muted-foreground">No data yet</p>;
   return (
     <div className="space-y-2.5">
       {items.map((item, i) => (
@@ -68,7 +68,7 @@ export function AnalyticsGeo({ topCountries, topCities, topReferrers, topLanguag
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
                   <Globe className="h-4 w-4 text-muted-foreground" />
-                  Länder
+                  Countries
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -81,7 +81,7 @@ export function AnalyticsGeo({ topCountries, topCities, topReferrers, topLanguag
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-muted-foreground" />
-                  Städte
+                  Cities
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -113,7 +113,7 @@ export function AnalyticsGeo({ topCountries, topCities, topReferrers, topLanguag
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
                   <Languages className="h-4 w-4 text-muted-foreground" />
-                  Sprachen
+                  Languages
                 </CardTitle>
               </CardHeader>
               <CardContent>

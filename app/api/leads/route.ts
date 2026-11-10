@@ -29,18 +29,18 @@ export async function POST(req: NextRequest) {
     });
 
     if (!card || !card.isPublic) {
-      return NextResponse.json({ error: "Karte nicht gefunden" }, { status: 404 });
+      return NextResponse.json({ error: "Card not found" }, { status: 404 });
     }
 
     const ownerPlan = effectivePlan(card.user.plan ?? "free", card.user.planExpiresAt);
     if (!canUseFeature("leadCapture", ownerPlan)) {
-      return NextResponse.json({ error: "Nicht verfügbar" }, { status: 403 });
+      return NextResponse.json({ error: "Unavailable" }, { status: 403 });
     }
 
     const ip = clientIp(req);
     if (!rateLimit({ key: `lead:${ip}:${data.cardId}`, max: 3, windowMs: 60 * 60_000 })) {
       return NextResponse.json(
-        { error: "Zu viele Anfragen — bitte später erneut versuchen." },
+        { error: "Too many requests — please try again later." },
         { status: 429 }
       );
     }
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, id: lead.id });
   } catch (err) {
     if (err instanceof z.ZodError) {
-      return NextResponse.json({ error: "Ungültige Eingabe", details: err.flatten() }, { status: 400 });
+      return NextResponse.json({ error: "Invalid input", details: err.flatten() }, { status: 400 });
     }
     console.error("[leads POST]", err);
     return NextResponse.json({ error: "Serverfehler" }, { status: 500 });

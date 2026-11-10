@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { OrgAdminClient } from "./client";
 
-export const metadata = { title: "Organisationen" };
+export const metadata = { title: "Organisations" };
 
 export default async function AdminOrgsPage() {
   const orgs = await db.organization.findMany({

@@ -105,17 +105,17 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
         body: JSON.stringify(payload),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(typeof json.error === "string" ? json.error : "Fehler beim Speichern");
+      if (!res.ok) throw new Error(typeof json.error === "string" ? json.error : "Unable to save card");
       // On new card creation, navigate to the card page with the new card selected
       if (isNew && json.id) {
         router.push(`/card?card=${json.id}`);
       }
       setSuccess(true);
-      toast.success("Karte gespeichert");
+      toast.success("Card saved");
       setTimeout(() => setSuccess(false), 3000);
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Unbekannter Fehler");
+      setError(e instanceof Error ? e.message : "An unexpected error occurred");
     } finally {
       setSaving(false);
     }
@@ -126,9 +126,9 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
       <div className="flex-1 min-w-0">
         <Tabs defaultValue="profile">
           <TabsList className="mb-6 flex-wrap h-auto gap-1">
-            <TabsTrigger value="profile">Profil</TabsTrigger>
-            <TabsTrigger value="media">Bilder</TabsTrigger>
-            <TabsTrigger value="contact">Kontakt</TabsTrigger>
+            <TabsTrigger value="profile">Profile</TabsTrigger>
+            <TabsTrigger value="media">Media</TabsTrigger>
+            <TabsTrigger value="contact">Contact</TabsTrigger>
             <TabsTrigger value="social">Social</TabsTrigger>
             <TabsTrigger value="design">Design</TabsTrigger>
             <TabsTrigger value="links">Links</TabsTrigger>
@@ -138,64 +138,64 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
           <TabsContent value="profile" className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label>Vorname</Label>
+                <Label>First name</Label>
                 <Input value={card.firstName ?? ""} onChange={(e) => update("firstName", e.target.value || null)} placeholder="Max" />
               </div>
               <div className="space-y-1.5">
-                <Label>Nachname</Label>
+                <Label>Last name</Label>
                 <Input value={card.lastName ?? ""} onChange={(e) => update("lastName", e.target.value || null)} placeholder="Mustermann" />
               </div>
             </div>
             <div className="space-y-1.5">
-              <Label>Berufsbezeichnung</Label>
+              <Label>Job title</Label>
               <Input value={card.title ?? ""} onChange={(e) => update("title", e.target.value || null)} placeholder="Senior Developer" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label>Unternehmen</Label>
+                <Label>Company</Label>
                 <Input value={card.company ?? ""} onChange={(e) => update("company", e.target.value || null)} placeholder="ACME GmbH" />
               </div>
               <div className="space-y-1.5">
-                <Label>Abteilung</Label>
+                <Label>Department</Label>
                 <Input value={card.department ?? ""} onChange={(e) => update("department", e.target.value || null)} placeholder="Engineering" />
               </div>
             </div>
             <div className="space-y-1.5">
-              <Label>Kurzbeschreibung</Label>
+              <Label>Short bio</Label>
               <Textarea value={card.bio ?? ""} onChange={(e) => update("bio", e.target.value || null)}
-                placeholder="Kurze Beschreibung über dich…" maxLength={500} />
+                placeholder="A short description about you…" maxLength={500} />
               <p className="text-xs text-muted-foreground text-right">{(card.bio ?? "").length}/500</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label>Pronomen</Label>
+                <Label>Pronouns</Label>
                 <Input value={card.pronouns ?? ""} onChange={(e) => update("pronouns", e.target.value || null)} placeholder="er/ihm, she/her…" />
               </div>
               <div className="space-y-1.5">
-                <Label>Geschlecht <span className="text-xs font-normal text-muted-foreground">(vCard)</span></Label>
+                <Label>Gender <span className="text-xs font-normal text-muted-foreground">(vCard)</span></Label>
                 <select
                   value={card.gender ?? ""}
                   onChange={(e) => update("gender", e.target.value || null)}
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 >
-                  <option value="">— keine Angabe —</option>
-                  <option value="m">Männlich</option>
-                  <option value="w">Weiblich</option>
-                  <option value="divers">Divers</option>
-                  <option value="n">Keine Angabe</option>
+                  <option value="">— not specified —</option>
+                  <option value="m">Male</option>
+                  <option value="w">Female</option>
+                  <option value="divers">Other</option>
+                  <option value="n">Prefer not to say</option>
                 </select>
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <Label>Geburtstag</Label>
+              <Label>Date of birth</Label>
               <Input value={card.birthday ?? ""} onChange={(e) => update("birthday", e.target.value || null)} type="date" />
             </div>
 
             {!isNew && card.slug && (
               <div className="space-y-1.5 pt-2 border-t border-border">
-                <Label htmlFor="slug-field">Karten-URL (Slug)</Label>
+                <Label htmlFor="slug-field">Card URL (slug)</Label>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-muted-foreground shrink-0">/c/</span>
                   <Input
@@ -207,7 +207,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
                   />
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Der alte Link wird automatisch weitergeleitet. Speichere die Karte um die Änderung zu übernehmen.
+                  The old link will redirect automatically. Save the card to apply this change.
                 </p>
               </div>
             )}
@@ -222,7 +222,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
             </div>
             <div className="space-y-2">
               <Label>Cover-Bild</Label>
-              <p className="text-xs text-muted-foreground">Hintergrundbild für das Modern-Template. Empfohlen: 800×300 px.</p>
+              <p className="text-xs text-muted-foreground">Background image for the Modern template. Recommended: 800×300 px.</p>
               <ImageUpload value={card.coverUrl} onChange={(url) => update("coverUrl", url)} label="Cover hochladen" shape="wide" className="h-28" />
             </div>
           </TabsContent>
@@ -231,7 +231,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
           <TabsContent value="contact" className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label>Telefon (Büro)</Label>
+                <Label>Office phone</Label>
                 <Input value={card.phone ?? ""} onChange={(e) => update("phone", e.target.value || null)} placeholder="+49 89 1234567" type="tel" />
               </div>
               <div className="space-y-1.5">
@@ -244,7 +244,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
               <Input value={card.fax ?? ""} onChange={(e) => update("fax", e.target.value || null)} placeholder="+49 89 1234568" type="tel" />
             </div>
             <div className="space-y-1.5">
-              <Label>E-Mail</Label>
+              <Label>Email</Label>
               <Input value={card.email ?? ""} onChange={(e) => update("email", e.target.value || null)} placeholder="max@example.com" type="email" />
             </div>
             <div className="space-y-1.5">
@@ -253,12 +253,12 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
             </div>
             <div className="space-y-1.5">
               <Label>Adresse</Label>
-              <Input value={card.address ?? ""} onChange={(e) => update("address", e.target.value || null)} placeholder="Musterstraße 1, 80331 München" />
+              <Input value={card.address ?? ""} onChange={(e) => update("address", e.target.value || null)} placeholder="1 Example Street, London" />
             </div>
             <div className="space-y-1.5">
-              <Label>Terminbuchungs-Link <span className="text-xs font-normal text-muted-foreground">(Pro)</span></Label>
+              <Label>Appointment booking link <span className="text-xs font-normal text-muted-foreground">(Pro)</span></Label>
               <Input value={card.bookingUrl ?? ""} onChange={(e) => update("bookingUrl", e.target.value || null)} placeholder="https://calendly.com/..." type="url" />
-              <p className="text-xs text-muted-foreground">Wird als Button auf deiner Karte angezeigt.</p>
+              <p className="text-xs text-muted-foreground">Shown as a button on your card.</p>
             </div>
           </TabsContent>
 
@@ -284,8 +284,8 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
           {/* Custom Links — reorderable via drag handle */}
           <TabsContent value="links" className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Eigene Links werden als Buttons auf der Karte angezeigt (max. 5).
-              Ziehe am Griff <GripVertical className="inline h-3.5 w-3.5 align-text-bottom" />, um die Reihenfolge zu ändern.
+              Custom links are shown as buttons on the card (maximum 5).
+              Drag the handle <GripVertical className="inline h-3.5 w-3.5 align-text-bottom" /> to change the order.
             </p>
             <ul className="space-y-2">
               {(card.customLinks ?? []).map((link, i) => (
@@ -355,7 +355,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
             </ul>
             {(card.customLinks ?? []).length < 5 && (
               <Button type="button" variant="outline" size="sm" onClick={addLink}>
-                <Plus className="h-4 w-4" /> Link hinzufügen
+                <Plus className="h-4 w-4" /> Add link
               </Button>
             )}
           </TabsContent>
@@ -365,22 +365,22 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
           <p className="mt-4 rounded-lg bg-destructive/10 px-3 py-2 text-sm text-destructive border border-destructive/20">{error}</p>
         )}
         {success && (
-          <p className="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700 border border-emerald-200">Gespeichert ✓</p>
+          <p className="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700 border border-emerald-200">Saved ✓</p>
         )}
 
         <div className="flex items-center gap-3 mt-6 pt-6 border-t border-border">
           <Button type="button" onClick={save} disabled={saving}>
             <Save className="h-4 w-4" />
-            {saving ? "Wird gespeichert…" : "Speichern"}
+            {saving ? "Saving…" : "Save"}
           </Button>
           <Button type="button" variant="outline" onClick={() => setShowPreview(!showPreview)} className="lg:hidden">
-            <Eye className="h-4 w-4" /> Vorschau
+            <Eye className="h-4 w-4" /> Preview
           </Button>
         </div>
       </div>
 
       <div className={`lg:w-80 lg:sticky lg:top-4 lg:self-start ${showPreview ? "" : "hidden lg:block"}`}>
-        <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-4">Live-Vorschau</p>
+        <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-4">Live preview</p>
         <CardPreview card={card} scale={0.85} />
       </div>
     </div>

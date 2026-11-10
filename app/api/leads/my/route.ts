@@ -36,7 +36,7 @@ export async function DELETE(req: Request) {
     select: { id: true },
   });
 
-  if (!card) return NextResponse.json({ error: "Keine Karte" }, { status: 400 });
+  if (!card) return NextResponse.json({ error: "No card found" }, { status: 400 });
 
   // Verify lead belongs to this user's card before deleting
   const lead = await db.lead.findUnique({ where: { id }, select: { cardId: true } });

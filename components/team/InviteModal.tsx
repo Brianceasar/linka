@@ -31,11 +31,11 @@ export function InviteModal({ onInvited }: InviteModalProps) {
         body: JSON.stringify({ email, role }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Fehler");
+      if (!res.ok) throw new Error(json.error ?? "Error");
       setInviteUrl(json.inviteUrl);
       onInvited?.();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : "Error");
     } finally {
       setLoading(false);
     }
@@ -60,18 +60,18 @@ export function InviteModal({ onInvited }: InviteModalProps) {
       <DialogTrigger asChild>
         <Button>
           <UserPlus className="h-4 w-4" />
-          Einladen
+          Invite
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Benutzer einladen</DialogTitle>
+          <DialogTitle>Invite user</DialogTitle>
         </DialogHeader>
 
         {!inviteUrl ? (
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <Label>E-Mail-Adresse</Label>
+              <Label>Email address</Label>
               <Input
                 type="email"
                 placeholder="max@example.com"
@@ -81,27 +81,27 @@ export function InviteModal({ onInvited }: InviteModalProps) {
               />
             </div>
             <div className="space-y-1.5">
-              <Label>Rolle</Label>
+              <Label>Role</Label>
               <Select value={role} onValueChange={setRole}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="team_leader">Team Leader</SelectItem>
-                  <SelectItem value="member">Mitglied</SelectItem>
+                  <SelectItem value="member">Member</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
             <Button onClick={handleInvite} disabled={!email || loading} className="w-full">
-              {loading ? "Wird eingeladen…" : "Einladung erstellen"}
+              {loading ? "Inviting…" : "Create invitation"}
             </Button>
           </div>
         ) : (
           <div className="space-y-4">
             <div className="rounded-lg bg-muted p-4 text-center">
-              <p className="text-sm font-medium text-foreground mb-1">Einladung erstellt!</p>
-              <p className="text-xs text-muted-foreground">Link an {email} senden (gültig 7 Tage)</p>
+              <p className="text-sm font-medium text-foreground mb-1">Invitation created!</p>
+              <p className="text-xs text-muted-foreground">Send the link to {email} (valid for 7 days)</p>
             </div>
             <div className="flex gap-2">
               <Input value={inviteUrl} readOnly className="font-mono text-xs" />
@@ -110,7 +110,7 @@ export function InviteModal({ onInvited }: InviteModalProps) {
               </Button>
             </div>
             <Button variant="outline" onClick={reset} className="w-full">
-              Weitere einladen
+              Invite another user
             </Button>
           </div>
         )}

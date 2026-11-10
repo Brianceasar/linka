@@ -9,7 +9,7 @@ const BROWSER_COLORS = ["#6366F1", "#8B5CF6", "#EC4899", "#F43F5E", "#F59E0B", "
 const OS_COLORS     = ["#0F172A", "#64748B", "#94A3B8", "#CBD5E1", "#E2E8F0", "#10B981", "#6366F1"];
 
 function PieLegend({ items, colors }: { items: { label: string; count: number }[]; colors: string[] }) {
-  if (items.length === 0) return <p className="text-sm text-muted-foreground">Noch keine Daten</p>;
+  if (items.length === 0) return <p className="text-sm text-muted-foreground">No data yet</p>;
   const pieData = items.map((i) => ({ name: i.label, value: i.count }));
   return (
     <div className="flex items-center gap-6">
@@ -58,7 +58,7 @@ export function AnalyticsTech({ browserSplit, osSplit }: Props) {
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Cpu className="h-4 w-4 text-muted-foreground" />
-            Betriebssystem
+            Operating system
           </CardTitle>
         </CardHeader>
         <CardContent>

@@ -248,7 +248,7 @@ model Card {
   cardDomain  String?
 
   // Card management
-  name          String   @default("Meine Karte")
+  name          String   @default("My card")
   isDefault     Boolean  @default(true)
   expiresAt     DateTime?
   passwordHash  String?

@@ -90,7 +90,7 @@ export async function generateAppleWalletPass(data: WalletCardData): Promise<Buf
         ...(data.phone ? [{ key: "phone", label: "TEL",    value: data.phone }] : []),
       ],
       backFields: [
-        { key: "url", label: "Digitale Karte", value: data.cardUrl },
+        { key: "url", label: "Digital card", value: data.cardUrl },
       ],
     },
   };
@@ -144,15 +144,15 @@ export async function generateGoogleWalletPassUrl(data: WalletCardData): Promise
     id: objectId,
     classId,
     genericType: "GENERIC_TYPE_UNSPECIFIED",
-    cardTitle:   { defaultValue: { language: "de", value: data.company ?? "CardNexus" } },
+    cardTitle:   { defaultValue: { language: "en", value: data.company ?? "LINKA" } },
     subheader:   { defaultValue: { language: "de", value: data.title ?? "" } },
     header:      { defaultValue: { language: "de", value: `${data.firstName} ${data.lastName}` } },
     textModulesData: [
-      ...(data.email ? [{ header: "E-Mail", body: data.email, id: "email" }] : []),
-      ...(data.phone ? [{ header: "Telefon", body: data.phone, id: "phone" }] : []),
+      ...(data.email ? [{ header: "Email", body: data.email, id: "email" }] : []),
+      ...(data.phone ? [{ header: "Phone", body: data.phone, id: "phone" }] : []),
     ],
     linksModuleData: {
-      uris: [{ uri: data.cardUrl, description: "Digitale Visitenkarte", id: "card_url" }],
+      uris: [{ uri: data.cardUrl, description: "Digital Business Card", id: "card_url" }],
     },
     hexBackgroundColor: data.primaryColor,
     state: "ACTIVE",

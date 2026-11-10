@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getPlatformSettings } from "@/lib/platform";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -9,10 +10,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: {
-      default: `${s.appName} – Digitale Visitenkarten`,
-      template: `%s | ${s.appName}`,
+      default: `${BRAND.name} | ${BRAND.tagline}`,
+      template: `%s | ${BRAND.name}`,
     },
-    description: "Teile deine Kontaktdaten in Sekunden – per NFC, QR-Code oder Link.",
+    description: BRAND.description,
     icons: s.faviconUrl
       ? {
           icon: s.faviconUrl,
@@ -21,6 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
         }
       : undefined,
     metadataBase: new URL(s.appUrl),
+    openGraph: { siteName: BRAND.attribution, title: `${BRAND.name} | ${BRAND.tagline}`, description: BRAND.description },
   };
 }
 
@@ -28,7 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const s = await getPlatformSettings();
 
   return (
-    <html lang="de" suppressHydrationWarning>
+    <html lang={BRAND.locale} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -31,17 +31,17 @@ export default async function AdminPage() {
   const mrrEst = proCount * PLANS.pro.monthlyPrice + businessCount * PLANS.business.monthlyPrice;
 
   const stats = [
-    { label: "Benutzer gesamt", value: userCount, icon: Users },
-    { label: "Neu diesen Monat", value: newUsersThisMonth, icon: TrendingUp },
-    { label: "Digitale Karten", value: cardCount, icon: CreditCard },
+    { label: "Total users", value: userCount, icon: Users },
+    { label: "New this month", value: newUsersThisMonth, icon: TrendingUp },
+    { label: "Digital cards", value: cardCount, icon: CreditCard },
     { label: "Events (30d)", value: recentAnalytics, icon: Activity },
   ];
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">Plattform-Übersicht</h1>
-        <p className="text-muted-foreground mt-1">Globale Statistiken für alle Organisationen</p>
+        <h1 className="text-2xl font-bold">Platform overview</h1>
+        <p className="text-muted-foreground mt-1">Global statistics across all organisations</p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -66,7 +66,7 @@ export default async function AdminPage() {
       <div className="grid sm:grid-cols-2 gap-4">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Plan-Verteilung</CardTitle>
+            <CardTitle className="text-base">Plan distribution</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {[
@@ -95,25 +95,25 @@ export default async function AdminPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Umsatz-Schätzung</CardTitle>
+            <CardTitle className="text-base">Estimated revenue</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="text-sm text-muted-foreground">MRR (geschätzt)</p>
+              <p className="text-sm text-muted-foreground">Estimated MRR</p>
               <p className="text-3xl font-bold mt-1">
-                {mrrEst.toLocaleString("de-DE", { style: "currency", currency: "EUR" })}
+                {mrrEst.toLocaleString("en-TZ", { style: "currency", currency: "TZS" })}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                Basierend auf {proCount} Pro × {PLANS.pro.monthlyPrice} € + {businessCount} Business × {PLANS.business.monthlyPrice} €
+                Based on {proCount} Pro × TZS {PLANS.pro.monthlyPrice} + {businessCount} Business × TZS {PLANS.business.monthlyPrice}
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3 pt-1">
               <div className="rounded-lg bg-muted p-3">
-                <p className="text-xs text-muted-foreground">Organisationen</p>
+                <p className="text-xs text-muted-foreground">Organisations</p>
                 <p className="text-xl font-bold mt-0.5">{orgCount.toLocaleString("de-DE")}</p>
               </div>
               <div className="rounded-lg bg-muted p-3">
-                <p className="text-xs text-muted-foreground">Bezahlend</p>
+                <p className="text-xs text-muted-foreground">Paying</p>
                 <p className="text-xl font-bold mt-0.5">{(proCount + businessCount).toLocaleString("de-DE")}</p>
               </div>
             </div>

@@ -84,7 +84,7 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
         body: JSON.stringify({ id: editOrg.id, name: editName.trim(), primaryColor: editColor, domain: editDomain.trim() || null }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(typeof json.error === "string" ? json.error : "Fehler");
+      if (!res.ok) throw new Error(typeof json.error === "string" ? json.error : "Error");
 
       // Assign admin if changed
       if (editAdmin !== "__none__") {
@@ -104,14 +104,14 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
       setEditOrg(null);
       router.refresh();
     } catch (e) {
-      setEditError(e instanceof Error ? e.message : "Fehler");
+      setEditError(e instanceof Error ? e.message : "Error");
     } finally {
       setEditSaving(false);
     }
   }
 
   async function handleDelete(org: Org) {
-    if (!window.confirm(`Organisation "${org.name}" wirklich löschen? Alle Mitglieder werden aus der Organisation entfernt.`)) return;
+    if (!window.confirm(`Delete organisation "${org.name}"? All members will be removed from the organisation.`)) return;
     const res = await fetch("/api/organizations", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -129,7 +129,7 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
   }
 
   async function handleCreate() {
-    if (!name.trim()) { setError("Name ist pflicht"); return; }
+    if (!name.trim()) { setError("Name is required"); return; }
     setSaving(true);
     setError("");
     try {
@@ -139,13 +139,13 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
         body: JSON.stringify({ name: name.trim(), slug: slug.trim() || slugify(name.trim()), primaryColor: color, domain: domain.trim() || null }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(typeof json.error === "string" ? json.error : "Fehler");
+      if (!res.ok) throw new Error(typeof json.error === "string" ? json.error : "Error");
       setOrgs((prev) => [{ ...json.data, createdAt: json.data.createdAt, _count: { users: 0 } }, ...prev]);
       setOpen(false);
       resetForm();
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : "Error");
     } finally {
       setSaving(false);
     }
@@ -160,28 +160,28 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Organisationen</h1>
-          <p className="text-muted-foreground mt-1">{orgs.length} Organisationen</p>
+          <h1 className="text-2xl font-bold">Organisations</h1>
+          <p className="text-muted-foreground mt-1">{orgs.length} organisations</p>
         </div>
 
         <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) resetForm(); }}>
           <DialogTrigger asChild>
-            <Button><Plus className="h-4 w-4" />Neue Organisation</Button>
+            <Button><Plus className="h-4 w-4" />New organisation</Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogHeader><DialogTitle>Organisation erstellen</DialogTitle></DialogHeader>
+            <DialogHeader><DialogTitle>Create organisation</DialogTitle></DialogHeader>
             <div className="space-y-4 pt-2">
               <div className="space-y-1.5">
                 <Label>Name *</Label>
                 <Input placeholder="ACME GmbH" value={name} onChange={(e) => handleNameChange(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleCreate()} autoFocus />
               </div>
               <div className="space-y-1.5">
-                <Label>Slug (URL-Kürzel)</Label>
+                <Label>Slug (URL identifier)</Label>
                 <Input placeholder="acme-gmbh" value={slug} onChange={(e) => setSlugVal(e.target.value)} />
-                <p className="text-xs text-muted-foreground">Wird automatisch aus dem Namen generiert</p>
+                <p className="text-xs text-muted-foreground">Generated automatically from the name</p>
               </div>
               <div className="space-y-1.5">
-                <Label>Primärfarbe</Label>
+                <Label>Primary colour</Label>
                 <div className="flex items-center gap-3">
                   <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="h-10 w-16 rounded-md border border-input cursor-pointer" />
                   <Input value={color} onChange={(e) => setColor(e.target.value)} className="font-mono w-32" maxLength={7} />
@@ -193,8 +193,8 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
               </div>
               {error && <p className="text-sm text-destructive rounded-lg bg-destructive/10 px-3 py-2">{error}</p>}
               <div className="flex gap-2 pt-2">
-                <Button onClick={handleCreate} disabled={saving} className="flex-1">{saving ? "Wird erstellt…" : "Erstellen"}</Button>
-                <Button variant="outline" onClick={() => setOpen(false)}>Abbrechen</Button>
+                <Button onClick={handleCreate} disabled={saving} className="flex-1">{saving ? "Creating…" : "Create"}</Button>
+                <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
               </div>
             </div>
           </DialogContent>
@@ -204,14 +204,14 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
       {/* Edit dialog */}
       <Dialog open={!!editOrg} onOpenChange={(v) => { if (!v) setEditOrg(null); }}>
         <DialogContent>
-          <DialogHeader><DialogTitle>Organisation bearbeiten</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>Edit organisation</DialogTitle></DialogHeader>
           <div className="space-y-4 pt-2">
             <div className="space-y-1.5">
               <Label>Name *</Label>
               <Input value={editName} onChange={(e) => setEditName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleEdit()} autoFocus />
             </div>
             <div className="space-y-1.5">
-              <Label>Primärfarbe</Label>
+              <Label>Primary colour</Label>
               <div className="flex items-center gap-3">
                 <input type="color" value={editColor} onChange={(e) => setEditColor(e.target.value)} className="h-10 w-16 rounded-md border border-input cursor-pointer" />
                 <Input value={editColor} onChange={(e) => setEditColor(e.target.value)} className="font-mono w-32" maxLength={7} />
@@ -224,7 +224,7 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
             <div className="space-y-1.5">
               <Label>Administrator</Label>
               {editMembers.length === 0 ? (
-                <p className="text-xs text-muted-foreground">Keine Mitglieder in dieser Organisation.</p>
+                <p className="text-xs text-muted-foreground">No members in this organisation.</p>
               ) : (
                 <Select value={editAdmin} onValueChange={setEditAdmin}>
                   <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="— Kein Admin —" /></SelectTrigger>
@@ -241,8 +241,8 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
             </div>
             {editError && <p className="text-sm text-destructive rounded-lg bg-destructive/10 px-3 py-2">{editError}</p>}
             <div className="flex gap-2 pt-2">
-              <Button onClick={handleEdit} disabled={editSaving} className="flex-1">{editSaving ? "Wird gespeichert…" : "Speichern"}</Button>
-              <Button variant="outline" onClick={() => setEditOrg(null)}>Abbrechen</Button>
+              <Button onClick={handleEdit} disabled={editSaving} className="flex-1">{editSaving ? "Saving…" : "Save"}</Button>
+              <Button variant="outline" onClick={() => setEditOrg(null)}>Cancel</Button>
             </div>
           </div>
         </DialogContent>
@@ -252,8 +252,8 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
       {orgs.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center rounded-2xl border-2 border-dashed border-border">
           <Building2 className="h-10 w-10 text-muted-foreground mb-3" />
-          <p className="text-muted-foreground font-medium">Noch keine Organisationen</p>
-          <p className="text-sm text-muted-foreground mt-1">Erstelle die erste Organisation</p>
+          <p className="text-muted-foreground font-medium">No organisations yet</p>
+          <p className="text-sm text-muted-foreground mt-1">Create your first organisation</p>
         </div>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -277,23 +277,23 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
                 <div className="flex items-center gap-3">
                   <span className="flex items-center gap-1">
                     <Users className="h-3.5 w-3.5" />
-                    {org._count.users} Mitglieder
+                    {org._count.users} members
                   </span>
                   <span>·</span>
                   <span>{formatDate(org.createdAt)}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button onClick={() => openEdit(org)} className="p-1 rounded hover:bg-muted transition-colors hover:text-foreground" title="Bearbeiten">
+                  <button onClick={() => openEdit(org)} className="p-1 rounded hover:bg-muted transition-colors hover:text-foreground" title="Edit">
                     <Pencil className="h-3.5 w-3.5" />
                   </button>
-                  <button onClick={() => handleDelete(org)} className="p-1 rounded hover:bg-destructive/10 transition-colors hover:text-destructive" title="Löschen">
+                  <button onClick={() => handleDelete(org)} className="p-1 rounded hover:bg-destructive/10 transition-colors hover:text-destructive" title="Delete">
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
                 </div>
               </div>
 
               {org.settings?.walletEnabled && (
-                <Badge variant="success" className="mt-3 text-xs">Wallet aktiv</Badge>
+                <Badge variant="success" className="mt-3 text-xs">Wallet active</Badge>
               )}
             </div>
           ))}

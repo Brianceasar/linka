@@ -19,7 +19,7 @@ export function MobileNav(props: Props) {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         className="lg:hidden flex h-9 w-9 items-center justify-center rounded-md border border-border hover:bg-accent"
-        aria-label="Navigation öffnen"
+        aria-label="Open navigation"
       >
         <Menu className="h-5 w-5" />
       </SheetTrigger>

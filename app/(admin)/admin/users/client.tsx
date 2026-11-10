@@ -122,12 +122,12 @@ export function AdminUsersClient({
       const json = await res.json().catch(() => ({}));
       if (res.ok) {
         setUsers((prev) => prev.filter((u) => u.id !== pendingDelete.id));
-        toast.success("Benutzer gelöscht");
+        toast.success("User deleted");
       } else {
-        toast.error(`Fehler: ${json.error ?? res.status}`);
+        toast.error(`Error: ${json.error ?? res.status}`);
       }
     } catch (e) {
-      toast.error(`Netzwerkfehler: ${e instanceof Error ? e.message : String(e)}`);
+      toast.error(`Network error: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setDeleting(false);
       setPendingDelete(null);
@@ -140,7 +140,7 @@ export function AdminUsersClient({
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Suchen…"
+          placeholder="Search…"
           defaultValue={initialSearch}
           onChange={(e) => handleSearch(e.target.value)}
           className="pl-9"
@@ -151,13 +151,13 @@ export function AdminUsersClient({
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border !bg-muted/40">
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Benutzer</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground">User</th>
               <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Organisation</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Rolle</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Role</th>
               <th className="text-left px-4 py-3 font-medium text-muted-foreground">Plan</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Karte</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Seit</th>
-              <th className="text-right px-4 py-3 font-medium text-muted-foreground">Aktionen</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Card</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Since</th>
+              <th className="text-right px-4 py-3 font-medium text-muted-foreground">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
@@ -173,8 +173,8 @@ export function AdminUsersClient({
                     <div>
                       <p className="font-medium flex items-center gap-1.5">
                         {user.name}
-                        {user.id === currentUserId && <span className="text-muted-foreground text-xs">(Ich)</span>}
-                        {user.bannedAt && <span className="text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-medium">Gesperrt</span>}
+                        {user.id === currentUserId && <span className="text-muted-foreground text-xs">(You)</span>}
+                        {user.bannedAt && <span className="text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-medium">Suspended</span>}
                       </p>
                       <p className="text-xs text-muted-foreground">{user.email}</p>
                     </div>
@@ -188,7 +188,7 @@ export function AdminUsersClient({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="__none__">— Keine —</SelectItem>
+                      <SelectItem value="__none__">— None —</SelectItem>
                       {orgs.map((o) => (
                         <SelectItem key={o.id} value={o.id}>{o.name}</SelectItem>
                       ))}
@@ -206,7 +206,7 @@ export function AdminUsersClient({
                       <SelectItem value="super_admin">Super Admin</SelectItem>
                       <SelectItem value="company_admin">Admin</SelectItem>
                       <SelectItem value="team_leader">Team Leader</SelectItem>
-                      <SelectItem value="member">Mitglied</SelectItem>
+                      <SelectItem value="member">Member</SelectItem>
                     </SelectContent>
                   </Select>
                 </td>
@@ -251,11 +251,11 @@ export function AdminUsersClient({
                         <button
                           onClick={() => setExpiryEdit(user.id)}
                           className="flex items-center gap-0.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                          title="Ablaufdatum setzen"
+                          title="Set expiry date"
                         >
                           <CalendarDays className="h-3 w-3" />
                           {user.planExpiresAt
-                            ? new Date(user.planExpiresAt).toLocaleDateString("de-DE")
+                            ? new Date(user.planExpiresAt).toLocaleDateString("en-TZ")
                             : <span className="opacity-50">&#8734;</span>}
                         </button>
                       )
@@ -270,7 +270,7 @@ export function AdminUsersClient({
                       <a href={`/c/${user.cards[0].slug}`} target="_blank" className="text-xs text-primary hover:underline">
                         {user.cards[0].slug}
                       </a>
-                      <Link href={`/admin/cards/${user.cards[0].slug}`} className="text-muted-foreground hover:text-foreground" title="Karte bearbeiten">
+                      <Link href={`/admin/cards/${user.cards[0].slug}`} className="text-muted-foreground hover:text-foreground" title="Edit card">
                         <Pencil className="h-3 w-3" />
                       </Link>
                     </div>
@@ -305,7 +305,7 @@ export function AdminUsersClient({
                       )}
                       <button
                         onClick={() => setPendingDelete({ id: user.id, name: user.name })}
-                        title="Löschen"
+                        title="Delete"
                         className="p-1.5 rounded hover:bg-red-50 text-red-500 hover:text-red-700 transition-colors"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -323,19 +323,19 @@ export function AdminUsersClient({
     <AlertDialog open={pendingDelete !== null} onOpenChange={(open) => !open && setPendingDelete(null)}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Benutzer löschen</AlertDialogTitle>
+          <AlertDialogTitle>Delete user</AlertDialogTitle>
           <AlertDialogDescription>
-            <strong>{pendingDelete?.name}</strong> wird unwiderruflich gelöscht — inklusive aller Karten, Analytics und Leads. Diese Aktion kann nicht rückgängig gemacht werden.
+            <strong>{pendingDelete?.name}</strong> will be permanently deleted, including all cards, analytics, and leads. This action cannot be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={deleting}>Abbrechen</AlertDialogCancel>
+          <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={confirmDelete}
             disabled={deleting}
             className="bg-red-600 hover:bg-red-700 text-white"
           >
-            {deleting ? "Wird gelöscht…" : "Endgültig löschen"}
+            {deleting ? "Deleting…" : "Delete permanently"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

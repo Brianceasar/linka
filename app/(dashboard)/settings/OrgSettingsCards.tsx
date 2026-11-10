@@ -21,15 +21,15 @@ export function OrgInfoCard({ orgName, setOrgName, orgColor, setOrgColor, orgDis
     <Card>
       <CardHeader>
         <CardTitle>Organisation</CardTitle>
-        <CardDescription>Grundlegende Informationen zu {orgDisplayName}</CardDescription>
+        <CardDescription>Basic information about {orgDisplayName}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="space-y-1.5">
-          <Label>Organisationsname</Label>
+          <Label>Organisation name</Label>
           <Input value={orgName} onChange={(e) => setOrgName(e.target.value)} />
         </div>
         <div className="space-y-1.5">
-          <Label>Primärfarbe</Label>
+          <Label>Primary colour</Label>
           <div className="flex items-center gap-3">
             <input type="color" value={orgColor} onChange={(e) => setOrgColor(e.target.value)}
               className="h-10 w-16 rounded-md border border-input cursor-pointer" />
@@ -54,14 +54,14 @@ export function DesignDefaultsCard(p: DesignDefaultsProps) {
       <CardHeader>
         <div className="flex items-center gap-2">
           <LayoutTemplate className="h-4 w-4 text-muted-foreground" />
-          <CardTitle className="text-base">Design-Vorgaben</CardTitle>
+          <CardTitle className="text-base">Design defaults</CardTitle>
         </div>
-        <CardDescription>Diese Werte werden für neue Mitglieder-Karten als Standard gesetzt.</CardDescription>
+        <CardDescription>These values are used as defaults for new member cards.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Standard-Template</Label>
+            <Label>Default template</Label>
             <Select value={p.defaultTemplate} onValueChange={p.setDefaultTemplate}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -72,7 +72,7 @@ export function DesignDefaultsCard(p: DesignDefaultsProps) {
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label>Standard-Schrift</Label>
+            <Label>Default font</Label>
             <Select value={p.defaultFont} onValueChange={p.setDefaultFont}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -84,24 +84,24 @@ export function DesignDefaultsCard(p: DesignDefaultsProps) {
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label>Standard-Layout</Label>
+            <Label>Default layout</Label>
             <Select value={p.defaultLayout} onValueChange={p.setDefaultLayout}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="standard">Standard</SelectItem>
-                <SelectItem value="centered">Zentriert</SelectItem>
-                <SelectItem value="compact">Kompakt</SelectItem>
+                <SelectItem value="centered">Centred</SelectItem>
+                <SelectItem value="compact">Compact</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label>Akzentfarbe <span className="text-xs text-muted-foreground">(optional)</span></Label>
+            <Label>Accent colour <span className="text-xs text-muted-foreground">(optional)</span></Label>
             <div className="flex items-center gap-2">
               <input type="color" value={p.defaultAccent || p.orgColor}
                 onChange={(e) => p.setDefaultAccent(e.target.value)}
                 className="h-9 w-12 rounded border border-input cursor-pointer" />
               <Input value={p.defaultAccent} onChange={(e) => p.setDefaultAccent(e.target.value)}
-                placeholder="wie Primär" className="font-mono" maxLength={7} />
+                placeholder="same as primary" className="font-mono" maxLength={7} />
             </div>
           </div>
         </div>
@@ -120,9 +120,9 @@ export function BrandColorsCard({ brandColors, newColor, setNewColor, onAdd, onR
       <CardHeader>
         <div className="flex items-center gap-2">
           <Palette className="h-4 w-4 text-muted-foreground" />
-          <CardTitle className="text-base">Markenfarben-Palette</CardTitle>
+          <CardTitle className="text-base">Brand colour palette</CardTitle>
         </div>
-        <CardDescription>Diese Farben stehen Mitgliedern zur schnellen Auswahl bereit. Leer = freie Farbwahl.</CardDescription>
+        <CardDescription>These colours are available for members to select quickly. Leave empty to allow any colour.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex flex-wrap gap-2">
@@ -141,7 +141,7 @@ export function BrandColorsCard({ brandColors, newColor, setNewColor, onAdd, onR
             className="h-9 w-12 rounded border border-input cursor-pointer" />
           <Input value={newColor} onChange={(e) => setNewColor(e.target.value)} className="font-mono w-28" maxLength={7} />
           <Button type="button" variant="outline" size="sm" onClick={onAdd}>
-            <Plus className="h-4 w-4" /> Hinzufügen
+            <Plus className="h-4 w-4" /> Add
           </Button>
         </div>
       </CardContent>
@@ -158,20 +158,20 @@ interface PermissionsProps {
 }
 export function PermissionsCard(p: PermissionsProps) {
   const rows = [
-    { label: "Template-Wahl",  sub: "Mitglieder können ihr eigenes Template wählen",  val: p.allowTemplateChange, set: p.setAllowTemplateChange },
-    { label: "Farbwahl",       sub: "Mitglieder können Primärfarbe anpassen",          val: p.allowColorChange,    set: p.setAllowColorChange },
-    { label: "Schriftwahl",    sub: "Mitglieder können die Schriftart wählen",         val: p.allowFontChange,     set: p.setAllowFontChange },
-    { label: "Layout-Wahl",    sub: "Mitglieder können das Layout wählen",             val: p.allowLayoutChange,   set: p.setAllowLayoutChange },
-    { label: "Analytics",      sub: "Aufrufe und Klicks erfassen",                     val: p.analyticsEnabled,    set: p.setAnalyticsEnabled },
+    { label: "Template selection", sub: "Members can choose their own template", val: p.allowTemplateChange, set: p.setAllowTemplateChange },
+    { label: "Colour selection", sub: "Members can change the primary colour", val: p.allowColorChange, set: p.setAllowColorChange },
+    { label: "Font selection", sub: "Members can choose the font", val: p.allowFontChange, set: p.setAllowFontChange },
+    { label: "Layout selection", sub: "Members can choose the layout", val: p.allowLayoutChange, set: p.setAllowLayoutChange },
+    { label: "Analytics", sub: "Track views and clicks", val: p.analyticsEnabled, set: p.setAnalyticsEnabled },
   ];
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
           <Type className="h-4 w-4 text-muted-foreground" />
-          <CardTitle className="text-base">Globale Berechtigungen</CardTitle>
+          <CardTitle className="text-base">Global permissions</CardTitle>
         </div>
-        <CardDescription>Legen Sie fest, was Mitglieder standardmäßig anpassen dürfen. Abteilungsregeln können diese Werte überschreiben.</CardDescription>
+        <CardDescription>Choose what members may change by default. Department rules can override these values.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
         {rows.map(({ label, sub, val, set }) => (
@@ -199,11 +199,11 @@ export function DeptPoliciesCard({ deptRows, newDeptName, setNewDeptName, onAdd,
       <CardHeader>
         <div className="flex items-center gap-2">
           <Users className="h-4 w-4 text-muted-foreground" />
-          <CardTitle className="text-base">Abteilungsregeln</CardTitle>
+          <CardTitle className="text-base">Department policies</CardTitle>
         </div>
         <CardDescription>
-          Überschreiben Sie globale Berechtigungen pro Abteilung.
-          Name muss exakt mit dem Feld „Abteilung" der Mitgliedskarte übereinstimmen.
+          Override global permissions by department.
+          The name must exactly match the member card's “Department” field.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -212,10 +212,10 @@ export function DeptPoliciesCard({ deptRows, newDeptName, setNewDeptName, onAdd,
             <table className="w-full text-sm">
               <thead className="bg-muted/50 text-xs text-muted-foreground uppercase tracking-wide">
                 <tr>
-                  <th className="text-left px-3 py-2">Abteilung</th>
+                  <th className="text-left px-3 py-2">Department</th>
                   <th className="text-center px-2 py-2">Template</th>
-                  <th className="text-center px-2 py-2">Farbe</th>
-                  <th className="text-center px-2 py-2">Schrift</th>
+                  <th className="text-center px-2 py-2">Colour</th>
+                  <th className="text-center px-2 py-2">Font</th>
                   <th className="text-center px-2 py-2">Layout</th>
                   <th className="px-2 py-2" />
                 </tr>
@@ -241,14 +241,14 @@ export function DeptPoliciesCard({ deptRows, newDeptName, setNewDeptName, onAdd,
           </div>
         )}
         <div className="flex items-center gap-2">
-          <Input placeholder="Abteilungsname z.B. Marketing" value={newDeptName}
+          <Input placeholder="Department name, e.g. Marketing" value={newDeptName}
             onChange={(e) => setNewDeptName(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && onAdd()} className="flex-1" />
           <Button type="button" variant="outline" size="sm" onClick={onAdd}>
-            <Plus className="h-4 w-4" /> Hinzufügen
+            <Plus className="h-4 w-4" /> Add
           </Button>
         </div>
-        <p className="text-xs text-muted-foreground">Neue Abteilungen erben die globalen Berechtigungen oben als Startwert.</p>
+        <p className="text-xs text-muted-foreground">New departments inherit the global permissions above as their starting point.</p>
       </CardContent>
     </Card>
   );
@@ -266,15 +266,15 @@ export function TemplateCardSection(p: TemplateCardProps) {
       <CardHeader>
         <div className="flex items-center gap-2">
           <LayoutTemplate className="h-4 w-4 text-muted-foreground" />
-          <CardTitle className="text-base">Karten-Vorlage (Bulk Import)</CardTitle>
+          <CardTitle className="text-base">Card template (bulk import)</CardTitle>
         </div>
-        <CardDescription>Diese Werte werden beim CSV-Import als Standardwerte für neue Karten verwendet.</CardDescription>
+        <CardDescription>These values are used as defaults for new cards in CSV imports.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-1.5">
-          <Label>Unternehmensname</Label>
+          <Label>Company name</Label>
           <Input value={p.templateCompany} onChange={(e) => p.setTemplateCompany(e.target.value)} placeholder={p.orgName} />
-          <p className="text-xs text-muted-foreground">Wird eingetragen wenn CSV keine Firma enthält.</p>
+          <p className="text-xs text-muted-foreground">Used when the CSV does not include a company.</p>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
@@ -289,7 +289,7 @@ export function TemplateCardSection(p: TemplateCardProps) {
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label>Primärfarbe</Label>
+            <Label>Primary colour</Label>
             <div className="flex items-center gap-2">
               <input type="color" value={p.templateColor} onChange={(e) => p.setTemplateColor(e.target.value)}
                 className="h-9 w-12 rounded border border-input cursor-pointer" />

@@ -73,7 +73,7 @@ export function BoldTemplate({ card }: { card: Partial<CardData> }) {
             <p className="text-xs text-gray-300 mt-0.5">{card.department}</p>
           )}
           {!card.title && !card.company && (
-            <p className="text-sm font-semibold text-gray-300">Berufsbezeichnung</p>
+            <p className="text-sm font-semibold text-gray-300">Job title</p>
           )}
         </div>
 

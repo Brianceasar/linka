@@ -49,7 +49,7 @@ export function ClassicTemplate({ card }: { card: Partial<CardData> }) {
           </div>
 
           <div className={`min-w-0 ${isCentered ? "text-center" : ""}`}>
-            <h1 className="text-xl font-bold text-gray-900 leading-tight">{name || "Dein Name"}</h1>
+            <h1 className="text-xl font-bold text-gray-900 leading-tight">{name || "Your name"}</h1>
             {card.title && (
               <p className="text-sm font-medium mt-0.5" style={{ color }}>{card.title}</p>
             )}
@@ -126,7 +126,7 @@ export function ClassicTemplate({ card }: { card: Partial<CardData> }) {
         {card.showQrOnCard && card.slug && (
           <div className="mt-4 flex items-center gap-3">
             <img src={`/api/qr/${card.slug}`} alt="QR Code" className="h-12 w-12" />
-            <p className="text-xs text-gray-400">Scan für digitale Karte</p>
+            <p className="text-xs text-gray-400">Scan for digital card</p>
           </div>
         )}
       </div>

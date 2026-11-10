@@ -24,10 +24,10 @@ export default async function TeamPage() {
           <LayoutDashboard className="h-8 w-8 text-muted-foreground" />
         </div>
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold">Nutzerverwaltung</h1>
+          <h1 className="text-2xl font-bold">User management</h1>
           <p className="text-muted-foreground max-w-sm">
-            Als Super-Admin verwaltest du alle Nutzer und Organisationen im Admin-Panel.
-            Das Team-Tab ist für Nutzer innerhalb einer Organisation gedacht.
+            As a super administrator, manage all users and organisations in the admin panel.
+            The Team area is for users within an organisation.
           </p>
         </div>
         <Link
@@ -35,7 +35,7 @@ export default async function TeamPage() {
           className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
         >
           <Users className="h-4 w-4" />
-          Zum Admin-Panel
+          Go to admin panel
         </Link>
       </div>
     );
@@ -65,16 +65,16 @@ export default async function TeamPage() {
           <SnowflakeIcon className="h-8 w-8 text-amber-600" />
         </div>
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold">Organisation eingefroren</h1>
+          <h1 className="text-2xl font-bold">Organisation frozen</h1>
           <p className="text-muted-foreground max-w-sm">
             {isAdmin
-              ? <>Der Business-Plan für <strong>{frozenOrg.name}</strong> ist abgelaufen. Alle Daten sind erhalten — buche den Plan erneut um die Organisation sofort wieder zu aktivieren.</>
-              : <>Die Organisation <strong>{frozenOrg.name}</strong> ist derzeit eingefroren. Bitte wende dich an deinen Administrator.</>
+              ? <>The Business plan for <strong>{frozenOrg.name}</strong> has expired. All data is retained — subscribe again to reactivate the organisation immediately.</>
+              : <>The organisation <strong>{frozenOrg.name}</strong> is currently frozen. Please contact your administrator.</>
             }
           </p>
           {frozenOrg.frozenAt && (
             <p className="text-xs text-muted-foreground">
-              Eingefroren seit {new Date(frozenOrg.frozenAt).toLocaleDateString("de-DE")}
+              Frozen since {new Date(frozenOrg.frozenAt).toLocaleDateString("en-TZ")}
             </p>
           )}
         </div>
@@ -84,7 +84,7 @@ export default async function TeamPage() {
             className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <Zap className="h-4 w-4" />
-            Business-Plan buchen
+            Subscribe to Business
           </Link>
         )}
       </div>
@@ -98,10 +98,10 @@ export default async function TeamPage() {
           <Users className="h-8 w-8 text-muted-foreground" />
         </div>
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold">Team-Verzeichnis</h1>
+          <h1 className="text-2xl font-bold">Team directory</h1>
           <p className="text-muted-foreground max-w-sm">
-            Das Team-Verzeichnis ist ab dem <strong>Business-Plan</strong> verfügbar.
-            Verwalte Mitglieder, versende Einladungen und behalte den Überblick über dein Team.
+            The team directory is available on the <strong>Business plan</strong>.
+            Manage members, send invitations, and keep track of your team.
           </p>
         </div>
         <Link
@@ -109,7 +109,7 @@ export default async function TeamPage() {
           className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
         >
           <Zap className="h-4 w-4" />
-          Auf Business upgraden
+          Upgrade to Business
         </Link>
       </div>
     );
@@ -123,10 +123,10 @@ export default async function TeamPage() {
           <Building2 className="h-8 w-8 text-primary" />
         </div>
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold">Erstelle deine Organisation</h1>
+          <h1 className="text-2xl font-bold">Create your organisation</h1>
           <p className="text-muted-foreground">
-            Gib deiner Organisation einen Namen, lade Mitglieder ein und lege
-            Design-Vorgaben für alle Visitenkarten fest.
+            Give your organisation a name, invite members, and set
+            design policies for every digital card.
           </p>
         </div>
         <CreateOrgForm />

@@ -28,7 +28,7 @@ export default async function LeadsPage() {
       <div>
         <h1 className="text-2xl font-bold">Leads</h1>
         <p className="text-muted-foreground mt-1">
-          Personen, die ihren Kontakt auf deiner Karte hinterlassen haben.
+          People who shared their contact details through your card.
         </p>
       </div>
       <LeadsClient leads={leads} hasCard={!!card} />

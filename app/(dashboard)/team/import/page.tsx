@@ -28,7 +28,7 @@ export default async function ImportPage() {
       <div>
         <h1 className="text-2xl font-bold">CSV-Import</h1>
         <p className="text-muted-foreground mt-1">
-          Importiere Mitglieder und befülle deren Visitenkarten aus einer CSV-Datei.
+          Import members and populate their digital cards from a CSV file.
         </p>
       </div>
       <ImportClient />

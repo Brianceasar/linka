@@ -44,9 +44,9 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
       const res = await fetch("/api/cards", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "Neue Karte" }),
+        body: JSON.stringify({ name: "New card" }),
       });
-      if (!res.ok) throw new Error("Fehler beim Erstellen");
+      if (!res.ok) throw new Error("Unable to create card");
       const card = await res.json();
       router.push(`/card?card=${card.id}`);
       router.refresh();
@@ -60,7 +60,7 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
     setLoading("clone");
     try {
       const res = await fetch(`/api/cards/clone/${activeCardId}`, { method: "POST" });
-      if (!res.ok) throw new Error("Fehler beim Klonen");
+      if (!res.ok) throw new Error("Unable to duplicate card");
       const card = await res.json();
       router.push(`/card?card=${card.id}`);
       router.refresh();
@@ -71,10 +71,10 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
 
   async function deleteCard(id: string) {
     if (cards.length <= 1) {
-      alert("Letzte Karte kann nicht gelöscht werden.");
+      alert("Your last card cannot be deleted.");
       return;
     }
-    if (!confirm("Karte wirklich unwiderruflich löschen?")) return;
+    if (!confirm("Permanently delete this card?")) return;
     setLoading(`del-${id}`);
     try {
       const res = await fetch("/api/cards", {
@@ -82,7 +82,7 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
-      if (!res.ok) throw new Error("Fehler");
+      if (!res.ok) throw new Error("Unable to delete card");
       // If we deleted the active card, route to remaining default
       const remaining = cards.find((c) => c.id !== id);
       if (id === activeCardId && remaining) {
@@ -129,7 +129,7 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
             onClick={() => setOpen((v) => !v)}
             className="gap-1.5"
           >
-            {activeCard?.name ?? "Karte wählen"}
+            {activeCard?.name ?? "Select card"}
             <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
           </Button>
           {open && (
@@ -194,7 +194,7 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
                           size="sm" variant="ghost" className="h-7 w-7 p-0"
                           onClick={() => deleteCard(c.id)}
                           disabled={loading === `del-${c.id}`}
-                          title="Löschen"
+                          title="Delete"
                         >
                           <Trash2 className="h-3.5 w-3.5 text-destructive" />
                         </Button>
@@ -208,7 +208,7 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
         </div>
       )}
 
-      {/* Neue Karte — hidden when at plan limit */}
+      {/* New card — hidden when at plan limit */}
       {cards.length < maxCards && (
         <Button
           variant="outline"
@@ -218,7 +218,7 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
           className="gap-1.5"
         >
           <Plus className="h-3.5 w-3.5" />
-          {loading === "new" ? "Wird erstellt…" : "Neue Karte"}
+          {loading === "new" ? "Creating…" : "New card"}
         </Button>
       )}
 
@@ -232,7 +232,7 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
           className="gap-1.5"
         >
           <Copy className="h-3.5 w-3.5" />
-          {loading === "clone" ? "Wird geklont…" : "Klonen"}
+          {loading === "clone" ? "Duplicating…" : "Duplicate"}
         </Button>
       )}
     </div>

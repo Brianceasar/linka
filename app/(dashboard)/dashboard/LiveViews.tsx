@@ -36,7 +36,7 @@ export function LiveViews({ initialViews, cardSlug }: Props) {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-sm text-muted-foreground">Aufrufe gesamt</p>
+        <p className="text-sm text-muted-foreground">Total views</p>
         <p className={`text-3xl font-bold mt-1 transition-colors duration-300 ${pulse ? "text-green-600" : ""}`}>
           {views.toLocaleString("de-DE")}
         </p>

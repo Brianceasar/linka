@@ -163,7 +163,20 @@ export async function DELETE(request: NextRequest) {
   });
 
   try {
-    await db.user.delete({ where: { id: userId } });
+    // Card analytics reference card slugs with a restrictive foreign key.
+    // Remove only analytics belonging to cards that will be deleted, then let
+    // the existing user/card cascades remove the remaining owned records.
+    const cards = await db.card.findMany({
+      where: { userId },
+      select: { slug: true },
+    });
+    await db.$transaction([
+      db.cardAnalytic.deleteMany({ where: { cardSlug: { in: cards.map((card) => card.slug) } } }),
+      // Invitations deliberately restrict their sender; remove those created
+      // by the deleted account without touching invitations from other users.
+      db.invitation.deleteMany({ where: { senderId: userId } }),
+      db.user.delete({ where: { id: userId } }),
+    ]);
   } catch (e) {
     console.error("[DELETE /api/users] db.user.delete failed:", e);
     return NextResponse.json(

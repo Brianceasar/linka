@@ -22,10 +22,10 @@ export async function GET(
 
   // Hide expiry-elapsed and password-protected cards from the public endpoint.
   if (card.expiresAt && card.expiresAt < new Date()) {
-    return NextResponse.json({ error: "Karte abgelaufen" }, { status: 410 });
+    return NextResponse.json({ error: "Card expired" }, { status: 410 });
   }
   if (card.passwordHash) {
-    return NextResponse.json({ error: "Karte ist passwortgeschützt" }, { status: 401 });
+    return NextResponse.json({ error: "Card is password-protected" }, { status: 401 });
   }
 
   // Strip server-only fields before returning.

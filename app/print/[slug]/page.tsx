@@ -74,7 +74,7 @@ export default async function PrintPage({ params }: Props) {
         </div>
         {!isPro && (
           <p style={{ marginTop: 12, fontSize: 10, color: '#9ca3af', textAlign: 'center' }}>
-            Erstellt mit CardNexus · cardnexus.app
+            Powered by LINKA by CYREX Technologies
           </p>
         )}
       </body>

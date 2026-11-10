@@ -16,7 +16,7 @@ export async function PATCH(req: NextRequest) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = patchSchema.safeParse(await req.json());
-  if (!body.success) return NextResponse.json({ error: "Ungültige Eingabe" }, { status: 400 });
+  if (!body.success) return NextResponse.json({ error: "Invalid input" }, { status: 400 });
 
   const { name, email, leadNotification } = body.data;
   const updates: Record<string, unknown> = {};
@@ -66,7 +66,7 @@ export async function DELETE() {
   });
   if (me?.role === "super_admin") {
     return NextResponse.json(
-      { error: "Super-Admin kann nicht gelöscht werden. Rolle vorher entfernen." },
+      { error: "The super administrator cannot be deleted. Change the role first." },
       { status: 400 }
     );
   }

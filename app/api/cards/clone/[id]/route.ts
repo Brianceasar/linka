@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   const { maxCards } = getPlanFeatures(plan);
   if (existingCount >= maxCards) {
     return NextResponse.json(
-      { error: `Dein Plan erlaubt maximal ${maxCards} Karte${maxCards === 1 ? "" : "n"}.` },
+      { error: `Your plan allows a maximum of ${maxCards} card${maxCards === 1 ? "" : "s"}.` },
       { status: 403 }
     );
   }

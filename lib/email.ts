@@ -15,8 +15,8 @@ function createTransport() {
   });
 }
 
-const FROM = process.env.SMTP_FROM ?? "CardNexus <noreply@cardnexus.app>";
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "CardNexus";
+const FROM = process.env.SMTP_FROM ?? "LINKA by CYREX Technologies <noreply@linka.local>";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "LINKA";
 
 /**
  * HTML-escape user-supplied strings so they can't break out of attribute or
@@ -35,7 +35,7 @@ function esc(value: unknown): string {
 // ── Base layout ────────────────────────────────────────────────────────────
 function layout(title: string, body: string) {
   return `<!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,8 +67,8 @@ function layout(title: string, body: string) {
           <!-- Footer -->
           <tr>
             <td align="center" style="padding:24px 0 0;color:#9ca3af;font-size:12px;line-height:1.6;">
-              &copy; ${new Date().getFullYear()} ${APP_NAME}. Alle Rechte vorbehalten.<br />
-              Diese E-Mail wurde automatisch generiert. Bitte nicht antworten.
+              &copy; ${new Date().getFullYear()} ${APP_NAME} by CYREX Technologies. All rights reserved.<br />
+              This is an automated message. Please do not reply.
             </td>
           </tr>
 
@@ -123,23 +123,23 @@ export async function sendInvitationEmail({
   const roleLabel: Record<string, string> = {
     company_admin: "Administrator",
     team_leader:   "Team Leader",
-    member:        "Mitglied",
+    member:        "Member",
   };
 
   const html = layout(
-    esc(`Einladung zu ${orgName}`),
+    esc(`Invitation to ${orgName}`),
     `
-    ${h1(`Du wurdest eingeladen`)}
-    ${p(`<strong>${esc(senderName)}</strong> hat dich eingeladen, ${esc(APP_NAME)} als <strong>${esc(roleLabel[role] ?? role)}</strong> der Organisation <strong>${esc(orgName)}</strong> beizutreten.`)}
-    ${p("Erstelle deinen kostenlosen Account und gestalte sofort deine digitale Visitenkarte.")}
+    ${h1("You've been invited")}
+    ${p(`<strong>${esc(senderName)}</strong> invited you to join <strong>${esc(orgName)}</strong> on ${esc(APP_NAME)} as <strong>${esc(roleLabel[role] ?? role)}</strong>.`)}
+    ${p("Create your account and start sharing your digital identity.")}
     <div style="text-align:center;">
-      ${btn("Einladung annehmen", esc(inviteUrl))}
+      ${btn("Accept invitation", esc(inviteUrl))}
     </div>
-    ${muted(`Dieser Link ist 7 Tage gültig. Falls du diese E-Mail nicht erwartet hast, kannst du sie ignorieren.<br/>Link: ${esc(inviteUrl)}`)}
+    ${muted(`This link is valid for 7 days. If you were not expecting this email, you can safely ignore it.<br/>Link: ${esc(inviteUrl)}`)}
     `
   );
 
-  await send(to, `${senderName} lädt dich zu ${orgName} ein`, html);
+  await send(to, `${senderName} invited you to ${orgName}`, html);
 }
 
 // ── Welcome email ──────────────────────────────────────────────────────────
@@ -151,29 +151,29 @@ export async function sendWelcomeEmail({
   dashboardUrl: string;
 }) {
   const html = layout(
-    esc(`Willkommen bei ${APP_NAME}`),
+    esc(`Welcome to ${APP_NAME}`),
     `
-    ${h1(`Hallo ${esc(name.split(" ")[0])} 👋`)}
-    ${p(`Schön, dass du dabei bist! Dein ${esc(APP_NAME)}-Account ist bereit.`)}
-    ${p("Erstelle jetzt deine digitale Visitenkarte, füge deine Kontaktdaten ein und teile sie per Link, QR-Code oder NFC-Chip.")}
+    ${h1(`Hello ${esc(name.split(" ")[0])} 👋`)}
+    ${p(`Your ${esc(APP_NAME)} account is ready.`)}
+    ${p("Create your digital identity, add your contact details, and share it by link, QR code, or NFC tag.")}
     <div style="text-align:center;">
-      ${btn("Zum Dashboard", esc(dashboardUrl))}
+      ${btn("Open dashboard", esc(dashboardUrl))}
     </div>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin:28px 0;border-top:1px solid #f3f4f6;padding-top:20px;">
       <tr>
         <td style="font-size:13px;color:#6b7280;line-height:1.8;">
-          <strong style="color:#0f172a;">Was du als Nächstes tun kannst:</strong><br/>
-          &#10003; Karte gestalten &rarr; Template und Farbe wählen<br/>
-          &#10003; QR-Code herunterladen oder NFC-Tag einrichten<br/>
-          &#10003; Analytics aktivieren und Aufrufe tracken
+          <strong style="color:#0f172a;">Next steps:</strong><br/>
+          &#10003; Design your card &rarr; choose a template and colour<br/>
+          &#10003; Download your QR code or set up an NFC tag<br/>
+          &#10003; Use analytics to understand card views
         </td>
       </tr>
     </table>
-    ${muted("Du erhältst diese E-Mail, weil du dich soeben registriert hast.")}
+    ${muted("You are receiving this email because you just registered.")}
     `
   );
 
-  await send(to, `Willkommen bei ${APP_NAME}!`, html);
+  await send(to, `Welcome to ${APP_NAME}!`, html);
 }
 
 // ── Lead notification email ────────────────────────────────────────────────
@@ -190,28 +190,28 @@ export async function sendLeadNotificationEmail({
   dashboardUrl: string;
 }) {
   const rows = [
-    leadEmail ? `<tr><td style="color:#6b7280;padding:4px 0;width:80px;">E-Mail</td><td style="padding:4px 0;"><a href="mailto:${esc(leadEmail)}" style="color:#0f172a;">${esc(leadEmail)}</a></td></tr>` : "",
-    leadPhone ? `<tr><td style="color:#6b7280;padding:4px 0;">Telefon</td><td style="padding:4px 0;">${esc(leadPhone)}</td></tr>` : "",
-    leadMessage ? `<tr><td style="color:#6b7280;padding:4px 0;vertical-align:top;">Nachricht</td><td style="padding:4px 0;">${esc(leadMessage)}</td></tr>` : "",
+    leadEmail ? `<tr><td style="color:#6b7280;padding:4px 0;width:80px;">Email</td><td style="padding:4px 0;"><a href="mailto:${esc(leadEmail)}" style="color:#0f172a;">${esc(leadEmail)}</a></td></tr>` : "",
+    leadPhone ? `<tr><td style="color:#6b7280;padding:4px 0;">Phone</td><td style="padding:4px 0;">${esc(leadPhone)}</td></tr>` : "",
+    leadMessage ? `<tr><td style="color:#6b7280;padding:4px 0;vertical-align:top;">Message</td><td style="padding:4px 0;">${esc(leadMessage)}</td></tr>` : "",
   ].filter(Boolean).join("");
 
   const html = layout(
-    `Neuer Lead – ${cardName}`,
+    `New lead – ${cardName}`,
     `
-    ${h1("Neuer Kontakt auf deiner Karte")}
-    ${p(`<strong>${esc(leadName)}</strong> hat auf deiner Karte <strong>${esc(cardName)}</strong> Kontakt hinterlassen.`)}
+    ${h1("New contact from your card")}
+    ${p(`<strong>${esc(leadName)}</strong> shared their contact details through <strong>${esc(cardName)}</strong>.`)}
     <table style="margin:16px 0;font-size:14px;line-height:1.6;width:100%;">
       <tr><td style="color:#6b7280;padding:4px 0;width:80px;">Name</td><td style="padding:4px 0;font-weight:600;">${esc(leadName)}</td></tr>
       ${rows}
     </table>
     <div style="text-align:center;">
-      ${btn("Leads ansehen", esc(dashboardUrl))}
+      ${btn("View leads", esc(dashboardUrl))}
     </div>
-    ${muted("Du erhältst diese E-Mail, weil du sofortige Lead-Benachrichtigungen aktiviert hast. Du kannst dies in deinen Einstellungen ändern.")}
+    ${muted("You are receiving this email because instant lead notifications are enabled. You can change this in Settings.")}
     `
   );
 
-  await send(to, `Neuer Lead: ${leadName} (${cardName})`, html);
+  await send(to, `New lead: ${leadName} (${cardName})`, html);
 }
 
 // ── Org frozen email ──────────────────────────────────────────────────────
@@ -224,32 +224,32 @@ export async function sendOrgFrozenEmail({
   upgradeUrl: string;
 }) {
   const html = layout(
-    esc(`Organisation eingefroren – ${orgName}`),
+    esc(`Organisation frozen – ${orgName}`),
     `
-    ${h1("Deine Organisation wurde eingefroren")}
-    ${p(`Hallo ${esc(adminName.split(" ")[0])}, dein <strong>Business-Plan</strong> für die Organisation <strong>${esc(orgName)}</strong> ist ausgelaufen oder wurde gekündigt.`)}
-    ${p("Deine Organisation und alle Mitglieder-Daten bleiben erhalten. Die Mitglieder können ${APP_NAME} weiterhin mit ihren eigenen Free-Accounts nutzen – jedoch ohne Organisations-Features.")}
+    ${h1("Your organisation has been frozen")}
+    ${p(`Hello ${esc(adminName.split(" ")[0])}, the <strong>Business plan</strong> for <strong>${esc(orgName)}</strong> has expired or been cancelled.`)}
+    ${p(`Your organisation and member data are retained. Members can continue using ${APP_NAME} on their own Free accounts, without organisation features.`)}
     <table style="margin:16px 0;border-radius:8px;background:#fef3c7;padding:16px;width:100%;border-left:4px solid #f59e0b;">
       <tr><td style="font-size:14px;color:#92400e;line-height:1.6;">
-        <strong>Was eingefroren ist:</strong><br/>
-        &bull; Mitgliederverwaltung &amp; Einladungen<br/>
-        &bull; Org-Design-Vorgaben für Karten<br/>
-        &bull; Bulk-Import<br/>
-        &bull; Team-Verzeichnis<br/><br/>
-        <strong>Was erhalten bleibt:</strong><br/>
-        &bull; Alle Karten und Kontaktdaten<br/>
-        &bull; Alle Analytics-Daten<br/>
-        &bull; Org-Zuordnung aller Mitglieder
+        <strong>Unavailable while frozen:</strong><br/>
+        &bull; Member management and invitations<br/>
+        &bull; Organisation card design policies<br/>
+        &bull; Bulk import<br/>
+        &bull; Team directory<br/><br/>
+        <strong>Retained:</strong><br/>
+        &bull; All cards and contact details<br/>
+        &bull; All analytics data<br/>
+        &bull; Organisation membership assignments
       </td></tr>
     </table>
-    ${p("Buche erneut den Business-Plan um die Organisation sofort wieder zu aktivieren.")}
+    ${p("Subscribe to Business again to reactivate the organisation immediately.")}
     <div style="text-align:center;">
-      ${btn("Business-Plan buchen", esc(upgradeUrl))}
+      ${btn("View Business plan", esc(upgradeUrl))}
     </div>
-    ${muted("Du erhältst diese E-Mail als Administrator der Organisation.")}
+    ${muted("You are receiving this email as an organisation administrator.")}
     `
   );
-  await send(to, `Organisation eingefroren: ${orgName}`, html);
+  await send(to, `Organisation frozen: ${orgName}`, html);
 }
 
 // ── Org restored email ─────────────────────────────────────────────────────
@@ -262,18 +262,18 @@ export async function sendOrgRestoredEmail({
   dashboardUrl: string;
 }) {
   const html = layout(
-    esc(`Organisation wieder aktiv – ${orgName}`),
+    esc(`Organisation restored – ${orgName}`),
     `
-    ${h1("Deine Organisation ist wieder aktiv")}
-    ${p(`Hallo ${esc(adminName.split(" ")[0])}, dein Business-Plan ist wieder aktiv – die Organisation <strong>${esc(orgName)}</strong> und alle Features stehen sofort wieder zur Verfügung.`)}
-    ${p("Alle Mitglieder, Karten und Einstellungen sind unverändert erhalten.")}
+    ${h1("Your organisation is active again")}
+    ${p(`Hello ${esc(adminName.split(" ")[0])}, your Business plan is active again. <strong>${esc(orgName)}</strong> and all features are available immediately.`)}
+    ${p("All members, cards, and settings have been retained.")}
     <div style="text-align:center;">
-      ${btn("Zum Team-Bereich", esc(dashboardUrl))}
+      ${btn("Open team area", esc(dashboardUrl))}
     </div>
-    ${muted("Du erhältst diese E-Mail als Administrator der Organisation.")}
+    ${muted("You are receiving this email as an organisation administrator.")}
     `
   );
-  await send(to, `Organisation wieder aktiv: ${orgName}`, html);
+  await send(to, `Organisation restored: ${orgName}`, html);
 }
 
 // ── Email change notification ──────────────────────────────────────────────
@@ -284,16 +284,16 @@ export async function sendEmailChangeNotification({
   newEmail: string;
 }) {
   const html = layout(
-    esc(`E-Mail-Adresse geändert – ${APP_NAME}`),
+    esc(`Email address changed – ${APP_NAME}`),
     `
-    ${h1("E-Mail-Adresse geändert")}
-    ${p(`Die E-Mail-Adresse für deinen ${esc(APP_NAME)}-Account wurde soeben geändert.`)}
-    ${p(`Neue Adresse: <strong>${esc(newEmail)}</strong>`)}
-    ${p("Falls du diese Änderung <strong>nicht</strong> selbst vorgenommen hast, kontaktiere uns sofort und ändere dein Passwort.")}
-    ${muted("Du erhältst diese Sicherheits-E-Mail an deine bisherige Adresse.")}
+    ${h1("Email address changed")}
+    ${p(`The email address for your ${esc(APP_NAME)} account has just changed.`)}
+    ${p(`New address: <strong>${esc(newEmail)}</strong>`)}
+    ${p("If you did <strong>not</strong> make this change, contact us immediately and change your password.")}
+    ${muted("You are receiving this security message at your previous address.")}
     `
   );
-  await send(to, `E-Mail-Adresse geändert – ${APP_NAME}`, html);
+  await send(to, `Email address changed – ${APP_NAME}`, html);
 }
 
 // ── Password reset email ───────────────────────────────────────────────────
@@ -304,15 +304,15 @@ export async function sendPasswordResetEmail({
   url: string;
 }) {
   const html = layout(
-    esc(`Passwort zurücksetzen – ${APP_NAME}`),
+    esc(`Reset password – ${APP_NAME}`),
     `
-    ${h1("Passwort zurücksetzen")}
-    ${p(`Du hast einen Passwort-Reset für deinen ${esc(APP_NAME)}-Account angefordert. Klicke auf den Button, um ein neues Passwort zu setzen.`)}
+    ${h1("Reset your password")}
+    ${p(`You requested a password reset for your ${esc(APP_NAME)} account. Select the button below to set a new password.`)}
     <div style="text-align:center;">
-      ${btn("Passwort zurücksetzen", esc(url))}
+      ${btn("Reset password", esc(url))}
     </div>
-    ${muted(`Dieser Link ist 1 Stunde gültig. Falls du diese Anfrage nicht gestellt hast, kannst du diese E-Mail ignorieren.<br/>Link: ${esc(url)}`)}
+    ${muted(`This link is valid for one hour. If you did not make this request, you can safely ignore this email.<br/>Link: ${esc(url)}`)}
     `
   );
-  await send(to, `Passwort zurücksetzen – ${APP_NAME}`, html);
+  await send(to, `Reset password – ${APP_NAME}`, html);
 }

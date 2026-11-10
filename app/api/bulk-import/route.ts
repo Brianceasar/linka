@@ -81,24 +81,24 @@ export async function POST(req: NextRequest) {
   const user = session.user as { id: string; role?: string; organizationId?: string; plan?: string };
 
   if (!canManageUsers(user.role ?? "member")) {
-    return NextResponse.json({ error: "Keine Berechtigung" }, { status: 403 });
+    return NextResponse.json({ error: "Permission denied" }, { status: 403 });
   }
   if (!canUseFeature("bulkImport", user.plan ?? "free")) {
-    return NextResponse.json({ error: "Business-Plan erforderlich" }, { status: 403 });
+    return NextResponse.json({ error: "A Business subscription is required." }, { status: 403 });
   }
   if (!user.organizationId) {
-    return NextResponse.json({ error: "Keine Organisation" }, { status: 400 });
+    return NextResponse.json({ error: "No organisation found" }, { status: 400 });
   }
 
   const formData = await req.formData();
   const file = formData.get("file") as File | null;
-  if (!file) return NextResponse.json({ error: "Keine Datei" }, { status: 400 });
+  if (!file) return NextResponse.json({ error: "No file provided" }, { status: 400 });
 
   const text = await file.text();
   const rows = parseCsv(text);
 
   if (rows.length === 0) {
-    return NextResponse.json({ error: "Keine verwertbaren Zeilen in der CSV-Datei" }, { status: 400 });
+    return NextResponse.json({ error: "No usable rows in the CSV file" }, { status: 400 });
   }
 
   const org = await db.organization.findUnique({
@@ -163,7 +163,7 @@ export async function POST(req: NextRequest) {
           results.push({ email: row.email, status: "created" });
         }
       } else {
-        results.push({ email: row.email, status: "skipped", error: "Benutzer nicht gefunden" });
+        results.push({ email: row.email, status: "skipped", error: "User not found" });
       }
     } catch (e) {
       results.push({ email: row.email, status: "skipped", error: (e as Error).message });
