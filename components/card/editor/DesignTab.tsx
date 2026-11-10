@@ -27,7 +27,7 @@ interface Props {
 function LockedBadge() {
   return (
     <span className="inline-flex items-center gap-1 text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-      <Lock className="h-3 w-3" /> Vom Admin gesperrt
+      <Lock className="h-3 w-3" /> Locked by administrator
     </span>
   );
 }

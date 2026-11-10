@@ -141,7 +141,7 @@ function MemberCard({
 
           <div className="min-w-0">
             <p className="font-bold text-gray-900 dark:text-gray-100 truncate group-hover:text-primary transition-colors">
-              {name || "Kein Name"}
+              {name || "No name"}
             </p>
             {member.title && (
               <p className="text-xs font-medium mt-0.5 truncate" style={{ color }}>

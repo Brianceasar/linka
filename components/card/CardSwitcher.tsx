@@ -184,7 +184,7 @@ export function CardSwitcher({ cards, activeCardId, maxCards = Infinity }: CardS
                           size="sm" variant="ghost" className="h-7 w-7 p-0"
                           onClick={() => setDefault(c.id)}
                           disabled={loading === `def-${c.id}`}
-                          title="Als Standard"
+                          title="Set as default"
                         >
                           <Star className="h-3.5 w-3.5" />
                         </Button>

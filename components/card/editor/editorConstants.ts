@@ -12,27 +12,27 @@ export const LAYOUT_OPTIONS = [
 ];
 
 export const ROUNDED_OPTIONS = [
-  { value: "default", label: "Abgerundet" },
-  { value: "sharp",   label: "Eckig" },
-  { value: "pill",    label: "Rund (Pill)" },
+  { value: "default", label: "Rounded" },
+  { value: "sharp",   label: "Sharp" },
+  { value: "pill",    label: "Pill" },
 ];
 
 export const SHADOW_OPTIONS = [
-  { value: "none", label: "Kein" },
-  { value: "sm",   label: "Leicht" },
-  { value: "md",   label: "Mittel" },
-  { value: "lg",   label: "Stark" },
-  { value: "xl",   label: "Sehr stark" },
+  { value: "none", label: "None" },
+  { value: "sm",   label: "Light" },
+  { value: "md",   label: "Medium" },
+  { value: "lg",   label: "Strong" },
+  { value: "xl",   label: "Very strong" },
 ];
 
 export const SOCIAL_STYLE_OPTIONS = [
-  { value: "icons",   label: "Icons",        description: "Farbige Symbol-Buttons" },
-  { value: "outline", label: "Icons + Label", description: "Umrandete Pills mit Text" },
-  { value: "minimal", label: "Minimal",       description: "Nur Textlinks" },
+  { value: "icons",   label: "Icons",         description: "Coloured icon buttons" },
+  { value: "outline", label: "Icons + labels", description: "Outlined text pills" },
+  { value: "minimal", label: "Minimal",        description: "Text links only" },
 ];
 
 export const AVATAR_BORDER_OPTIONS = [
-  { value: "none", label: "Kein" },
+  { value: "none", label: "None" },
   { value: "ring", label: "Ring" },
   { value: "glow", label: "Glow" },
 ];
@@ -40,5 +40,5 @@ export const AVATAR_BORDER_OPTIONS = [
 export const BG_OPTIONS = [
   { value: "white",    label: "White",   description: "Classic and clean" },
   { value: "tinted",   label: "Tinted",  description: "A hint of the primary colour" },
-  { value: "gradient", label: "Verlauf", description: "Sanfter Farbverlauf" },
+  { value: "gradient", label: "Gradient", description: "Soft colour gradient" },
 ];

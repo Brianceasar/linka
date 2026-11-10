@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
   const user = session.user as { stripeCustomerId?: string };
   if (!user.stripeCustomerId) {
-    return NextResponse.json({ error: "Kein Stripe-Account" }, { status: 400 });
+    return NextResponse.json({ error: "No Stripe account" }, { status: 400 });
   }
 
   const hdrs = await headers();

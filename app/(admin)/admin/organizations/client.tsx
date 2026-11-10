@@ -227,9 +227,9 @@ export function OrgAdminClient({ orgs: initial }: { orgs: Org[] }) {
                 <p className="text-xs text-muted-foreground">No members in this organisation.</p>
               ) : (
                 <Select value={editAdmin} onValueChange={setEditAdmin}>
-                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="— Kein Admin —" /></SelectTrigger>
+                  <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="— No administrator —" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="__none__">— Kein Admin —</SelectItem>
+                    <SelectItem value="__none__">— No administrator —</SelectItem>
                     {editMembers.map((m) => (
                       <SelectItem key={m.id} value={m.id}>
                         {m.name}{m.role === "company_admin" ? " (aktuell)" : ""}
