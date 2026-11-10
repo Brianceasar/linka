@@ -12,8 +12,8 @@ interface ImportResult {
 }
 
 const EXAMPLE_CSV = `firstname,lastname,email,title,company,phone,mobile,department
-Max,Mustermann,max@firma.de,Senior Developer,Firma GmbH,+49 89 1234567,+49 170 1234567,Engineering
-Erika,Musterfrau,erika@firma.de,Projektmanagerin,Firma GmbH,,+49 171 9876543,Management`;
+Max,Smith,max@example.com,Senior Developer,Example Ltd,+255 22 123 4567,+255 712 345 678,Engineering
+Erika,Johnson,erika@example.com,Project Manager,Example Ltd,,+255 713 987 654,Management`;
 
 export function ImportClient() {
   const fileRef = useRef<HTMLInputElement>(null);

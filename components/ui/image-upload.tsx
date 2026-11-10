@@ -17,7 +17,7 @@ interface ImageUploadProps {
 export function ImageUpload({
   value,
   onChange,
-  label = "Bild hochladen",
+  label = "Upload image",
   shape = "square",
   className,
 }: ImageUploadProps) {
@@ -34,7 +34,7 @@ export function ImageUpload({
       form.append("file", file);
       const res = await fetch("/api/upload", { method: "POST", body: form });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Upload fehlgeschlagen");
+      if (!res.ok) throw new Error(json.error ?? "Upload failed");
       onChange(json.url);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error");

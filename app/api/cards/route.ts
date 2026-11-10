@@ -95,7 +95,10 @@ const CardPatch = z.object({
   cardDomain:          z.string().max(200).optional().nullable(),
 
   // slug change (creates an alias for the old slug)
-  slug: z.string().min(2).max(120).regex(/^[a-z0-9-]+$/, "Use lowercase letters, numbers, and hyphens only").optional(),
+  // Existing cards may contain uppercase NanoID suffixes created by earlier
+  // versions. Accept those stable legacy URLs; editor-created replacements are
+  // normalised to lowercase before they reach this route.
+  slug: z.string().min(2).max(120).regex(/^[A-Za-z0-9-]+$/, "Use letters, numbers, and hyphens only").optional(),
 });
 
 /* ─── Routes ───────────────────────────────────────────────────────────── */
@@ -151,7 +154,7 @@ export async function POST(req: NextRequest) {
       card = await db.card.create({
         data: {
           userId:       session.user.id,
-          slug:         `${base}-${nanoid(6)}`,
+          slug:         `${base}-${nanoid(6).toLowerCase()}`,
           name:         body.name ?? "My card",
           isDefault,
           isPublic:     body.isPublic ?? true,

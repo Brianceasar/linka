@@ -79,7 +79,7 @@ export function ClassicTemplate({ card }: { card: Partial<CardData> }) {
           {card.mobile && (
             <a href={`tel:${card.mobile}`} className="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-900 transition-colors">
               <ContactIcon icon={Phone} accent={accent} />
-              {card.mobile} (Mobil)
+              {card.mobile} (Mobile)
             </a>
           )}
           {card.email && (

@@ -40,10 +40,10 @@ export function buildPlainText(card: CardData): string {
   const header = [name, [card.title, card.company].filter(Boolean).join(" | ")].filter(Boolean);
   const contact = [
     card.phone   && `Tel:    ${card.phone}`,
-    card.mobile  && `Mobil:  ${card.mobile}`,
+    card.mobile  && `Mobile: ${card.mobile}`,
     card.email   && `Email: ${card.email}`,
     card.website && `Web:    ${card.website}`,
-    card.address && `Adr:    ${card.address}`,
+    card.address && `Address: ${card.address}`,
   ].filter(Boolean) as string[];
   return [...header, "", ...contact].join("\n");
 }

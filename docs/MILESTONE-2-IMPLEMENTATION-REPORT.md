@@ -193,3 +193,13 @@ recreated successfully. It reached `healthy`; `/` and `/login` returned HTTP
 `/admin`, and `/admin/users`. Rendered responses for those routes were checked
 against the German phrases identified in the supplied screenshots; none were
 present. Existing credentials, database records, and uploads were not changed.
+
+## Card editor save regression — 2026-11-11
+
+The card editor returned `Invalid input` when it submitted an unchanged legacy
+slug containing an uppercase NanoID suffix. Earlier card creation generated
+mixed-case suffixes while the PATCH validator accepted lowercase-only slugs.
+The validator now accepts stable legacy alphanumeric slugs, and newly generated
+suffixes are lowercased. A production-container PATCH using the complete stored
+editor payload returned HTTP 200 after the fix. No card URL or stored user data
+was changed.

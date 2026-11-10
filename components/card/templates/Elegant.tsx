@@ -75,7 +75,7 @@ export function ElegantTemplate({ card }: { card: Partial<CardData> }) {
           {card.mobile && (
             <a href={`tel:${card.mobile}`} className="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-900 transition-colors group">
               <Phone className="h-3.5 w-3.5 shrink-0 group-hover:scale-110 transition-transform" style={{ color: accent }} />
-              <span>{card.mobile} (Mobil)</span>
+              <span>{card.mobile} (Mobile)</span>
             </a>
           )}
           {card.email && (

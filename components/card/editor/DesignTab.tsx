@@ -237,7 +237,7 @@ export function DesignTab({ card, update, policy, allTemplates, allowedDomains, 
 
       {/* Social style */}
       <section className="space-y-3">
-        <Label className="text-base">Social-Stil</Label>
+        <Label className="text-base">Social style</Label>
         <div className="space-y-2">
           {SOCIAL_STYLE_OPTIONS.map((s) => (
             <button key={s.value} type="button"
@@ -256,18 +256,18 @@ export function DesignTab({ card, update, policy, allTemplates, allowedDomains, 
       <section className="space-y-3 rounded-xl border border-border p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium">Firmenlogo</p>
+            <p className="text-sm font-medium">Company logo</p>
             <p className="text-xs text-muted-foreground mt-0.5">Appears small on the card (top right)</p>
           </div>
           {!policy.canEditLogo && <LockedBadge />}
         </div>
         {policy.canEditLogo ? (
           <ImageUpload value={card.logoUrl} onChange={(url) => update("logoUrl", url)}
-            label="Logo hochladen" shape="wide" className="h-20" />
+            label="Upload logo" shape="wide" className="h-20" />
         ) : (
           card.logoUrl
             ? <img src={card.logoUrl} alt="Logo" className="h-10 w-auto max-w-[120px] object-contain opacity-60" />
-            : <p className="text-xs text-muted-foreground">Kein Logo gesetzt</p>
+            : <p className="text-xs text-muted-foreground">No logo set</p>
         )}
       </section>
 

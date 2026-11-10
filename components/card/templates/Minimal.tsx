@@ -82,7 +82,7 @@ export function MinimalTemplate({ card }: { card: Partial<CardData> }) {
           )}
           {card.address && (
             <div>
-              <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400">Adresse</p>
+              <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400">Address</p>
               <p className="text-sm text-gray-700 mt-0.5">{card.address}</p>
             </div>
           )}

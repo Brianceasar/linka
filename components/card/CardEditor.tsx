@@ -143,7 +143,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
               </div>
               <div className="space-y-1.5">
                 <Label>Last name</Label>
-                <Input value={card.lastName ?? ""} onChange={(e) => update("lastName", e.target.value || null)} placeholder="Mustermann" />
+                <Input value={card.lastName ?? ""} onChange={(e) => update("lastName", e.target.value || null)} placeholder="Smith" />
               </div>
             </div>
             <div className="space-y-1.5">
@@ -170,7 +170,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label>Pronouns</Label>
-                <Input value={card.pronouns ?? ""} onChange={(e) => update("pronouns", e.target.value || null)} placeholder="er/ihm, she/her…" />
+                <Input value={card.pronouns ?? ""} onChange={(e) => update("pronouns", e.target.value || null)} placeholder="he/him, she/her…" />
               </div>
               <div className="space-y-1.5">
                 <Label>Gender <span className="text-xs font-normal text-muted-foreground">(vCard)</span></Label>
@@ -203,7 +203,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
                     value={card.slug}
                     onChange={(e) => update("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/--+/g, "-"))}
                     className="font-mono"
-                    placeholder="mein-slug"
+                    placeholder="my-card"
                   />
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -217,13 +217,13 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
           <TabsContent value="media" className="space-y-6">
             <div className="space-y-2">
               <Label>Avatar</Label>
-              <p className="text-xs text-muted-foreground">Profilbild. Empfohlen: quadratisch, mind. 200×200 px.</p>
-              <ImageUpload value={card.avatarUrl} onChange={(url) => update("avatarUrl", url)} label="Avatar hochladen" shape="circle" />
+              <p className="text-xs text-muted-foreground">Profile image. Recommended: square, at least 200×200 px.</p>
+              <ImageUpload value={card.avatarUrl} onChange={(url) => update("avatarUrl", url)} label="Upload avatar" shape="circle" />
             </div>
             <div className="space-y-2">
-              <Label>Cover-Bild</Label>
+              <Label>Cover image</Label>
               <p className="text-xs text-muted-foreground">Background image for the Modern template. Recommended: 800×300 px.</p>
-              <ImageUpload value={card.coverUrl} onChange={(url) => update("coverUrl", url)} label="Cover hochladen" shape="wide" className="h-28" />
+              <ImageUpload value={card.coverUrl} onChange={(url) => update("coverUrl", url)} label="Upload cover" shape="wide" className="h-28" />
             </div>
           </TabsContent>
 
@@ -232,16 +232,16 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label>Office phone</Label>
-                <Input value={card.phone ?? ""} onChange={(e) => update("phone", e.target.value || null)} placeholder="+49 89 1234567" type="tel" />
+                <Input value={card.phone ?? ""} onChange={(e) => update("phone", e.target.value || null)} placeholder="+255 22 123 4567" type="tel" />
               </div>
               <div className="space-y-1.5">
-                <Label>Mobil</Label>
-                <Input value={card.mobile ?? ""} onChange={(e) => update("mobile", e.target.value || null)} placeholder="+49 170 1234567" type="tel" />
+                <Label>Mobile phone</Label>
+                <Input value={card.mobile ?? ""} onChange={(e) => update("mobile", e.target.value || null)} placeholder="+255 712 345 678" type="tel" />
               </div>
             </div>
             <div className="space-y-1.5">
               <Label>Fax</Label>
-              <Input value={card.fax ?? ""} onChange={(e) => update("fax", e.target.value || null)} placeholder="+49 89 1234568" type="tel" />
+                <Input value={card.fax ?? ""} onChange={(e) => update("fax", e.target.value || null)} placeholder="+255 22 123 4568" type="tel" />
             </div>
             <div className="space-y-1.5">
               <Label>Email</Label>
@@ -252,7 +252,7 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
               <Input value={card.website ?? ""} onChange={(e) => update("website", e.target.value || null)} placeholder="https://example.com" type="url" />
             </div>
             <div className="space-y-1.5">
-              <Label>Adresse</Label>
+                <Label>Address</Label>
               <Input value={card.address ?? ""} onChange={(e) => update("address", e.target.value || null)} placeholder="1 Example Street, London" />
             </div>
             <div className="space-y-1.5">
@@ -306,9 +306,9 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
                 >
                   <button
                     type="button"
-                    aria-label={`Link ${i + 1} verschieben`}
+                    aria-label={`Move link ${i + 1}`}
                     className="cursor-grab active:cursor-grabbing text-muted-foreground hover:text-foreground p-1 -ml-1"
-                    title="Ziehen zum Sortieren"
+                    title="Drag to reorder"
                     tabIndex={-1}
                   >
                     <GripVertical className="h-4 w-4" />
@@ -333,20 +333,20 @@ export function CardEditor({ initialCard, isNew = false, policy = OPEN_POLICY, s
                       onClick={() => moveLink(i, i - 1)}
                       disabled={i === 0}
                       className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-30 px-1 leading-3"
-                      aria-label="Nach oben"
+                    aria-label="Move up"
                     >▲</button>
                     <button
                       type="button"
                       onClick={() => moveLink(i, i + 1)}
                       disabled={i === (card.customLinks?.length ?? 0) - 1}
                       className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-30 px-1 leading-3"
-                      aria-label="Nach unten"
+                    aria-label="Move down"
                     >▼</button>
                   </div>
                   <Button
                     type="button" variant="ghost" size="icon"
                     onClick={() => removeLink(i)}
-                    aria-label={`Link ${i + 1} entfernen`}
+                    aria-label={`Remove link ${i + 1}`}
                   >
                     <Trash2 className="h-4 w-4 text-destructive" />
                   </Button>

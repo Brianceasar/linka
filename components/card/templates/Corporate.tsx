@@ -88,7 +88,7 @@ export function CorporateTemplate({ card }: { card: Partial<CardData> }) {
             <CorpRow icon={Phone} label="Phone" value={card.phone} href={`tel:${card.phone}`} color={color} />
           )}
           {card.mobile && (
-            <CorpRow icon={Phone} label="Mobil" value={card.mobile} href={`tel:${card.mobile}`} color={color} />
+            <CorpRow icon={Phone} label="Mobile" value={card.mobile} href={`tel:${card.mobile}`} color={color} />
           )}
           {card.email && (
             <CorpRow icon={Mail} label="Email" value={card.email} href={`mailto:${card.email}`} color={color} />
@@ -97,7 +97,7 @@ export function CorporateTemplate({ card }: { card: Partial<CardData> }) {
             <CorpRow icon={Globe} label="Web" value={card.website.replace(/^https?:\/\//, "")} href={card.website} color={color} external />
           )}
           {card.address && (
-            <CorpRow icon={MapPin} label="Adresse" value={card.address} color={color} />
+            <CorpRow icon={MapPin} label="Address" value={card.address} color={color} />
           )}
         </div>
 
