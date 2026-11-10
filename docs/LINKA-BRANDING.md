@@ -13,12 +13,12 @@ they do not override the LINKA product identity.
 
 ## Assets
 
-The current temporary identity is deliberately simple and replaceable:
+The current approved CYREX mark is centrally configured and replaceable:
 
-- `public/linka-mark.svg` — sidebar, auth, and compact mark
-- `public/linka-favicon.svg` — browser icon
+- `public/linka-mark.webp` — sidebar, authentication, compact mark, and browser icon
 
-These are original temporary geometric SVG assets, not a claimed final logo.
+This is the supplied CYREX logo mark on the approved LINKA red background. The
+legacy SVG placeholders remain in the repository for history but are not used.
 Replace both files (and update `BRAND.assets` if their names change) when an
 approved CYREX asset pack is available. Do not alter public-card URLs while
 changing assets.
@@ -32,7 +32,7 @@ use semantic classes such as `bg-primary` rather than hard-coding brand values.
 
 ## Changing branding
 
-Update `lib/brand.ts`, replace the two SVG assets, then review metadata in
+Update `lib/brand.ts`, replace the configured mark asset, then review metadata in
 `app/layout.tsx` and transactional email in `lib/email.ts`. Existing database
 settings from older installations are normalised to the LINKA identity at read
 time, so a database reset is neither needed nor appropriate.

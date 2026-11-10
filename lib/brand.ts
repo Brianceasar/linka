@@ -10,8 +10,8 @@ export const BRAND = {
   description: "A digital identity platform for sharing professional contact details.",
   locale: "en-TZ",
   assets: {
-    mark: "/linka-mark.svg",
-    favicon: "/linka-favicon.svg",
+    mark: "/linka-mark.webp",
+    favicon: "/linka-mark.webp",
   },
   colors: {
     primary: "#F00123",

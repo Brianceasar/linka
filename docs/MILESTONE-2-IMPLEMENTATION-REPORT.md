@@ -12,7 +12,8 @@ logo; the only discovered PNG is an upload, so it was preserved as user data.
 ## Implemented
 
 - Added `lib/brand.ts` as the central LINKA identity configuration.
-- Added replaceable temporary SVG mark and favicon in `public/`.
+- Added a centrally configured LINKA mark and favicon in `public/`; the active
+  asset is the supplied CYREX WebP mark at `public/linka-mark.webp`.
 - Updated HTML language, metadata, Open Graph identity, auth presentation,
   navigation, admin shell, landing page, public-card actions and errors.
 - Converted authentication, password recovery, invitations, public lead forms,
